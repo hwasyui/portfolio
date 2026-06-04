@@ -96,11 +96,10 @@ const ProjectModal = ({ project, open, onClose }) => {
           <div className="mb-4">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
               <div className="flex flex-wrap items-center gap-1">
-                {(project.categories ?? [project.category]).map((cat, i, arr) => (
-                  <React.Fragment key={i}>
-                    <span className="font-bebas text-[9px] tracking-[4px] text-pink-hot">{cat}</span>
-                    {i < arr.length - 1 && <span className="text-zinc-300 text-[8px]">·</span>}
-                  </React.Fragment>
+                {(project.categories ?? [project.category]).map((cat, i) => (
+                  <span key={i} className="font-bebas text-[9px] tracking-[1px] text-pink-deep bg-pink-hot/10 px-2 py-0.5 rounded-full">
+                    {cat}
+                  </span>
                 ))}
               </div>
               {project.year && (
@@ -145,33 +144,33 @@ const ProjectModal = ({ project, open, onClose }) => {
                 <>
                   {project.detail && (
                     <div>
-                      <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-2">Project Details</div>
+                      <div className="font-bebas text-[10px] tracking-[3px] text-zinc-500 mb-3">Project Details</div>
                       {renderDetail(project.detail)}
                     </div>
                   )}
 
                   {isTeam && contributions.length > 0 && (
                     <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Users size={12} className="text-zinc-400" />
-                        <span className="font-bebas text-[9px] tracking-[4px] text-zinc-400">My Contributions</span>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Users size={12} className="text-pink-hot" />
+                        <span className="font-bebas text-[10px] tracking-[3px] text-zinc-500">My Contributions</span>
                       </div>
-                      <ul className="space-y-1.5">
+                      <ul className="space-y-2">
                         {visibleContributions.map((item, i) => (
-                          <li key={i} className="flex gap-2 text-sm text-zinc-600">
-                            <span className="text-pink-hot mt-0.5 flex-shrink-0">·</span>
-                            <span>{item}</span>
+                          <li key={i} className="flex gap-3 border-l-2 border-pink-hot/30 pl-3 py-1 bg-pink-pale/40 rounded-r-lg">
+                            <span className="font-bebas text-[10px] text-pink-hot/60 mt-0.5 flex-shrink-0 w-4">{String(i + 1).padStart(2, "0")}</span>
+                            <span className="text-xs text-zinc-600 leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>
                       {contributions.length > CONTRIBUTIONS_PREVIEW && (
                         <button
                           onClick={() => setShowAllContributions(prev => !prev)}
-                          className="mt-3 flex items-center gap-1 font-bebas text-[9px] tracking-[3px] text-zinc-400 hover:text-pink-hot transition-colors duration-150"
+                          className="mt-3 flex items-center gap-1.5 font-bebas text-[9px] tracking-[2px] text-zinc-400 hover:text-pink-hot transition-colors duration-150"
                         >
                           {showAllContributions
                             ? <><ChevronUp size={11} /> Show less</>
-                            : <><ChevronDown size={11} /> +{hiddenCount} more</>
+                            : <><ChevronDown size={11} /> +{hiddenCount} more contributions</>
                           }
                         </button>
                       )}

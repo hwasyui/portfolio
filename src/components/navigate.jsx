@@ -95,7 +95,7 @@ const Navigate = () => {
           </div>
 
           {/* chapters */}
-          <div className="flex-1 px-6 py-5 overflow-y-auto">
+          <div className="flex-1 px-6 py-5 overflow-y-auto scrollbar-none">
             <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-3">Chapters</div>
             <nav className="space-y-1">
               {chapters.map(({ id, num, label }) => (

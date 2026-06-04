@@ -46,11 +46,10 @@ const ProjectCard = ({ project, onClick }) => {
         {/* category labels + year */}
         <div className="flex flex-wrap items-center gap-1.5 justify-between">
           <div className="flex flex-wrap items-center gap-1">
-            {(project.categories ?? [project.category]).map((cat, i, arr) => (
-              <React.Fragment key={i}>
-                <span className="font-bebas text-[9px] tracking-[3px] text-pink-hot">{cat}</span>
-                {i < arr.length - 1 && <span className="text-zinc-300 text-[8px]">·</span>}
-              </React.Fragment>
+            {(project.categories ?? [project.category]).map((cat, i) => (
+              <span key={i} className="font-bebas text-[9px] tracking-[1px] text-pink-deep bg-pink-hot/10 px-2 py-0.5 rounded-full">
+                {cat}
+              </span>
             ))}
           </div>
           {project.year && (
