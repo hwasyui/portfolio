@@ -7,7 +7,29 @@ import contact from "../../../data/contact.json";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-const systemPrompt = `
+const trimmedProjects = projects.map(({ title, year, categories, projectType, summary, tech, gitrepo, url }) => ({
+  title, year, categories, projectType, summary, tech, gitrepo, url,
+}));
+
+const DETAIL_KEYWORDS = /contribut|in detail|explain|how (did|was|were)|what did she (do|build|make|work)|elaborate|break.?down|walk.?me.?through|tell me more|deep.?dive/i;
+
+function buildSystemPrompt(history) {
+  const recentContext = history.slice(-6).map(m => m.content).join(" ");
+  const isDetailRequest = DETAIL_KEYWORDS.test(recentContext);
+
+  let projectsData = trimmedProjects;
+
+  if (isDetailRequest) {
+    const mentioned = projects.find(p => {
+      const keywords = p.title.toLowerCase().split(/[\s\W]+/).filter(w => w.length > 3);
+      return keywords.some(kw => recentContext.toLowerCase().includes(kw));
+    });
+    if (mentioned) {
+      projectsData = trimmedProjects.map(t => t.title === mentioned.title ? mentioned : t);
+    }
+  }
+
+  return `
 You are a concise portfolio assistant for Angelica Suti Whiharto.
 
 Rules:
@@ -26,16 +48,18 @@ Angelica's Data:
 Skills: ${JSON.stringify(skills)}
 Education: ${JSON.stringify(educations)}
 Experience: ${JSON.stringify(experiences)}
-Projects: ${JSON.stringify(projects)}
+Projects: ${JSON.stringify(projectsData)}
 Contact and Social: ${JSON.stringify(contact)}
 `.trim();
+}
 
 export async function POST(req) {
   try {
     const { history } = await req.json();
+    const systemPrompt = buildSystemPrompt(history);
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "llama-3.1-8b-instant",
       messages: [
         { role: "system", content: systemPrompt },
         ...history,
