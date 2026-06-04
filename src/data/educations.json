@@ -1,0 +1,39 @@
+[
+  {
+    "type": "formal",
+    "school": "President University",
+    "degree": "Bachelor of Information Technology",
+    "period": "2023 - 2026 (Expected Graduation)",
+    "location": "Cikarang, Indonesia",
+    "description": [
+      "Having a concentration in Artificial Intelligence (5th semester) as part of my Informatics degree.",
+      "Had a bootcamp converted for my 6th semester credit. The bootcamp name was Korean-ASEAN Digital Bootcamp held at BPPTIK.",
+      "Recipient of the Jababeka 75% Scholarship.",
+      "Achieved a Duolingo English Test score of 130.",
+      "Current GPA: 3.95/4.00 (96 credits)."
+    ]
+  },
+  {
+    "type": "formal",
+    "school": "SMAN 4 Bekasi",
+    "degree": "Senior High School",
+    "period": "2020 - 2023",
+    "location": "Bekasi Barat, Indonesia",
+    "description": [
+      "Mathematical and Science Concentration."
+    ]
+  },
+  {
+    "type": "bootcamp",
+    "school": "Korean-ASEAN Digital Academy (KADA) Bootcamp",
+    "degree": "Full-Stack Web Development",
+    "period": "2025 (6 Weeks)",
+    "location": "BPPTIK, Cikarang, Indonesia",
+    "description": [
+      "Intensive 6-week bootcamp covering backend and full-stack web development.",
+      "Final project: full-stack Movie Review web app using MERN stack, JWT authentication, and OAuth 2.0.",
+      "Credited as a 6th semester course at President University.",
+      "Organized by Korea Internet & Security Agency (KISA) and BPPTIK, Indonesia."
+    ]
+  }
+]

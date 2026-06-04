@@ -1,0 +1,82 @@
+{
+  "workExperiences": [
+    {
+      "type": "Internship",
+      "title": "Data Engineer Intern",
+      "company": "PT Federal International Finance (FIFGROUP)",
+      "date": "February 2026 – Present",
+      "responsibilities": [
+        "Configured and maintained a Change Data Capture (CDC) platform using Apache Kafka (KRaft), Debezium, Prometheus, and Grafana for data replication and monitoring.",
+        "Implemented CDC pipelines from Oracle to Oracle for 5 production tables using Oracle Database, Apache Kafka, and Debezium (Kafka Connect).",
+        "Implemented and maintained CDC pipelines from Oracle to Apache Iceberg for 10 production tables containing over 40 million records, using Debezium Kafka Connector and Apache Spark batch jobs scheduled via cron.",
+        "Developed custom Python-based Prometheus exporters to monitor Kafka offset lag, Apache Spark processing lag, and Debezium connector health, while performing Apache Iceberg table optimization and maintenance to support reliable production workloads."
+      ]
+    },
+    {
+      "type": "Internship",
+      "title": "Backend Engineer Intern",
+      "company": "PT Bank Central Asia Tbk. (BCA)",
+      "date": "August 2025 – February 2026 (Expected)",
+      "responsibilities": [
+        "Developed 2 modular services consisting of a FastAPI gateway and a Kafka consumer layer using Confluent Kafka, deployed with multi-stage Docker images, Jenkins, and RedHat.",
+        "Implemented structured logging and built end-to-end transaction monitoring dashboards in Kibana on an existing ELK stack across 2 services.",
+        "Conducted stress testing with JMeter handling around 10,000 requests with >99% successful end-to-end delivery.",
+        "Migrated 15+ services from Flask to FastAPI, enhancing production performance and stability.",
+        "Created Swagger-based API documentation, cutting deployment time by 10% by removing the need for manual tech documentation.",
+        "Evaluated asyncpg vs. psycopg2 under 1,000 concurrent requests, with asyncpg achieving 100% successful connections compared to a ~50% failure rate with psycopg2"
+      ]
+    },
+    {
+      "type": "Part-time",
+      "title": "English Language Instructor",
+      "company": "President University",
+      "date": "September 2024 – August 2025",
+      "responsibilities": [
+        "Taught English classes across 3 semesters, instructing and supporting a total of over 150 students.",
+        "Responsible for delivering lessons, providing feedback, and tracking student progress throughout the course."
+      ]
+    },
+    {
+      "type": "Self-employment",
+      "title": "Freelance Game Performance Tester",
+      "company": "Self-employed",
+      "date": "December 2024 – January 2025",
+      "responsibilities": [
+        "Conducted performance testing on 2 games across 4 graphics configurations, identifying bugs, graphical inconsistencies, and performance drops.",
+        "Compiled and delivered detailed reports on game stability and performance outcomes across multiple test scenarios."
+      ]
+    },
+    {
+      "type": "Seasonal",
+      "title": "Campus Ambassador of Danacita",
+      "company": "Danacita",
+      "date": "November 2023 – July 2024",
+      "responsibilities": [
+        "Led campaigns to increase awareness about DanaCita's online loan platform for students.",
+        "Effectively communicated DanaCita's features and benefits to the student community."
+      ]
+    },
+    {
+      "type": "Internship",
+      "title": "Data Entry - DEMI Developers Batch 2",
+      "company": "President University",
+      "date": "October 2023 – April 2024",
+      "responsibilities": [
+        "Created AI prompts for academic content and lecturer assistance.",
+        "Conducted data entry and content verification in alignment with the Student Handbook of President University. "
+      ]
+    }
+  ],
+  "organizationalExperiences": [
+    {
+      "title": "Member of Valorant Division",
+      "organization": "Computing Sports and Games Olympiad (CSGO)",
+      "date": "February 2025",
+      "responsibilities": [
+        "Promoted the tournament by distributing broadcast messages and engaging participants throughout the event.",
+        "Collaborated on planning the tournament format and managed live updates of the tournament brackets during the 3-day competition."
+      ]
+    }
+  ],
+  "volunteerExperiences": []
+}

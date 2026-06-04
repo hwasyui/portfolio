@@ -1,0 +1,328 @@
+[
+  {
+    "title": "WorkByte – Freelancer Marketplace App",
+    "year": 2026,
+    "categories": ["Artificial Intelligence", "Web Development"],
+    "projectType": "team",
+    "contributions": [
+      "Authored the initial backend architecture from scratch: database manager, logger utility, environment config, and all base route scaffolding; set up Git LFS for large ML model files and established the full Docker Compose stack",
+      "Implemented the complete authentication system: JWT login with refresh token rotation (replay-attack prevention), email OTP verification (6-digit, configurable expiry and max attempts, dev/prod aware), forgot-password and reset-password OTP flows, Google OAuth 2.0 (web server-side redirect + Flutter mobile id_token verification), OAuth password-login flag and set-password support, multi-role support (POST /auth/add-role so a single account can hold both freelancer and client profiles), and per-device token revocation on logout and password change",
+      "Built the full job marketplace backend: job posts with multi-role support, project scope auto-calculation endpoint (heuristic scorer with weekly FX cache via frankfurter.app and World Bank GNI benchmarks), proposal lifecycle, contract lifecycle with PDF generation (structured sections, payment schedule rendering, legal clauses), contract submission/revision/approval flow with system events posted to DM threads, and multi-file attachment support for both job posts and proposals",
+      "Implemented the unified DM system (replacing a legacy message table): real-time WebSocket messaging, thread auto-activation on contract creation, file attachments, and harmful text detection gating every message before save; also built paginated freelancer and client dashboards with unified tracking statuses, earnings aggregation, and sortable lifecycle fields",
+      "Built the complete admin and moderation backend: keyword-based + ML content moderation queue with async background scanning, admin moderation review endpoints (approve/reject/force-expire/manual scan), job scam flag queue, user report system with predefined and custom reasons, 3-strike client scam ban tracking, appeals workflow for bans and closed job posts, and auto-action rules (threshold-based auto-ban/close after 30 days); also added flexible admin browse endpoints for jobs and users with include/exclude filters, date ranges, search, and pagination",
+      "Built the 3-stage AI job recommendation feed: Stage 1 pgvector HNSW cosine ANN search (top-100 active jobs), Stage 2 required skill overlap filter (>=20% hard gate), Stage 3 CatBoost ML re-ranker (13 features) with SHAP-based match_reasons and penalty_reasons; iterated from LightGBM to CatBoost after multi-model comparison (ROC/PR/calibration curves); final model AUC-ROC 0.9069, avg precision 0.8098, 0.87ms per 100 jobs; added sparse-profile bypass for freelancers with fewer than 3 skills and SHAP contribution gate to suppress weak explanations",
+      "Built the RAG-based job fit analysis system: 7-step pipeline that retrieves semantically relevant past contracts, pre-computes per-role skill coverage server-side (preventing LLM hallucination), constructs a grounded 5-section prompt, calls GROQ LLM (llama-3.3-70b-versatile with fallback), applies score ceilings per role, and overwrites skill fields post-response to guarantee accuracy; guaranteed all output fields always present with structured defaults",
+      "Implemented the shared embedding infrastructure: sentence-transformers model (768-dim, L2-normalised) across 4 PostgreSQL tables (freelancer, job role, contract, portfolio) with HNSW indexes; dual-path dirty-flag lifecycle (immediate embedding below threshold + 5-minute async sweep worker for guaranteed recovery); async thread-pool executor to avoid blocking the event loop; 2-hour cached threshold check primed on startup; suppressed 768-dim vectors from DB query logs via param sanitiser",
+      "Fine-tuned a RoBERTa multi-label classifier for harmful text detection across 5 categories (toxicity, obscene, threat, insult, identity_hate); AUC-ROC 0.9923; integrated in synchronous blocking mode (proposals and DMs rejected immediately on positive) and async background mode (job posts and profiles queued for admin review); iterated from a keyword-only content moderation module to the full fine-tuned RoBERTa pipeline",
+      "Built skill search enhancements: autocomplete endpoint with trigram fuzzy matching (handles typos) and pgvector semantic fallback; skill name normalizer for deduplication; alphabet-browse endpoint; refactored all search endpoints from path params to query params for consistency",
+      "Implemented profile image upload for freelancer and client profiles (MIME validation, Supabase storage, URL persistence), multi-file upload for job post and proposal attachments (per-file Supabase paths, one DB row per file), and scoped file validation before write"
+    ],
+    "image": "/projects/workbyte.jpg",
+    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a 3-stage AI job-matching pipeline, RAG-based fit analysis, and a fine-tuned harmful text detection model. Built with FastAPI, PostgreSQL + pgvector, CatBoost, RoBERTa, and GROQ LLM; containerized with Docker.",
+    "detail": [
+      "WorkByte is a capstone project building a freelancer marketplace platform comparable to Fiverr or Upwork, with a Flutter frontend handled by teammates and the Python backend fully built by me. The backend is built on FastAPI with PostgreSQL + pgvector.",
+      "The backend covers the complete platform lifecycle: layered authentication (JWT with refresh token rotation, email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts, per-device token revocation), a full job marketplace (job posts, heuristic project scope auto-calculation with live FX rates, proposals, contract generation with PDF output and payment schedules, submission/revision/approval workflows), a unified WebSocket DM system with contract-scoped threads, FCM push notifications, paginated dashboards for freelancers and clients, and a complete admin suite (content moderation queue, scam detection, user reporting, 3-strike bans, appeals, and threshold-based auto-actions).",
+      "The AI pipeline has four components:",
+      [
+        "3-stage job recommendation feed:pgvector HNSW cosine search narrows 40,000+ jobs to a top-100 candidate set; a hard skill overlap filter (≥20%) gates the shortlist; a CatBoost re-ranker trained on 13 features scores each pair with SHAP-based match and penalty reasons surfaced to the user. AUC-ROC 0.9069, 0.87ms per 100 jobs.",
+        "RAG job fit analyser:pre-computes skill coverage server-side before calling GROQ LLM (llama-3.3-70b-versatile), injects grounded context from semantically retrieved past contracts, applies score ceilings per role, and overwrites all skill fields post-response to eliminate hallucination.",
+        "Harmful text detector:fine-tuned RoBERTa (5-label multi-label, AUC-ROC 0.9923) running entirely locally. Blocks toxic proposals and DMs synchronously; queues job posts and profiles for async admin review.",
+        "Shared embedding infrastructure:768-dim sentence-transformers model across 4 PostgreSQL tables with HNSW indexes and a dual-path dirty-flag lifecycle: immediate embedding below a cached threshold + a 5-minute async sweep worker as guaranteed recovery fallback."
+      ]
+    ],
+    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "CatBoost", "RoBERTa", "GROQ", "Docker", "Supabase", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers"],
+    "gitrepo": "https://github.com/hwasyui/WorkByte-BACKEND",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "Fantasy Book Chatbot with RAG and Gemini",
+    "year": 2025,
+    "categories": ["Artificial Intelligence", "Web Development"],
+    "projectType": "individual",
+    "contributions": [],
+    "image": "/projects/rag-chatbot.png",
+    "summary": "A full-stack AI chatbot that answers questions about 4,000+ fantasy books scraped from OpenLibrary. Built using FastAPI, LangChain, and Gemini 2.5 Pro with FAISS-based semantic retrieval. Includes data scraping with Selenium, vector embedding using MiniLM, and a clean chat interface. Deployed with Docker on Railway.",
+    "detail": "Built entirely solo from data collection through to public deployment. The data pipeline starts with Selenium scraping 4,000+ fantasy book records from OpenLibrary, which are stored in MongoDB. In the RAG pipeline, book descriptions are chunked, embedded with MiniLM via HuggingFace, and indexed in a FAISS vector store for fast semantic search. At query time, the top-k most relevant chunks are retrieved and injected as grounded context into a Gemini 2.5 Pro prompt, which means the model answers questions about specific books accurately rather than hallucinating details. The chat interface is built with FastAPI and Jinja2 templates and served as a single web app. The entire stack is containerized with Docker and deployed on Railway for public access at fantasy-bot.angelicas.xyz.",
+    "tech": ["Python", "FastAPI", "MongoDB", "LangChain", "Gemini", "FAISS", "Docker", "Railway", "Selenium", "Jinja2", "HuggingFace"],
+    "gitrepo": "https://github.com/hwasyui/rag-chatbot",
+    "url": "https://fantasy-bot.angelicas.xyz/",
+    "doc": ""
+  },
+  {
+    "title": "Merchandise Website: Summarization and Sentiment Analysis",
+    "year": 2024,
+    "categories": ["Artificial Intelligence", "Web Development"],
+    "projectType": "team",
+    "contributions": [
+      "Scraped approximately 3,000 product reviews using a custom Python script alongside WebHarvy for the training dataset",
+      "Trained a Logistic Regression sentiment classifier with BayesSearchCV hyperparameter tuning, achieving accuracy 0.844 and macro F1 0.84 on a 13,470-sample test set",
+      "Trained an LSTM sentiment model achieving final training accuracy 0.9780 and validation accuracy 0.8895",
+      "Integrated both BART-Large-CNN (summarization) and DistilBERT (sentiment, final model selected by team for highest accuracy at 0.9618) into Flask API endpoints",
+      "Containerized the ML backend with Docker and handled deployment pipeline",
+      "Connected the Flask backend to the ReactJS + Vite frontend via REST API",
+      "Contributed to frontend development alongside the main frontend work"
+    ],
+    "image": "/projects/merchandise.png",
+    "summary": "A web app developed using Vite (ReactJS) and Firebase, integrating BART-Large-CNN for summarization and DistilBERT for sentiment analysis, deployed with Flask and Docker. Trained on a dataset of reviews collected via Python scraping and WebHarvy.",
+    "detail": [
+      "A team NLP project built during a 5th-semester AI Bootcamp in collaboration with Lapis AI. The system lets users paste a product review and receive both an abstractive summary and a sentiment label. The dataset of roughly 6,000 reviews was collected using a custom Python scraping script and WebHarvy, then preprocessed for model training.",
+      "Two sentiment classifiers were independently trained and evaluated:",
+      [
+        "Logistic Regression with BayesSearchCV tuning:accuracy 0.844, macro F1 0.84 on 13,470 test samples.",
+        "LSTM model:training accuracy 0.9780, validation accuracy 0.8895.",
+        "DistilBERT fine-tuned by a teammate:0.9618 accuracy, selected as the deployed model after team evaluation."
+      ],
+      "For summarization, BART-Large-CNN was selected after ROUGE scoring and human evaluation, with additional fine-tuning on the BBC News dataset. Both models are served through a Flask REST API containerized with Docker, connected to a ReactJS + Vite frontend with Firebase for auth and data storage."
+    ],
+    "tech": ["ReactJS", "Vite", "Firebase", "Flask", "Docker", "BART", "DistilBERT", "LSTM", "Logistic Regression", "WebHarvy", "Python"],
+    "gitrepo": "https://github.com/hwasyui/RIYAN_shop",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/1J8QoDjOJuKlc_opY8IzCXN0w-B8Z_DdeBDt3_koaYyM/edit?usp=sharing"
+  },
+  {
+    "title": "Split Bill Website",
+    "year": 2025,
+    "categories": ["Web Development", "Artificial Intelligence"],
+    "projectType": "individual",
+    "contributions": [],
+    "image": "/projects/splitbill.png",
+    "summary": "A practical bill-splitting web app built using Next.js. It uses Gemini AI to read receipt images (supports Indonesian, English, and other languages), allows editing extracted data, and supports flexible or per-unit splitting. Users can share results via 24-hour links or download as PDF.",
+    "detail": "Built solo as a practical replacement after LINE Split Bill was discontinued. Users upload a photo of any receipt and Gemini AI extracts line items, quantities, and prices through vision and text understanding, with multilingual support covering Indonesian, English, and other languages. Every field in the extracted result is editable before splitting, so users can correct OCR errors or adjust quantities freely. The app supports two splitting modes: equal split across all participants, or per-item assignment where each person claims specific items. Final results can be shared via a generated link that expires after 24 hours, or exported as a downloadable PDF. Built with Next.js and React, styled with Tailwind CSS.",
+    "tech": ["Next.js", "React", "Tailwind CSS", "Gemini", "JavaScript"],
+    "gitrepo": "https://github.com/hwasyui/splitbill",
+    "url": "https://splitbill.angelicas.xyz/",
+    "doc": ""
+  },
+  {
+    "title": "RIYA's Chatbot",
+    "year": 2024,
+    "categories": ["Artificial Intelligence", "Mobile"],
+    "projectType": "team",
+    "contributions": [
+      "Fine-tuned the Llama-3.2-3B-Instruct model using Unsloth on a custom-curated dataset for the chatbot's conversational behavior",
+      "Designed and prepared the training dataset for model fine-tuning",
+      "Integrated the fine-tuned model backend with the Flutter mobile frontend",
+      "Managed model inference pipeline and optimized response latency"
+    ],
+    "image": "/projects/riya-chatbot.png",
+    "summary": "A mobile chatbot application developed with Flutter and powered by a fine-tuned Llama-3.2-3B-Instruct model, using Transformers and Unsloth on a custom dataset.",
+    "detail": "A team project delivering a conversational AI companion as an Android mobile app. The base model is Llama-3.2-3B-Instruct, fine-tuned using Unsloth on a custom conversational dataset curated by the team. Unsloth was chosen specifically for its memory efficiency, which made fine-tuning feasible on consumer-grade hardware without sacrificing output quality. The fine-tuned model is served through a Python backend using HuggingFace Transformers, and I connected that backend to the Flutter mobile frontend, managed the inference pipeline, and optimized response latency for a smooth in-app chat experience.",
+    "tech": ["Flutter", "Llama 3", "Transformers", "Unsloth"],
+    "gitrepo": "https://github.com/hwasyui/riya_chatbot",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/1riM8GQI5wTOAIoZ1I73BYFOdrLhrGB4pgk80DEPGMQM/edit?usp=sharing"
+  },
+  {
+    "title": "Tomato Ripeness Computer Vision",
+    "year": 2024,
+    "categories": ["Artificial Intelligence"],
+    "projectType": "team",
+    "contributions": [
+      "Collected and annotated the tomato image dataset for YOLOv8m training",
+      "Trained and evaluated the YOLOv8m object detection model for ripeness classification",
+      "Implemented real-time camera inference pipeline using Python",
+      "Tested detection accuracy across photo, video, and live camera input modes"
+    ],
+    "image": "/projects/tomato.png",
+    "summary": "A computer vision system built using Python and YOLOv8m to detect and classify tomato ripeness from photos, videos, and real-time camera input.",
+    "detail": "A team computer vision project targeting agricultural quality assessment. The team collected and annotated a custom tomato image dataset covering multiple ripeness stages, then trained and evaluated a YOLOv8m object detection model using the Ultralytics framework. YOLOv8m was chosen for its balance of inference speed and detection accuracy. The trained model supports three input modes: static photos, video files, and live webcam feed, making it usable in both lab settings and field environments. My work covered dataset collection and annotation, model training, the real-time camera inference pipeline, and cross-mode accuracy testing.",
+    "tech": ["Python", "YOLOv8m", "Computer Vision"],
+    "gitrepo": "https://github.com/hwasyui/tomatoripeness",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/1v_Ew9WaYm2xAltw7PYFq-moW7TPsmuWcNacvYpDnWVg/edit?usp=sharing"
+  },
+  {
+    "title": "RIYA's Speech Summarization",
+    "year": 2024,
+    "categories": ["Artificial Intelligence"],
+    "projectType": "team",
+    "contributions": [
+      "Researched and selected the mT5 multilingual summarization model for its native support of Indonesian, English, and other target languages",
+      "Built the Python backend pipeline integrating the STT, mT5 summarization, and TTS modules end-to-end",
+      "Developed the frontend interface using vanilla HTML and JavaScript",
+      "Handled multilingual preprocessing for Indonesian and English inputs"
+    ],
+    "image": "/projects/riya-summarization.png",
+    "summary": "A multilingual speech-to-text summarization system using Python and mT5, supporting English, Indonesian, Russian, French, and Chinese. Includes real-time STT, customizable summarization, and TTS output.",
+    "detail": "A team NLP project focused on multilingual accessibility. The system takes real-time spoken input via SpeechRecognition, transcribes it to text, and passes the transcript through an mT5 model for abstractive summarization. mT5 was selected specifically for its native multilingual capability across English, Indonesian, Russian, French, and Chinese, which made it the right fit for this project without requiring separate per-language models. Summarization length is user-configurable. The resulting summary is then read aloud through a TTS module, creating a complete audio-in, audio-out pipeline. I led model research and selection, built the full Python backend integrating all three modules, and developed the standalone frontend in vanilla HTML and JavaScript.",
+    "tech": ["Python", "mT5", "SpeechRecognition", "TTS", "HTML", "JavaScript"],
+    "gitrepo": "https://github.com/hwasyui/riyasummarization",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/1xwOpGDwiV1nfayi8i7WTvzgfajaLVRqeY98xtOhw-4w/edit?usp=sharing"
+  },
+  {
+    "title": "PAPI (Powerful Artistic Photo Innovator)",
+    "year": 2023,
+    "categories": ["Artificial Intelligence"],
+    "projectType": "team",
+    "contributions": [
+      "Developed the image filtering and artistic enhancement features using OpenCV",
+      "Built the desktop GUI layout and user interaction flow with Tkinter",
+      "Implemented brightness, contrast, and color adjustment controls",
+      "Integrated all image processing functions into the unified Tkinter interface"
+    ],
+    "image": "/projects/papi.png",
+    "summary": "A Python-based desktop image editor developed with Tkinter and OpenCV. Includes features such as filtering, brightness adjustment, and artistic enhancements.",
+    "detail": "A team desktop application combining GUI development with image processing. The app is built in Python using Tkinter for the interface and OpenCV for all image manipulation logic. I implemented the full suite of image processing features including brightness and contrast adjustment, multiple filter effects (grayscale, blur, edge detection), and artistic style enhancements, then integrated everything into a Tkinter GUI that lets users load an image, apply effects in real time, and export the result. The interface was designed to be straightforward for non-technical users while covering a broad range of editing operations.",
+    "tech": ["Python", "Tkinter", "OpenCV"],
+    "gitrepo": "https://github.com/hwasyui/papi",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/13aEuVEvK9J-hlR75p-DEYCNBx6g8OLWtxBih6SKqjNM/edit?usp=sharing"
+  },
+  {
+    "title": "Movie Review Web Application (KADA Bootcamp)",
+    "year": 2025,
+    "categories": ["Web Development"],
+    "projectType": "team",
+    "contributions": [
+      "Built the Express.js REST API backend and designed the MongoDB database schema for users, movies, and reviews",
+      "Set up and configured the MongoDB database",
+      "Implemented JWT-based authentication and Google OAuth 2.0 with email verification via Nodemailer",
+      "Contributed significantly to the React + Vite frontend, handling multiple UI components and pages"
+    ],
+    "image": "/projects/imdb.png",
+    "summary": "A full-stack MERN web app where users can register, log in (via email or Google), browse movies, and leave reviews. Features JWT authentication, email verification, and a responsive UI. Built as a team project during the KADA Bootcamp backend module.",
+    "detail": "A team project built immediately after completing the backend module at KADA Bootcamp, applying the concepts covered in the course to a real full-stack application. The stack is MERN: MongoDB for data storage, Express + Node.js for the REST API, and React + Vite for the frontend. I designed the MongoDB schema for users, movies, and reviews, set up and configured the database, and built the Express backend, including JWT session management, email login with email verification via Nodemailer, and Google OAuth 2.0. I also contributed significantly to the React + Vite frontend, covering multiple UI components and pages. Users can browse a movie catalog, view details, and post reviews.",
+    "tech": ["MongoDB", "Express", "React", "Vite", "Node.js", "JWT", "OAuth 2.0", "Nodemailer"],
+    "gitrepo": "https://github.com/hwasyui/tmdb_project",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "Urban Night City",
+    "year": 2023,
+    "categories": ["Other"],
+    "projectType": "team",
+    "contributions": [
+      "Modeled the Indomaret convenience store building and its interior contents",
+      "Created general building structures and environmental assets",
+      "Modeled furniture assets including tables, chairs, and a water dispenser (galon)"
+    ],
+    "image": "/projects/urban-night-city.png",
+    "summary": "A 3D modeling and animation project created using Blender, visualizing a vibrant futuristic city at night as part of a design course.",
+    "detail": "A team 3D modeling and animation project for a design course, producing a cinematic fly-through of a futuristic city at night rendered in Blender. I modeled the Indomaret convenience store building along with its interior contents, general building structures and surrounding environmental assets, and furniture props including tables, chairs, and a water dispenser. The full scene combines those assets with neon lighting setups using HDRI and point lights, street-level detail from all team members, and a camera animation that delivers the final rendered video output.",
+    "tech": ["Blender"],
+    "gitrepo": "",
+    "url": "https://www.youtube.com/watch?v=hS2qTO5oIGY&feature=youtu.be",
+    "doc": ""
+  },
+  {
+    "title": "Resume Reviewer",
+    "year": 2024,
+    "categories": ["Other"],
+    "projectType": "individual",
+    "contributions": [],
+    "image": "",
+    "summary": "Reviewed and assessed 769 student resumes for President University's Batch 2023 and 2024, completed within one month from Nov to Dec 2024. Conducted fully in English.",
+    "detail": "Served as a resume reviewer for President University, evaluating 769 resumes from Batch 2023 and 2024 students entirely in English over one month from November to December 2024. Each resume was assessed for clarity, structure, relevance of experience, language quality, and professional presentation, with structured written feedback provided to help students improve their materials for internship and job applications. The role required both technical knowledge (to evaluate software developer and data-focused resumes accurately) and strong English writing proficiency to deliver clear, actionable feedback at scale.",
+    "tech": ["Manual Review", "Professional Assessment"],
+    "gitrepo": "",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "Hunt The Wumpus",
+    "year": 2024,
+    "categories": ["Artificial Intelligence"],
+    "projectType": "individual",
+    "contributions": [],
+    "image": "/projects/hunt-wumpus.png",
+    "summary": "An AI-based grid game developed using Python and Alpha-Beta Pruning to simulate strategic gameplay in a 6x6 Hunt-The-Wumpus environment.",
+    "detail": "Built solo as an AI coursework project implementing the classic Hunt-The-Wumpus game on a 6x6 grid. The AI agent uses Alpha-Beta Pruning, an optimized variant of minimax tree search, to evaluate possible moves and make strategic decisions: navigating the grid, avoiding hidden hazards like pits and the Wumpus, and locating gold. The pruning step cuts branches of the game tree that cannot influence the final decision, significantly reducing the search space compared to plain minimax and allowing real-time decision-making even at greater depths. The entire project is built in Python with a terminal-based interface.",
+    "tech": ["Python", "Alpha-Beta Pruning"],
+    "gitrepo": "https://github.com/hwasyui/WumpusAI",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "Pookies",
+    "year": 2023,
+    "categories": ["Artificial Intelligence", "Mobile"],
+    "projectType": "team",
+    "contributions": [
+      "Integrated OpenAI API into the Android app for conversational AI responses",
+      "Built Firebase backend integration for message storage and user data",
+      "Contributed to the Android Studio Java UI for the chat interface",
+      "Handled API key management and error handling for OpenAI requests"
+    ],
+    "image": "/projects/pookies.png",
+    "summary": "An Android chatbot app built using Java in Android Studio, powered by OpenAI's API and integrated with Firebase for backend services.",
+    "detail": "A team Android project delivering a conversational AI companion app built natively in Java using Android Studio. OpenAI's API powers the chat responses, with per-session conversation history passed in each request to maintain context across turns. Firebase handles the backend services: user authentication, real-time message storage, and user data persistence. I integrated the OpenAI API, built the Firebase backend layer, contributed to the chat UI, and handled API key management and error handling for failed or rate-limited requests.",
+    "tech": ["Android Studio", "Java", "Firebase", "OpenAI API"],
+    "gitrepo": "https://github.com/hwasyui/Pookies-app",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "WellBelle",
+    "year": 2023,
+    "categories": ["Artificial Intelligence"],
+    "projectType": "team",
+    "contributions": [
+      "Built the Naive Bayes classification model for disease prediction",
+      "Implemented TF-IDF vectorization for symptom text input processing",
+      "Integrated spaCy for NLP preprocessing: tokenization, lemmatization, entity recognition",
+      "Developed the chatbot conversation flow and intent-to-model routing logic"
+    ],
+    "image": "/projects/wellbelle.png",
+    "summary": "An AI-powered chatbot for disease prediction, using Naive Bayes classification and TF-IDF. Enhanced with spaCy for advanced natural language processing.",
+    "detail": "A team NLP and ML project building a health-oriented chatbot that predicts likely diseases from user-described symptoms. When a user inputs their symptoms in natural language, spaCy handles preprocessing (tokenization, lemmatization, and named entity recognition) before the text is vectorized with TF-IDF. A Naive Bayes classifier then predicts the most likely condition based on the resulting feature vector. I built the classification model, implemented the TF-IDF vectorization pipeline, integrated spaCy for NLP preprocessing, and developed the chatbot conversation flow including intent detection and model routing logic.",
+    "tech": ["Python", "Naive Bayes", "TF-IDF", "spaCy"],
+    "gitrepo": "https://github.com/hwasyui/wellbelle",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "MoTrack",
+    "year": 2025,
+    "categories": ["Web Development"],
+    "projectType": "individual",
+    "contributions": [],
+    "image": "/projects/motrack.png",
+    "summary": "A simple yet functional full-stack expense tracker website developed as an academic project. Built using Next.js, React, Tailwind CSS, Drizzle ORM, and Clerk for authentication.",
+    "detail": "Built solo as an academic full-stack project. MoTrack helps users log, categorize, and track personal expenses through a clean web interface. Authentication is handled by Clerk, supporting both email and social login. Expense data is persisted using Drizzle ORM connected to a PostgreSQL database. The UI is built with Next.js and React, styled with Tailwind CSS for a responsive layout. Core features include adding and deleting expense entries, category filtering, and a running total summary. Deployed publicly at mo-track.angelicas.xyz.",
+    "tech": ["Next.js", "React", "Tailwind CSS", "Drizzle ORM", "Clerk"],
+    "gitrepo": "https://github.com/hwasyui/mo-track",
+    "url": "https://mo-track.angelicas.xyz/",
+    "doc": ""
+  },
+  {
+    "title": "Pet Shop Management System",
+    "year": 2023,
+    "categories": ["Web Development"],
+    "projectType": "team",
+    "contributions": [
+      "Built the PHP + MySQL backend for appointment scheduling and product checkout modules",
+      "Developed the web frontend UI using JavaScript, CSS, and Bootstrap",
+      "Designed the database schema for pet, product, employee, and appointment entities",
+      "Integrated the web and desktop (Java GUI) components via shared MySQL database"
+    ],
+    "image": "",
+    "summary": "An academic project combining a website and a desktop GUI to manage pet shop operations such as appointment scheduling, product checkout, and employee management.",
+    "detail": "A team academic project building a dual-interface management system for a pet shop, developed as part of a software engineering course. The web component handles the customer-facing side: browsing services, booking appointments, and checking out products, built with PHP, MySQL, and Bootstrap. The desktop component handles the admin and employee side: managing records, viewing bookings, and processing transactions, built with Java Swing. Both interfaces share the same MySQL database backend so data stays consistent across both interfaces. I designed the database schema covering pets, products, employees, and appointments, built the PHP + MySQL backend for the scheduling and checkout modules, developed the web frontend UI, and handled the integration between the web and desktop components through the shared database.",
+    "tech": ["PHP", "MySQL", "Java", "JavaScript", "CSS", "Bootstrap"],
+    "gitrepo": "",
+    "url": "",
+    "doc": ""
+  },
+  {
+    "title": "Autonomous Robotic Car",
+    "year": 2023,
+    "categories": ["Other"],
+    "projectType": "team",
+    "contributions": [
+      "Programmed Arduino logic for obstacle avoidance using ultrasonic sensors",
+      "Implemented fire detection sensor integration and water-spraying trigger mechanism",
+      "Contributed to hardware assembly and sensor wiring",
+      "Tested and debugged the autonomous navigation behavior in hazard scenarios"
+    ],
+    "image": "/projects/robot.jpg",
+    "summary": "An Arduino-powered robotic car with obstacle avoidance, fire detection, and water-spraying features, designed for hazard response.",
+    "detail": "A team embedded systems project building a hazard-response autonomous robot as a practical demonstration of sensor-driven decision logic. The car uses ultrasonic sensors for real-time obstacle detection and avoidance, a flame sensor to detect heat sources, and a servo-controlled water pump that triggers automatically when fire is detected. All control logic is written in Arduino C/C++, handling sensor polling, motor control, and the decision flow between navigation and fire-suppression modes. I programmed the obstacle avoidance and fire detection logic, contributed to hardware assembly and sensor wiring, and tested and debugged autonomous behavior across multiple hazard scenarios.",
+    "tech": ["Arduino", "Embedded Systems", "Sensors"],
+    "gitrepo": "",
+    "url": "",
+    "doc": "https://docs.google.com/document/d/1KMXkaomOuigawSU8GvXOrF8S1o8re-qS2njim0qGyac/edit?usp=sharing"
+  }
+]
