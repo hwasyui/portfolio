@@ -41,6 +41,9 @@ export const metadata = {
     description: "AI Engineer, Data Engineer, and Full-Stack Developer building systems that actually ship.",
     images: ["/image.png"],
   },
+  verification: {
+    google: "kRHhLJFUa4ChPorNRsbLNM6jVWx7VKET_upCs7bx0NM",
+  },
 };
 
 export default function RootLayout({ children }) {
