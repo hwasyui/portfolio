@@ -31,18 +31,23 @@ Contact and Social: ${JSON.stringify(contact)}
 `.trim();
 
 export async function POST(req) {
-  const { history } = await req.json();
+  try {
+    const { history } = await req.json();
 
-  const completion = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
-    messages: [
-      { role: "system", content: systemPrompt },
-      ...history,
-    ],
-    temperature: 0.7,
-    max_tokens: 300,
-  });
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        { role: "system", content: systemPrompt },
+        ...history,
+      ],
+      temperature: 0.7,
+      max_tokens: 300,
+    });
 
-  const text = completion.choices[0]?.message?.content || "No response.";
-  return Response.json({ text });
+    const text = completion.choices[0]?.message?.content || "No response.";
+    return Response.json({ text });
+  } catch (err) {
+    console.error("[chat/route] Groq error:", err);
+    return Response.json({ error: true }, { status: 500 });
+  }
 }

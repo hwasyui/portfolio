@@ -34,16 +34,24 @@ const RAGChat = () => {
       { role: "user", content: message },
     ];
 
-    setIsTyping(true);
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ history }),
-    });
+    const FALLBACK = "This feature is not available right now. Please contact Angelica directly if you have any questions!";
 
-    const result = await res.json();
-    setMessages(prev => [...prev, { role: "bot", text: result.text }]);
-    setIsTyping(false);
+    setIsTyping(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ history }),
+      });
+
+      const result = await res.json();
+      const text = res.ok && result.text ? result.text : FALLBACK;
+      setMessages(prev => [...prev, { role: "bot", text }]);
+    } catch {
+      setMessages(prev => [...prev, { role: "bot", text: FALLBACK }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleSend = () => {
