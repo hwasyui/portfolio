@@ -13,7 +13,7 @@ const Others = () => {
 
   return (
     <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
-      <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none" style={{ fontSize: "clamp(100px, 18vw, 220px)" }} aria-hidden>06</div>
+      <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>06</div>
       <div className="max-w-5xl mx-auto">
 
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter VI</div>
@@ -54,12 +54,8 @@ const Others = () => {
             </h3>
             <div className="space-y-2">
               {visibleCerts.map((cert, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.38, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col sm:flex-row sm:items-center sm:justify-between
                              bg-pink-pale border border-transparent hover:border-pink-hot/30
                              px-5 py-3.5 rounded-xl transition-all duration-200"
@@ -105,7 +101,7 @@ const Others = () => {
                   <Badge className="mt-2 sm:mt-0 sm:ml-4 bg-pink-blush text-pink-deep border-none text-xs w-fit flex-shrink-0">
                     {cert.issuer}
                   </Badge>
-                </motion.div>
+                </div>
               ))}
             </div>
 

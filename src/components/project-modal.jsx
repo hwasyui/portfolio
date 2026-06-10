@@ -41,13 +41,17 @@ const renderDetail = (detail) => {
   );
 };
 
+const TAB_SUMMARY      = "summary";
+const TAB_DETAILS      = "details";
+const TAB_CONTRIBUTIONS = "contributions";
+
 const ProjectModal = ({ project, open, onClose }) => {
-  const [showSummary, setShowSummary] = useState(false);
+  const [tab, setTab] = useState(TAB_SUMMARY);
   const [showAllContributions, setShowAllContributions] = useState(false);
 
   useEffect(() => {
     if (!open) {
-      setShowSummary(false);
+      setTab(TAB_SUMMARY);
       setShowAllContributions(false);
     }
   }, [open]);
@@ -61,6 +65,14 @@ const ProjectModal = ({ project, open, onClose }) => {
     : contributions.slice(0, CONTRIBUTIONS_PREVIEW);
   const hiddenCount = contributions.length - CONTRIBUTIONS_PREVIEW;
 
+  const tabs = [
+    { id: TAB_SUMMARY, label: "Summary" },
+    { id: TAB_DETAILS, label: "Details" },
+    ...(isTeam && contributions.length > 0
+      ? [{ id: TAB_CONTRIBUTIONS, label: "Contributions" }]
+      : []),
+  ];
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
@@ -68,23 +80,14 @@ const ProjectModal = ({ project, open, onClose }) => {
         {/* image */}
         <div className="relative">
           {project.image ? (
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-52 object-cover rounded-t-2xl"
-            />
+            <img src={project.image} alt={project.title} className="w-full h-52 object-cover rounded-t-2xl" />
           ) : (
             <div className="w-full h-40 flex items-center justify-center bg-pink-pale rounded-t-2xl text-xs text-zinc-400">
               CONFIDENTIAL / DOCUMENTATION GONE
             </div>
           )}
-
           <div className={`absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[9px] font-bebas tracking-[2px] shadow
-            ${isTeam
-              ? "bg-zinc-900/85 text-white backdrop-blur-sm"
-              : "bg-white/85 text-zinc-600 backdrop-blur-sm border border-zinc-200/60"
-            }`}
-          >
+            ${isTeam ? "bg-zinc-900/85 text-white backdrop-blur-sm" : "bg-white/85 text-zinc-600 backdrop-blur-sm border border-zinc-200/60"}`}>
             {isTeam ? <Users size={11} /> : <User size={11} />}
             {isTeam ? "TEAM PROJECT" : "SOLO PROJECT"}
           </div>
@@ -102,81 +105,69 @@ const ProjectModal = ({ project, open, onClose }) => {
                   </span>
                 ))}
               </div>
-              {project.year && (
-                <span className="font-bebas text-[9px] tracking-[2px] text-zinc-400">{project.year}</span>
-              )}
+              {project.year && <span className="font-bebas text-[9px] tracking-[2px] text-zinc-400">{project.year}</span>}
             </div>
             <DialogTitle className="mt-1">{project.title}</DialogTitle>
           </div>
 
-          {/* view toggle */}
-          <div className="flex gap-2 mb-5">
-            <button
-              onClick={() => setShowSummary(false)}
-              className={`font-bebas text-[9px] tracking-[3px] px-3 py-1.5 rounded-full border transition-all duration-150
-                ${!showSummary
-                  ? "bg-pink-hot border-pink-hot text-white"
-                  : "border-zinc-200 text-zinc-400 hover:border-pink-hot hover:text-pink-hot"
+          {/* tabs */}
+          <div className="flex gap-0 border-b border-zinc-100 mb-5">
+            {tabs.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => setTab(id)}
+                className={`font-bebas text-[10px] tracking-[3px] px-4 py-2 border-b-2 -mb-px transition-all duration-150 ${
+                  tab === id
+                    ? "border-pink-hot text-pink-hot"
+                    : "border-transparent text-zinc-400 hover:text-zinc-600"
                 }`}
-            >
-              {isTeam ? "Details & Contributions" : "Details"}
-            </button>
-            <button
-              onClick={() => setShowSummary(true)}
-              className={`font-bebas text-[9px] tracking-[3px] px-3 py-1.5 rounded-full border transition-all duration-150
-                ${showSummary
-                  ? "bg-pink-hot border-pink-hot text-white"
-                  : "border-zinc-200 text-zinc-400 hover:border-pink-hot hover:text-pink-hot"
-                }`}
-            >
-              Summary
-            </button>
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           {/* two-column body */}
           <div className="flex flex-col md:flex-row gap-6">
 
             {/* main content */}
-            <div className="flex-1 min-w-0 space-y-5">
-              {showSummary ? (
-                <p className="text-sm text-zinc-600 leading-relaxed">{project.summary}</p>
-              ) : (
-                <>
-                  {project.detail && (
-                    <div>
-                      <div className="font-bebas text-[10px] tracking-[3px] text-zinc-500 mb-3">Project Details</div>
-                      {renderDetail(project.detail)}
-                    </div>
-                  )}
+            <div className="flex-1 min-w-0">
 
-                  {isTeam && contributions.length > 0 && (
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Users size={12} className="text-pink-hot" />
-                        <span className="font-bebas text-[10px] tracking-[3px] text-zinc-500">My Contributions</span>
-                      </div>
-                      <ul className="space-y-2">
-                        {visibleContributions.map((item, i) => (
-                          <li key={i} className="flex gap-3 border-l-2 border-pink-hot/30 pl-3 py-1 bg-pink-pale/40 rounded-r-lg">
-                            <span className="font-bebas text-[10px] text-pink-hot/60 mt-0.5 flex-shrink-0 w-4">{String(i + 1).padStart(2, "0")}</span>
-                            <span className="text-xs text-zinc-600 leading-relaxed">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      {contributions.length > CONTRIBUTIONS_PREVIEW && (
-                        <button
-                          onClick={() => setShowAllContributions(prev => !prev)}
-                          className="mt-3 flex items-center gap-1.5 font-bebas text-[9px] tracking-[2px] text-zinc-400 hover:text-pink-hot transition-colors duration-150"
-                        >
-                          {showAllContributions
-                            ? <><ChevronUp size={11} /> Show less</>
-                            : <><ChevronDown size={11} /> +{hiddenCount} more contributions</>
-                          }
-                        </button>
-                      )}
-                    </div>
+              {tab === TAB_SUMMARY && (
+                <p className="text-sm text-zinc-600 leading-relaxed">{project.summary}</p>
+              )}
+
+              {tab === TAB_DETAILS && (
+                <div>
+                  {project.detail
+                    ? renderDetail(project.detail)
+                    : <p className="text-sm text-zinc-400">No detail available.</p>
+                  }
+                </div>
+              )}
+
+              {tab === TAB_CONTRIBUTIONS && (
+                <div>
+                  <ul className="space-y-2">
+                    {visibleContributions.map((item, i) => (
+                      <li key={i} className="flex gap-3 border-l-2 border-pink-hot/30 pl-3 py-1 bg-pink-pale/40 rounded-r-lg">
+                        <span className="font-bebas text-[10px] text-pink-hot/60 mt-0.5 flex-shrink-0 w-4">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="text-xs text-zinc-600 leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {contributions.length > CONTRIBUTIONS_PREVIEW && (
+                    <button
+                      onClick={() => setShowAllContributions(prev => !prev)}
+                      className="mt-3 flex items-center gap-1.5 font-bebas text-[9px] tracking-[2px] text-zinc-400 hover:text-pink-hot transition-colors duration-150"
+                    >
+                      {showAllContributions
+                        ? <><ChevronUp size={11} /> Show less</>
+                        : <><ChevronDown size={11} /> +{hiddenCount} more contributions</>
+                      }
+                    </button>
                   )}
-                </>
+                </div>
               )}
             </div>
 
@@ -186,36 +177,35 @@ const ProjectModal = ({ project, open, onClose }) => {
                 <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-2">Tech Stack</div>
                 <div className="flex flex-wrap gap-1.5">
                   {project.tech.map((t, i) => (
-                    <Badge key={i} variant="outline" className="text-xs border-pink-hot/30 text-pink-deep">
-                      {t}
-                    </Badge>
+                    <Badge key={i} variant="outline" className="text-xs border-pink-hot/30 text-pink-deep">{t}</Badge>
                   ))}
                 </div>
               </div>
 
-              {(project.url || project.gitrepo || project.doc) && (
+              {(project.url || project.gitrepo || project.gitrepos?.length > 0 || project.doc) && (
                 <div>
                   <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-2">Links</div>
                   <div className="flex flex-col gap-2">
                     {project.url && (
                       <Button variant="outline" size="sm" asChild className="gap-1.5 border-pink-hot text-pink-hot hover:bg-pink-hot hover:text-white transition-colors text-xs justify-start">
-                        <a href={project.url} target="_blank" rel="noopener noreferrer">
-                          <Globe size={13} /> Live Demo
-                        </a>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer"><Globe size={13} /> Live Demo</a>
                       </Button>
                     )}
-                    {project.gitrepo && (
-                      <Button variant="outline" size="sm" asChild className="gap-1.5 border-zinc-300 hover:border-pink-hot hover:text-pink-hot transition-colors text-xs justify-start">
-                        <a href={project.gitrepo} target="_blank" rel="noopener noreferrer">
-                          <FaGithub size={13} /> GitHub
-                        </a>
-                      </Button>
-                    )}
+                    {project.gitrepos?.length > 0
+                      ? project.gitrepos.map(({ label, url }) => (
+                          <Button key={label} variant="outline" size="sm" asChild className="gap-1.5 border-zinc-300 hover:border-pink-hot hover:text-pink-hot transition-colors text-xs justify-start">
+                            <a href={url} target="_blank" rel="noopener noreferrer"><FaGithub size={13} /> {label}</a>
+                          </Button>
+                        ))
+                      : project.gitrepo && (
+                          <Button variant="outline" size="sm" asChild className="gap-1.5 border-zinc-300 hover:border-pink-hot hover:text-pink-hot transition-colors text-xs justify-start">
+                            <a href={project.gitrepo} target="_blank" rel="noopener noreferrer"><FaGithub size={13} /> GitHub</a>
+                          </Button>
+                        )
+                    }
                     {project.doc && (
                       <Button variant="outline" size="sm" asChild className="gap-1.5 border-zinc-300 hover:border-pink-hot hover:text-pink-hot transition-colors text-xs justify-start">
-                        <a href={project.doc} target="_blank" rel="noopener noreferrer">
-                          <FileText size={13} /> Docs
-                        </a>
+                        <a href={project.doc} target="_blank" rel="noopener noreferrer"><FileText size={13} /> Docs</a>
                       </Button>
                     )}
                   </div>

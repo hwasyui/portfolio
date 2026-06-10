@@ -144,7 +144,7 @@ const RAGChat = () => {
 
           {/* input */}
           <div className="px-3 py-2.5 border-t border-pink-hot/15 bg-white flex-shrink-0">
-            <div className="relative flex items-center bg-pink-pale rounded-full">
+            <div className="relative flex items-center bg-pink-pale rounded-full overflow-hidden min-w-0">
               <Input
                 className="flex-grow border-none shadow-none bg-transparent rounded-full px-4 py-2 text-sm focus:ring-0 placeholder:text-zinc-400"
                 value={input}

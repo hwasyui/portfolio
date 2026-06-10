@@ -52,7 +52,7 @@ const Experience = () => {
   const { workExperiences, organizationalExperiences, volunteerExperiences } = data;
   return (
     <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
-      <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none" style={{ fontSize: "clamp(100px, 18vw, 220px)" }} aria-hidden>04</div>
+      <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>04</div>
       <div className="max-w-5xl mx-auto">
 
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter IV</div>

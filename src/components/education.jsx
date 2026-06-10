@@ -114,7 +114,7 @@ const Education = () => {
 
   return (
     <div className="relative overflow-hidden bg-pink-blush px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
-      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none" style={{ fontSize: "clamp(100px, 18vw, 220px)" }} aria-hidden>03</div>
+      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>03</div>
       <div className="max-w-5xl mx-auto">
 
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-deep mb-1">Chapter III</div>

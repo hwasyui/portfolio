@@ -1,153 +1,175 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import skills from "../data/skills.json";
 
-const pillContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.065, delayChildren: 0.08 } },
-};
+const capabilities = [
+  {
+    id: "ai",
+    num: "01",
+    label: "Artificial Intelligence",
+    desc: "ML · NLP · Computer Vision · Embeddings",
+    data: skills["Artificial Intelligence"],
+  },
+  {
+    id: "fullstack",
+    num: "02",
+    label: "Full-Stack Web",
+    desc: "Frontend · Backend · Databases",
+    data: skills["Fullstack"],
+  },
+  {
+    id: "data",
+    num: "03",
+    label: "Data Engineering",
+    desc: "Streaming · Processing · Monitoring",
+    data: skills["Data Engineering"],
+  },
+];
 
-const pillItem = {
-  hidden: { opacity: 0, scale: 0.75, y: 8 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
-
-// dark pill for the left panel
-const Pill = ({ label }) => (
+const Pill = ({ label, index }) => (
   <motion.span
-    variants={pillItem}
-    whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-    className="inline-block px-3 py-1 rounded-full text-xs font-medium cursor-default
-               border border-white/20 bg-white/10 text-white/85
-               hover:border-pink-candy hover:text-pink-candy transition-colors duration-150"
+    initial={{ opacity: 0, y: 4 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.2, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 320, damping: 22 } }}
+    className="inline-block px-2.5 py-1 text-[11px] font-medium cursor-default
+               bg-pink-blush text-zinc-700 rounded
+               hover:bg-pink-hot hover:text-white transition-colors duration-150"
   >
     {label}
   </motion.span>
 );
 
-// light pill for the right panel
-const PillLight = ({ label }) => (
+const ToolPill = ({ label, index }) => (
   <motion.span
-    variants={pillItem}
-    whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-    className="inline-block px-3 py-1 rounded-full text-xs font-medium cursor-default
-               border border-zinc-200 text-zinc-700
+    initial={{ opacity: 0, y: 4 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.2, delay: index * 0.025, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 320, damping: 22 } }}
+    className="inline-block px-2.5 py-1 text-[11px] font-medium cursor-default
+               bg-white border border-zinc-200 text-zinc-600 rounded
                hover:border-pink-hot hover:text-pink-hot transition-colors duration-150"
   >
     {label}
   </motion.span>
 );
 
-const PillCloud = ({ items, dark = false }) => (
-  <motion.div
-    className="flex flex-wrap gap-2"
-    variants={pillContainer}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.2 }}
-  >
-    {items.map((item) =>
-      dark ? <Pill key={item} label={item} /> : <PillLight key={item} label={item} />
-    )}
-  </motion.div>
+const TabbedPanel = ({ data }) => (
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {Object.entries(data).map(([group, items]) => (
+      <div key={group}>
+        <p className="font-bebas text-xs tracking-[3px] text-pink-hot mb-3">{group}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {items.map((item, i) => <Pill key={item} label={item} index={i} />)}
+        </div>
+      </div>
+    ))}
+  </div>
 );
 
 const Skills = () => {
+  const [active, setActive] = useState(null);
+  const current = capabilities.find((c) => c.id === active);
+  const toggle = (id) => setActive((prev) => (prev === id ? null : id));
+
+  // flatten all tool groups into one list
+  const allTools = Object.values(skills["Tools & Workflow"]).flat();
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="bg-pink-pale px-8 md:px-16 lg:px-24 py-16 md:py-20 min-h-[calc(100vh-2.75rem)]">
 
-      {/* left side, dark panel */}
-      <div className="bg-zinc-900 relative overflow-hidden px-10 md:px-14 py-14 min-h-[calc(100vh-2.75rem)]">
-        <div
-          className="absolute bottom-0 right-0 font-bebas leading-none text-white/10 pointer-events-none select-none"
-          style={{ fontSize: "clamp(100px, 18vw, 220px)" }}
-          aria-hidden
-        >
-          02
-        </div>
+      {/* header */}
+      <div className="mb-12">
+        <div className="font-bebas text-xs tracking-[5px] text-pink-hot mb-2">Chapter II</div>
+        <h2 className="font-playfair font-black text-zinc-900 leading-tight text-4xl md:text-6xl">
+          Skills
+        </h2>
+        <p className="font-bebas text-sm tracking-[3px] text-zinc-500 mt-1">
+          Services
+        </p>
+        <p className="font-bebas text-xs tracking-[3px] text-zinc-400 mt-1">
+          Click a service to explore tools &amp; frameworks
+        </p>
+      </div>
 
-        <div className="relative z-10">
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-candy mb-1">Chapter II</div>
-          <h2 className="font-playfair font-black text-white mb-10 leading-tight"
-              style={{ fontSize: "clamp(32px, 6vw, 56px)" }}>
-            Skills
-          </h2>
+      {/* 3-column service cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        {capabilities.map((cap) => {
+          const isActive = active === cap.id;
+          return (
+            <button
+              key={cap.id}
+              onClick={() => toggle(cap.id)}
+              className={`text-left p-5 border-2 transition-all duration-200 group ${
+                isActive
+                  ? "bg-pink-hot border-pink-hot"
+                  : "bg-white border-pink-blush hover:border-pink-hot"
+              }`}
+            >
+              <div className={`font-bebas text-2xl leading-none mb-3 transition-colors ${
+                isActive ? "text-white/60" : "text-zinc-300 group-hover:text-pink-candy"
+              }`}>
+                {cap.num}
+              </div>
+              <div className={`font-playfair font-bold leading-tight mb-1 transition-colors ${
+                isActive ? "text-white" : "text-zinc-800 group-hover:text-zinc-900"
+              }`}>
+                {cap.label}
+              </div>
+              <div className={`font-bebas text-[10px] tracking-[1.5px] transition-colors ${
+                isActive ? "text-white/70" : "text-zinc-400"
+              }`}>
+                {cap.desc}
+              </div>
+            </button>
+          );
+        })}
+      </div>
 
-          {/* programming languages */}
-          <div className="mb-10">
-            <div className="font-bebas text-sm tracking-[3px] text-white mb-3">
-              Programming Languages
+      {/* detail panel */}
+      <AnimatePresence initial={false}>
+        {current && (
+          <motion.div
+            key={current.id}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="bg-white border border-pink-blush px-8 py-8 mb-10 shadow-sm">
+              <TabbedPanel data={current.data} />
             </div>
-            <PillCloud items={skills["Programming Languages"]} dark />
-          </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-          {/* AI category header with smaller sub-categories below it */}
-          <div>
-            <div className="font-bebas text-sm tracking-[3px] text-white mb-5">
-              Artificial Intelligence
-            </div>
-            <div className="space-y-5 pl-3 border-l border-white/10">
-              {Object.entries(skills["Artificial Intelligence"]).map(([key, items]) => (
-                <div key={key}>
-                  <div className="font-bebas text-[9px] tracking-[3px] text-zinc-400 mb-2">{key}</div>
-                  <PillCloud items={items} dark />
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* divider */}
+      <div className="border-t border-pink-blush mb-10" />
+
+      {/* base languages */}
+      <div className="mb-8">
+        <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-4">Languages</p>
+        <div className="flex flex-wrap gap-1.5">
+          {skills["Programming Languages"].map((lang, i) => (
+            <ToolPill key={lang} label={lang} index={i} />
+          ))}
         </div>
       </div>
 
-      {/* right side, light panel */}
-      <div className="bg-pink-pale relative overflow-hidden px-10 md:px-14 py-14 min-h-[calc(100vh-2.75rem)]">
-        <div className="relative z-10">
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Toolkit</div>
-          <h3 className="font-playfair font-bold text-zinc-900 mb-10 leading-tight"
-              style={{ fontSize: "clamp(28px, 5vw, 48px)" }}>
-            Tools &<br />Frameworks
-          </h3>
-
-          {/* fullstack */}
-          <div className="mb-10">
-            <div className="font-bebas text-sm tracking-[3px] text-zinc-700 mb-5">
-              Full-Stack Web
-            </div>
-            <div className="space-y-5 pl-3 border-l border-pink-hot/20">
-              {Object.entries(skills["Fullstack"]).map(([key, items]) => (
-                <div key={key}>
-                  <div className="font-bebas text-[9px] tracking-[3px] text-zinc-400 mb-2">{key}</div>
-                  <PillCloud items={items} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* data engineering */}
-          <div className="mb-10">
-            <div className="font-bebas text-sm tracking-[3px] text-zinc-700 mb-5">
-              Data Engineering
-            </div>
-            <div className="space-y-5 pl-3 border-l border-pink-hot/20">
-              {Object.entries(skills["Data Engineering"]).map(([key, items]) => (
-                <div key={key}>
-                  <div className="font-bebas text-[9px] tracking-[3px] text-zinc-400 mb-2">{key}</div>
-                  <PillCloud items={items} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* deployment */}
-          <div>
-            <div className="font-bebas text-sm tracking-[3px] text-zinc-700 mb-3">
-              Deployment & Others
-            </div>
-            <PillCloud items={skills["Deployment and Others"]} />
-          </div>
+      {/* tools row */}
+      <div>
+        <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-4">Also uses</p>
+        <div className="flex flex-wrap gap-1.5">
+          {allTools.map((tool, i) => (
+            <ToolPill key={tool} label={tool} index={i} />
+          ))}
         </div>
       </div>
+
     </div>
   );
 };

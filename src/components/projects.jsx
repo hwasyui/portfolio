@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Users, User } from "lucide-react";
 import data from "../data/projects.json";
 import ProjectCard from "./project-card.jsx";
@@ -42,7 +41,7 @@ const Projects = () => {
 
   return (
     <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
-      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none" style={{ fontSize: "clamp(100px, 18vw, 220px)" }} aria-hidden>05</div>
+      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>05</div>
       <div className="max-w-6xl mx-auto">
 
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter V</div>
@@ -50,55 +49,49 @@ const Projects = () => {
           Projects
         </h2>
 
-        {/* filters: category tabs and type toggle */}
-        <div className="flex items-end justify-between border-b border-zinc-200 mb-10">
-          <div className="flex flex-wrap">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`font-bebas text-[10px] tracking-[3px] px-4 pb-3 pt-1 border-b-2 -mb-px transition-all duration-150
-                  ${selectedCategory === cat
-                    ? "border-pink-hot text-pink-hot"
-                    : "border-transparent text-zinc-400 hover:text-zinc-600"
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
+        {/* filters - two dropdowns */}
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <div className="relative">
+            <select
+              value={selectedCategory}
+              onChange={(e) => handleCategoryChange(e.target.value)}
+              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded-full cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
+            >
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            <ChevronDown size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
           </div>
 
-          <div className="flex items-center gap-4 pb-3">
-            {TYPE_FILTERS.map(({ value, label, icon: Icon }) => (
-              <button
-                key={value}
-                onClick={() => handleTypeChange(value)}
-                className={`flex items-center gap-1 font-bebas text-[9px] tracking-[2px] transition-all duration-150
-                  ${selectedType === value ? "text-zinc-900" : "text-zinc-300 hover:text-zinc-500"}`}
-              >
-                {Icon && <Icon size={10} />}
-                {label}
-              </button>
-            ))}
+          <div className="relative">
+            <select
+              value={selectedType}
+              onChange={(e) => handleTypeChange(e.target.value)}
+              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded-full cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
+            >
+              {TYPE_FILTERS.map(({ value, label }) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+            <ChevronDown size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
           </div>
+
+          <span className="font-bebas text-[10px] tracking-[2px] text-zinc-400">
+            {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+          </span>
         </div>
 
         {/* project grid */}
         {visible.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {visible.map((project, i) => (
-              <motion.div
-                key={`${selectedCategory}-${selectedType}-${i}`}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <div key={`${selectedCategory}-${selectedType}-${i}`}>
                 <ProjectCard
                   project={project}
                   onClick={() => setSelectedProject(project)}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         ) : (

@@ -2,36 +2,48 @@
   {
     "title": "WorkByte – Freelancer Marketplace App",
     "year": 2026,
-    "categories": ["Artificial Intelligence", "Web Development"],
+    "categories": ["Artificial Intelligence", "Web Development", "Mobile"],
     "projectType": "team",
     "contributions": [
-      "Authored the initial backend architecture from scratch: database manager, logger utility, environment config, and all base route scaffolding; set up Git LFS for large ML model files and established the full Docker Compose stack",
-      "Implemented the complete authentication system: JWT login with refresh token rotation (replay-attack prevention), email OTP verification (6-digit, configurable expiry and max attempts, dev/prod aware), forgot-password and reset-password OTP flows, Google OAuth 2.0 (web server-side redirect + Flutter mobile id_token verification), OAuth password-login flag and set-password support, multi-role support (POST /auth/add-role so a single account can hold both freelancer and client profiles), and per-device token revocation on logout and password change",
-      "Built the full job marketplace backend: job posts with multi-role support, project scope auto-calculation endpoint (heuristic scorer with weekly FX cache via frankfurter.app and World Bank GNI benchmarks), proposal lifecycle, contract lifecycle with PDF generation (structured sections, payment schedule rendering, legal clauses), contract submission/revision/approval flow with system events posted to DM threads, and multi-file attachment support for both job posts and proposals",
-      "Implemented the unified DM system (replacing a legacy message table): real-time WebSocket messaging, thread auto-activation on contract creation, file attachments, and harmful text detection gating every message before save; also built paginated freelancer and client dashboards with unified tracking statuses, earnings aggregation, and sortable lifecycle fields",
-      "Built the complete admin and moderation backend: keyword-based + ML content moderation queue with async background scanning, admin moderation review endpoints (approve/reject/force-expire/manual scan), job scam flag queue, user report system with predefined and custom reasons, 3-strike client scam ban tracking, appeals workflow for bans and closed job posts, and auto-action rules (threshold-based auto-ban/close after 30 days); also added flexible admin browse endpoints for jobs and users with include/exclude filters, date ranges, search, and pagination",
-      "Built the 3-stage AI job recommendation feed: Stage 1 pgvector HNSW cosine ANN search (top-100 active jobs), Stage 2 required skill overlap filter (>=20% hard gate), Stage 3 CatBoost ML re-ranker (13 features) with SHAP-based match_reasons and penalty_reasons; iterated from LightGBM to CatBoost after multi-model comparison (ROC/PR/calibration curves); final model AUC-ROC 0.9069, avg precision 0.8098, 0.87ms per 100 jobs; added sparse-profile bypass for freelancers with fewer than 3 skills and SHAP contribution gate to suppress weak explanations",
-      "Built the RAG-based job fit analysis system: 7-step pipeline that retrieves semantically relevant past contracts, pre-computes per-role skill coverage server-side (preventing LLM hallucination), constructs a grounded 5-section prompt, calls GROQ LLM (llama-3.3-70b-versatile with fallback), applies score ceilings per role, and overwrites skill fields post-response to guarantee accuracy; guaranteed all output fields always present with structured defaults",
-      "Implemented the shared embedding infrastructure: sentence-transformers model (768-dim, L2-normalised) across 4 PostgreSQL tables (freelancer, job role, contract, portfolio) with HNSW indexes; dual-path dirty-flag lifecycle (immediate embedding below threshold + 5-minute async sweep worker for guaranteed recovery); async thread-pool executor to avoid blocking the event loop; 2-hour cached threshold check primed on startup; suppressed 768-dim vectors from DB query logs via param sanitiser",
-      "Fine-tuned a RoBERTa multi-label classifier for harmful text detection across 5 categories (toxicity, obscene, threat, insult, identity_hate); AUC-ROC 0.9923; integrated in synchronous blocking mode (proposals and DMs rejected immediately on positive) and async background mode (job posts and profiles queued for admin review); iterated from a keyword-only content moderation module to the full fine-tuned RoBERTa pipeline",
-      "Built skill search enhancements: autocomplete endpoint with trigram fuzzy matching (handles typos) and pgvector semantic fallback; skill name normalizer for deduplication; alphabet-browse endpoint; refactored all search endpoints from path params to query params for consistency",
-      "Implemented profile image upload for freelancer and client profiles (MIME validation, Supabase storage, URL persistence), multi-file upload for job post and proposal attachments (per-file Supabase paths, one DB row per file), and scoped file validation before write"
+      "Scaffolded the full backend from scratch: project architecture, database manager, logger utility, env config, and Docker Compose stack; set up Git LFS for ML model files.",
+      "Built layered authentication: JWT with refresh token rotation (replay-attack prevention), email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts (freelancer + client on one account), and per-device token revocation.",
+      "Implemented the full job marketplace lifecycle: job posts, heuristic project scope calculator with live FX rates, proposal system, contract PDF generation with payment schedule rendering, and submission/revision/approval workflows with DM system events.",
+      "Built the RAG job fit analysis engine: retrieves top-5 past contracts, top-3 portfolio projects, and work experience as grounded context; pre-computes skill coverage server-side before calling GROQ LLM (llama-3.3-70b) to return a structured match report with score (0–100), recommendation, and per-role skill breakdown.",
+      "Powered the relevant job feed and embedding infrastructure: pgvector HNSW cosine similarity search across 4 tables using nomic-embed-text-v1.5 (768-dim, 8192-token context) with a dirty-flag async re-embedding lifecycle.",
+      "Fine-tuned RoBERTa (5-label multi-label classifier, AUC-ROC 0.9923) for harmful text detection, with synchronous blocking for proposals and DMs and an async background queue for job posts and profiles sent to admin moderation.",
+      "Built admin and moderation suite (content queue, scam flagging, 3-strike bans, appeals, auto-actions), real-time WebSocket DMs, FCM push notifications, skill autocomplete with trigram + semantic fallback, and profile/file uploads."
     ],
     "image": "/projects/workbyte.jpg",
-    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a 3-stage AI job-matching pipeline, RAG-based fit analysis, and a fine-tuned harmful text detection model. Built with FastAPI, PostgreSQL + pgvector, CatBoost, RoBERTa, and GROQ LLM; containerized with Docker.",
+    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, embedding-powered job feed, and a fine-tuned harmful text detection model. Built with FastAPI, PostgreSQL + pgvector, RoBERTa, GROQ LLM (llama-3.3-70b), and nomic-embed; containerized with Docker.",
     "detail": [
-      "WorkByte is a capstone project building a freelancer marketplace platform comparable to Fiverr or Upwork, with a Flutter frontend handled by teammates and the Python backend fully built by me. The backend is built on FastAPI with PostgreSQL + pgvector.",
-      "The backend covers the complete platform lifecycle: layered authentication (JWT with refresh token rotation, email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts, per-device token revocation), a full job marketplace (job posts, heuristic project scope auto-calculation with live FX rates, proposals, contract generation with PDF output and payment schedules, submission/revision/approval workflows), a unified WebSocket DM system with contract-scoped threads, FCM push notifications, paginated dashboards for freelancers and clients, and a complete admin suite (content moderation queue, scam detection, user reporting, 3-strike bans, appeals, and threshold-based auto-actions).",
-      "The AI pipeline has four components:",
+      "WorkByte is a freelancer marketplace Android app, similar to Fiverr and Upwork, connecting freelancers and clients through a full job posting, proposal, and contract system. A single account can hold both a freelancer and a client profile.",
+      "Platform features:",
       [
-        "3-stage job recommendation feed:pgvector HNSW cosine search narrows 40,000+ jobs to a top-100 candidate set; a hard skill overlap filter (≥20%) gates the shortlist; a CatBoost re-ranker trained on 13 features scores each pair with SHAP-based match and penalty reasons surfaced to the user. AUC-ROC 0.9069, 0.87ms per 100 jobs.",
-        "RAG job fit analyser:pre-computes skill coverage server-side before calling GROQ LLM (llama-3.3-70b-versatile), injects grounded context from semantically retrieved past contracts, applies score ceilings per role, and overwrites all skill fields post-response to eliminate hallucination.",
-        "Harmful text detector:fine-tuned RoBERTa (5-label multi-label, AUC-ROC 0.9923) running entirely locally. Blocks toxic proposals and DMs synchronously; queues job posts and profiles for async admin review.",
-        "Shared embedding infrastructure:768-dim sentence-transformers model across 4 PostgreSQL tables with HNSW indexes and a dual-path dirty-flag lifecycle: immediate embedding below a cached threshold + a 5-minute async sweep worker as guaranteed recovery fallback."
+        "Authentication via email OTP, Google OAuth (web and mobile), or standard login",
+        "Job posts with a scope calculator that factors in live exchange rates and GNI benchmarks",
+        "Proposal system and contract generation with PDF output and payment schedule rendering",
+        "Full submission, revision, and approval workflow with system events posted to DM threads",
+        "Real-time DMs scoped to contracts, with file attachments and FCM push notifications",
+        "Dashboards for freelancers and clients with earnings tracking and lifecycle status views",
+        "Admin panel covering content moderation, scam flagging, user reports, 3-strike bans, and appeals"
+      ],
+      "AI features:",
+      [
+        "Job fit analyser: scores how well a freelancer matches a job posting (0-100) with a recommendation and per-role skill breakdown. Uses RAG to pull past contracts, portfolio projects, and work experience as context before calling Llama 3.3 via GROQ.",
+        "Job scam detection: runs on every new job post as a background task using a SBERT embedding combined with keyword signals, then applies a Random Forest classifier. Hard flags auto-close the job; soft flags queue it for admin review.",
+        "Harmful text detection: a fine-tuned RoBERTa model (AUC-ROC 0.9923) that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
+        "CV analysis: a 5-stage pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
+        "CV upload with smart extraction: supports PDF, DOCX, and image files using pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; subsequent uploads run the full CV analysis pipeline.",
+        "AI review analysis: a two-phase GROQ LLM pipeline that checks sentiment, authenticity, and fake or coerced review detection, then publishes or suppresses the review and recalculates the freelancer trust score (0-100)."
       ]
     ],
-    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "CatBoost", "RoBERTa", "GROQ", "Docker", "Supabase", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers"],
-    "gitrepo": "https://github.com/hwasyui/WorkByte-BACKEND",
+    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "RoBERTa", "GROQ", "Docker", "Supabase", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
+    "gitrepos": [
+      { "label": "Backend", "url": "https://github.com/hwasyui/WorkByte-BACKEND" },
+      { "label": "Frontend", "url": "https://github.com/hwasyui/WorkByte-FRONTEND" },
+      { "label": "Database", "url": "https://github.com/hwasyui/WorkByte-DATABASE" }
+    ],
+    "gitrepo": "",
     "url": "",
     "doc": ""
   },
@@ -66,14 +78,31 @@
     "image": "/projects/merchandise.png",
     "summary": "A web app developed using Vite (ReactJS) and Firebase, integrating BART-Large-CNN for summarization and DistilBERT for sentiment analysis, deployed with Flask and Docker. Trained on a dataset of reviews collected via Python scraping and WebHarvy.",
     "detail": [
-      "A team NLP project built during a 5th-semester AI Bootcamp in collaboration with Lapis AI. The system lets users paste a product review and receive both an abstractive summary and a sentiment label. The dataset of roughly 6,000 reviews was collected using a custom Python scraping script and WebHarvy, then preprocessed for model training.",
-      "Two sentiment classifiers were independently trained and evaluated:",
+      "A team NLP project built during a 5th-semester AI Bootcamp in collaboration with Lapis AI. The platform lets users paste a product review and get both an abstractive summary and a sentiment label. Before integrating any model, the team ran a full comparison across 9 models on the SST-2 dataset and a new dataset of roughly 3,000 real product reviews collected via WebHarvy.",
+      "Sentiment model comparison (accuracy on new dataset):",
       [
-        "Logistic Regression with BayesSearchCV tuning:accuracy 0.844, macro F1 0.84 on 13,470 test samples.",
-        "LSTM model:training accuracy 0.9780, validation accuracy 0.8895.",
-        "DistilBERT fine-tuned by a teammate:0.9618 accuracy, selected as the deployed model after team evaluation."
+        "Logistic Regression: 0.9137",
+        "Random Forest: 0.8714",
+        "Naive Bayes: 0.9021",
+        "SVM: 0.9021",
+        "LSTM: 0.8895",
+        "RNN: 0.7000",
+        "DistilBERT: 0.9618 (selected)",
+        "RoBERTa: 0.9609",
+        "DeBerta: 0.9576"
       ],
-      "For summarization, BART-Large-CNN was selected after ROUGE scoring and human evaluation, with additional fine-tuning on the BBC News dataset. Both models are served through a Flask REST API containerized with Docker, connected to a ReactJS + Vite frontend with Firebase for auth and data storage."
+      "DistilBERT achieved the highest accuracy on the new dataset and was deployed as the final sentiment model, running locally via Flask and Docker for low-latency processing and data privacy.",
+      "Summarization model comparison (ROUGE-1 F1 on held-out data):",
+      [
+        "BART-Large-CNN: 0.6207 (selected)",
+        "DistilBART-CNN 12-6: 0.5568",
+        "PEGASUS-CNN: 0.4516",
+        "T5-Base: 0.3394",
+        "GPT-2: 0.4110",
+        "mT5-Base: 0.0769"
+      ],
+      "BART-Large-CNN scored highest across all ROUGE metrics and was confirmed by human judges assessing coherence, fluency, and informativeness. The model was further fine-tuned on the BBC News dataset to adapt it to formal writing. Both models are connected to a ReactJS + Vite frontend with Firebase for auth and storage.",
+      "A supervising lecturer reviewed the final system and noted: the integrated AI performed well, sentiment classification was very accurate, and both components add high value to the platform."
     ],
     "tech": ["ReactJS", "Vite", "Firebase", "Flask", "Docker", "BART", "DistilBERT", "LSTM", "Logistic Regression", "WebHarvy", "Python"],
     "gitrepo": "https://github.com/hwasyui/RIYAN_shop",

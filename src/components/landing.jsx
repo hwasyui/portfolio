@@ -375,8 +375,8 @@ const Landing = () => {
         {/* left panel, hot-pink */}
         <div className="bg-pink-hot relative overflow-hidden flex flex-col justify-between p-10 md:p-16 min-h-[52vh] md:min-h-screen">
           <div
-            className="absolute bottom-0 left-0 font-bebas leading-none text-white/10 pointer-events-none select-none"
-            style={{ fontSize: "clamp(160px,28vw,320px)", lineHeight: 0.85 }}
+            className="absolute bottom-0 left-0 font-bebas leading-none text-white/10 pointer-events-none select-none text-[160px] md:text-[240px] lg:text-[320px]"
+            style={{ lineHeight: 0.85 }}
             aria-hidden
           >
             00
@@ -403,8 +403,8 @@ const Landing = () => {
               I am a
             </div>
             <h1
-              className="font-playfair font-black text-white leading-tight tracking-tight"
-              style={{ fontSize: "clamp(36px,6vw,68px)", minHeight: "1.3em" }}
+              className="font-playfair font-black text-white leading-tight tracking-tight text-4xl md:text-5xl lg:text-[68px]"
+              style={{ minHeight: "1.3em" }}
             >
               {typed}
               <span
@@ -428,8 +428,7 @@ const Landing = () => {
             className="relative z-10"
           >
             <p
-              className="font-playfair italic text-white/90 mb-1"
-              style={{ fontSize: "clamp(17px,3vw,32px)" }}
+              className="font-playfair italic text-white/90 mb-1 text-lg md:text-2xl lg:text-[32px]"
             >
               Angelica Suti Whiharto
             </p>
@@ -474,8 +473,7 @@ const Landing = () => {
               Scroll to explore
             </span>
             <span
-              className="font-bebas leading-none text-zinc-200 select-none"
-              style={{ fontSize: "clamp(40px,6vw,72px)" }}
+              className="font-bebas leading-none text-zinc-200 select-none text-[40px] md:text-[56px] lg:text-[72px]"
               aria-hidden
             >
               00

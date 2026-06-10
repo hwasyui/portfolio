@@ -93,8 +93,7 @@ const Contact = () => {
 
         {/* ghost number */}
         <div
-          className="absolute bottom-0 right-0 font-bebas leading-none text-white/10 pointer-events-none select-none"
-          style={{ fontSize: "clamp(100px, 18vw, 220px)" }}
+          className="absolute bottom-0 right-0 font-bebas leading-none text-white/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]"
           aria-hidden
         >
           07
@@ -104,8 +103,7 @@ const Contact = () => {
         <div className="relative z-10">
           <div className="font-bebas text-[9px] tracking-[5px] text-pink-candy mb-4">Chapter VII</div>
           <h2
-            className="font-playfair font-black text-white leading-[0.88] tracking-tight"
-            style={{ fontSize: "clamp(44px, 8vw, 88px)" }}
+            className="font-playfair font-black text-white leading-[0.88] tracking-tight text-[44px] md:text-[66px] lg:text-[88px]"
           >
             Let's<br />
             <span style={{ WebkitTextStroke: "2px white", color: "transparent" }}>Make</span><br />

@@ -1,6 +1,6 @@
 {
   "Programming Languages": [
-    "Python", "JavaScript", "Java", "PHP", "Dart"
+    "Python", "JavaScript", "Java", "PHP"
   ],
   "Artificial Intelligence": {
     "Machine Learning": [
@@ -46,9 +46,18 @@
       "Prometheus", "Grafana", "Kibana"
     ]
   },
-  "Deployment and Others": [
-    "Docker", "Vercel", "Railway", "Netlify", "AWS", "Jenkins",
-    "Git", "Postman", "JMeter", "Kibana", "Selenium",
-    "Jupyter Notebook", "Google Colab", "Blender", "Arduino"
-  ]
+  "Tools & Workflow": {
+    "Containerization & Cloud": [
+      "Docker", "AWS", "Jenkins", "Vercel", "Railway", "Netlify"
+    ],
+    "Testing & QA": [
+      "Postman", "JMeter", "Selenium"
+    ],
+    "Dev Utilities": [
+      "Git", "Jupyter Notebook", "Google Colab", "Kibana"
+    ],
+    "Other": [
+      "Blender", "Arduino"
+    ]
+  }
 }

@@ -9,7 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 const chapters = [
   { id: "landing",     num: "00", label: "Home"       },
   { id: "about",       num: "01", label: "About"      },
-  { id: "skills",      num: "02", label: "Skills"     },
+  { id: "skills",      num: "02", label: "Skills"            },
   { id: "educations",  num: "03", label: "Education"  },
   { id: "experiences", num: "04", label: "Experience" },
   { id: "projects",    num: "05", label: "Projects"   },
