@@ -21,7 +21,7 @@
       [
         "Authentication via email OTP, Google OAuth (web and mobile), or standard login",
         "Job posts with a scope calculator that factors in live exchange rates and GNI benchmarks",
-        "Proposal system and contract generation with PDF output and payment schedule rendering",
+        "Proposal system and contract generation with PDF output, payment schedules, and configurable legal clauses including confidentiality, late payment penalty, dispute resolution method, and governing law",
         "Full submission, revision, and approval workflow with system events posted to DM threads",
         "Real-time DMs scoped to contracts, with file attachments and FCM push notifications",
         "Dashboards for freelancers and clients with earnings tracking and lifecycle status views",
@@ -34,8 +34,9 @@
         "Harmful text detection: a fine-tuned RoBERTa model (AUC-ROC 0.9923) that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
         "CV analysis: a 5-stage pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
         "CV upload with smart extraction: supports PDF, DOCX, and image files using pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; subsequent uploads run the full CV analysis pipeline.",
-        "AI review analysis: a two-phase GROQ LLM pipeline that checks sentiment, authenticity, and fake or coerced review detection, then publishes or suppresses the review and recalculates the freelancer trust score (0-100)."
-      ]
+        "AI review analysis: a two-phase GROQ LLM pipeline that checks sentiment, authenticity, and fake or coerced review detection, then publishes or suppresses the review and recalculates the freelancer trust score (0-100). The trust score is stored and used as a live filter on the client-side candidate search, so the AI output directly affects how discoverable a freelancer is."
+      ],
+      "Several of the AI features above are powered by a shared local embedding engine (nomic-embed-text-v1.5, 768-dim, 8192-token context) running entirely inside the Docker container with no external API. Embeddings are stored across 4 PostgreSQL tables with HNSW indexes. A dirty-flag system marks records that need re-embedding, and a background sweep worker processes them every 5 minutes, so embeddings stay in sync automatically after any profile or job update."
     ],
     "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "RoBERTa", "GROQ", "Docker", "Supabase", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
     "gitrepos": [

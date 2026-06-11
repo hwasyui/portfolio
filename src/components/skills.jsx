@@ -75,9 +75,6 @@ const Skills = () => {
   const current = capabilities.find((c) => c.id === active);
   const toggle = (id) => setActive((prev) => (prev === id ? null : id));
 
-  // flatten all tool groups into one list
-  const allTools = Object.values(skills["Tools & Workflow"]).flat();
-
   return (
     <div className="bg-pink-pale px-8 md:px-16 lg:px-24 py-16 md:py-20 min-h-[calc(100vh-2.75rem)]">
 
@@ -151,7 +148,7 @@ const Skills = () => {
       <div className="border-t border-pink-blush mb-10" />
 
       {/* base languages */}
-      <div className="mb-8">
+      <div className="mb-10">
         <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-4">Languages</p>
         <div className="flex flex-wrap gap-1.5">
           {skills["Programming Languages"].map((lang, i) => (
@@ -160,12 +157,19 @@ const Skills = () => {
         </div>
       </div>
 
-      {/* tools row */}
+      {/* tools grouped by category */}
       <div>
-        <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-4">Also uses</p>
-        <div className="flex flex-wrap gap-1.5">
-          {allTools.map((tool, i) => (
-            <ToolPill key={tool} label={tool} index={i} />
+        <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-6">Tools & Workflow</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {Object.entries(skills["Tools & Workflow"]).map(([group, items]) => (
+            <div key={group}>
+              <p className="font-bebas text-[9px] tracking-[3px] text-pink-hot/70 mb-2">{group}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {items.map((tool, i) => (
+                  <ToolPill key={tool} label={tool} index={i} />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

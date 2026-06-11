@@ -55,7 +55,7 @@ const Projects = () => {
             <select
               value={selectedCategory}
               onChange={(e) => handleCategoryChange(e.target.value)}
-              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded-full cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
+              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>{cat}</option>
@@ -68,7 +68,7 @@ const Projects = () => {
             <select
               value={selectedType}
               onChange={(e) => handleTypeChange(e.target.value)}
-              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded-full cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
+              className="appearance-none font-bebas text-xs tracking-[2px] bg-white border border-zinc-200 text-zinc-600 pl-4 pr-8 py-2 rounded cursor-pointer focus:outline-none focus:border-pink-hot transition-colors"
             >
               {TYPE_FILTERS.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>
