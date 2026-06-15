@@ -65,7 +65,6 @@ const RAGChat = () => {
 
   return (
     <div>
-      {/* editorial stamp button */}
       <button
         onClick={() => setOpen(prev => !prev)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full
@@ -89,7 +88,6 @@ const RAGChat = () => {
                      flex flex-col"
           style={{ height: "480px" }}
         >
-          {/* header, pink editorial strip */}
           <div className="bg-pink-deep px-5 py-3 flex items-center gap-3 flex-shrink-0">
             <object
               data="/angel-logo.svg"
@@ -108,7 +106,6 @@ const RAGChat = () => {
             </button>
           </div>
 
-          {/* messages */}
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-pink-pale/40 min-h-0">
             {messages.length === 0 && (
               <div className="bg-white border border-pink-hot/20 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-zinc-600 leading-relaxed max-w-[88%]">
@@ -142,7 +139,6 @@ const RAGChat = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* input */}
           <div className="px-3 py-2.5 border-t border-pink-hot/15 bg-white flex-shrink-0">
             <div className="relative flex items-center bg-pink-pale rounded-full overflow-hidden min-w-0">
               <Input

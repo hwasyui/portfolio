@@ -9,9 +9,6 @@ import { FaGithub } from "react-icons/fa6";
 
 const CONTRIBUTIONS_PREVIEW = 4;
 
-// detail can be a plain string OR an array where:
-//   string item  → paragraph
-//   string[]     → bullet list
 const renderDetail = (detail) => {
   if (!detail) return null;
   if (typeof detail === "string") {
@@ -77,7 +74,6 @@ const ProjectModal = ({ project, open, onClose }) => {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
 
-        {/* image */}
         <div className="relative">
           {project.image ? (
             <img src={project.image} alt={project.title} className="w-full h-52 object-cover rounded-t-2xl" />
@@ -95,7 +91,6 @@ const ProjectModal = ({ project, open, onClose }) => {
 
         <div className="px-6 pb-6 pt-4">
 
-          {/* category + title */}
           <div className="mb-4">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
               <div className="flex flex-wrap items-center gap-1">
@@ -110,7 +105,6 @@ const ProjectModal = ({ project, open, onClose }) => {
             <DialogTitle className="mt-1">{project.title}</DialogTitle>
           </div>
 
-          {/* tabs */}
           <div className="flex gap-0 border-b border-zinc-100 mb-5">
             {tabs.map(({ id, label }) => (
               <button
@@ -127,10 +121,8 @@ const ProjectModal = ({ project, open, onClose }) => {
             ))}
           </div>
 
-          {/* two-column body */}
           <div className="flex flex-col md:flex-row gap-6">
 
-            {/* main content */}
             <div className="flex-1 min-w-0">
 
               {tab === TAB_SUMMARY && (
@@ -171,7 +163,6 @@ const ProjectModal = ({ project, open, onClose }) => {
               )}
             </div>
 
-            {/* sidebar: tech stack + links */}
             <div className="md:w-48 flex-shrink-0 space-y-5">
               <div>
                 <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-2">Tech Stack</div>

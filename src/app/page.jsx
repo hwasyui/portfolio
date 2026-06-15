@@ -30,14 +30,14 @@ export default function Home() {
       <SectionStrip chapter="II" label="Skills" colors="blush" />
       <AnimatedSection id="skills"><Skills /></AnimatedSection>
 
-      <SectionStrip chapter="III" label="Education" colors="default" />
-      <AnimatedSection id="educations"><Educations /></AnimatedSection>
-
-      <SectionStrip chapter="IV" label="Experience" colors="deep" />
+      <SectionStrip chapter="III" label="Experience" colors="deep" />
       <AnimatedSection id="experiences"><Experiences /></AnimatedSection>
 
-      <SectionStrip chapter="V" label="Projects" colors="default" />
+      <SectionStrip chapter="IV" label="Projects" colors="default" />
       <AnimatedSection id="projects"><Projects /></AnimatedSection>
+
+      <SectionStrip chapter="V" label="Education" colors="blush" />
+      <AnimatedSection id="educations"><Educations /></AnimatedSection>
 
       <SectionStrip chapter="VI" label="Others" colors="dark" />
       <AnimatedSection id="others"><Others /></AnimatedSection>

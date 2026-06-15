@@ -76,23 +76,25 @@ const Skills = () => {
   const toggle = (id) => setActive((prev) => (prev === id ? null : id));
 
   return (
-    <div className="bg-pink-pale px-8 md:px-16 lg:px-24 py-16 md:py-20 min-h-[calc(100vh-2.75rem)]">
+    <div className="bg-pink-pale px-8 md:px-16 lg:px-24 py-16 md:py-20">
 
-      {/* header */}
-      <div className="mb-12">
+      <motion.div
+        className="mb-12"
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ type: "spring", stiffness: 420, damping: 30 }}
+      >
         <div className="font-bebas text-xs tracking-[5px] text-pink-hot mb-2">Chapter II</div>
         <h2 className="font-playfair font-black text-zinc-900 leading-tight text-4xl md:text-6xl">
           Skills
         </h2>
-        <p className="font-bebas text-sm tracking-[3px] text-zinc-500 mt-1">
-          Services
-        </p>
+        <p className="font-bebas text-sm tracking-[3px] text-zinc-500 mt-1">Services</p>
         <p className="font-bebas text-xs tracking-[3px] text-zinc-400 mt-1">
           Click a service to explore tools &amp; frameworks
         </p>
-      </div>
+      </motion.div>
 
-      {/* 3-column service cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
         {capabilities.map((cap) => {
           const isActive = active === cap.id;
@@ -126,7 +128,6 @@ const Skills = () => {
         })}
       </div>
 
-      {/* detail panel */}
       <AnimatePresence initial={false}>
         {current && (
           <motion.div
@@ -144,10 +145,8 @@ const Skills = () => {
         )}
       </AnimatePresence>
 
-      {/* divider */}
       <div className="border-t border-pink-blush mb-10" />
 
-      {/* base languages */}
       <div className="mb-10">
         <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-4">Languages</p>
         <div className="flex flex-wrap gap-1.5">
@@ -157,7 +156,6 @@ const Skills = () => {
         </div>
       </div>
 
-      {/* tools grouped by category */}
       <div>
         <p className="font-bebas text-xs tracking-[5px] text-zinc-400 mb-6">Tools & Workflow</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

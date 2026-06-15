@@ -30,7 +30,6 @@ const Contact = () => {
   const form = useRef();
   const [status, setStatus] = useState("idle");
 
-  // auto-clears the toast after 2 seconds
   useEffect(() => {
     if (status === "success" || status === "error") {
       const t = setTimeout(() => setStatus("idle"), 2000);
@@ -38,7 +37,6 @@ const Contact = () => {
     }
   }, [status]);
 
-  // submits via emailjs, shows success or error toast
   const sendEmail = (e) => {
     e.preventDefault();
     setStatus("loading");
@@ -48,9 +46,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-2.75rem)] grid grid-cols-1 md:grid-cols-2">
+    <div className="grid grid-cols-1 md:grid-cols-2">
 
-      {/* toast alerts */}
       <div className="fixed top-5 right-5 z-50 w-72">
         <AnimatePresence>
           {status === "success" && (
@@ -88,10 +85,8 @@ const Contact = () => {
         </AnimatePresence>
       </div>
 
-      {/* left side, deep pink info panel */}
       <div className="bg-pink-deep relative overflow-hidden flex flex-col justify-between p-10 md:p-16">
 
-        {/* ghost number */}
         <div
           className="absolute bottom-0 right-0 font-bebas leading-none text-white/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]"
           aria-hidden
@@ -99,7 +94,6 @@ const Contact = () => {
           07
         </div>
 
-        {/* chapter label */}
         <div className="relative z-10">
           <div className="font-bebas text-[9px] tracking-[5px] text-pink-candy mb-4">Chapter VII</div>
           <h2
@@ -111,7 +105,6 @@ const Contact = () => {
           </h2>
         </div>
 
-        {/* contact links */}
         <div className="relative z-10 space-y-3 mt-8">
           {contactLinks.map(({ icon: Icon, label, value, href }) => (
             <a
@@ -132,7 +125,6 @@ const Contact = () => {
           ))}
         </div>
 
-        {/* bottom */}
         <div className="relative z-10 mt-6">
           <div className="flex items-center gap-3">
             <span className="font-bebas text-[9px] tracking-[3px] text-white/30">Angelica Suti Whiharto</span>
@@ -142,7 +134,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* right side, form panel */}
       <div className="bg-pink-pale p-10 md:p-16 flex flex-col justify-center">
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-2">Drop a message</div>
         <h3 className="font-playfair font-bold text-2xl md:text-3xl text-zinc-900 mb-8">

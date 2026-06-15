@@ -1,6 +1,22 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const sp = (delay = 0) => ({ type: "spring", stiffness: 420, damping: 32, delay });
+
+function Reveal({ children, delay = 0, y = 36, x = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y, x }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={sp(delay)}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function TiltPolaroid() {
   const cardRef = useRef(null);
@@ -50,7 +66,6 @@ function TiltPolaroid() {
           alt="Angelica"
           style={{ display: "block", width: "220px", height: "285px", objectFit: "cover" }}
         />
-        {/* pink tape accent top-left */}
         <div
           style={{
             position: "absolute",
@@ -87,61 +102,32 @@ function TiltPolaroid() {
   );
 }
 
-function SlideIn({ children, delay = 0 }) {
-  const ref = useRef(null);
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setShow(true); },
-      { threshold: 0.12 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity: show ? 1 : 0,
-        transform: show ? "translateY(0)" : "translateY(16px)",
-        transition: `opacity 0.55s ease ${delay}ms, transform 0.55s ease ${delay}ms`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
 const AboutPage = () => {
   return (
-    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
+    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16">
       <div className="absolute bottom-0 right-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>01</div>
       <div className="max-w-5xl mx-auto">
-        <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">
-          Chapter I
-        </div>
-        <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-12 leading-tight">
-          About Me
-        </h2>
+        <Reveal y={24}>
+          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter I</div>
+          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-12 leading-tight">
+            About Me
+          </h2>
+        </Reveal>
 
         <div className="flex flex-col md:flex-row gap-14 items-start">
-          {/* polaroid tilt photo */}
-          <div className="w-full md:w-2/5 flex-shrink-0">
+          <Reveal x={-40} y={0} delay={0.05} className="w-full md:w-2/5 flex-shrink-0">
             <TiltPolaroid />
-          </div>
+          </Reveal>
 
-          {/* text block with staggered slide-in */}
           <div className="w-full md:w-3/5 space-y-5">
-            <SlideIn delay={0}>
+            <Reveal delay={0.08}>
               <p className="font-playfair italic text-pink-hot text-lg md:text-xl leading-relaxed border-l-4 border-pink-hot pl-5">
                 "A builder who learns fast, a thinker who ships things, somewhere
                 between backend systems and AI."
               </p>
-            </SlideIn>
+            </Reveal>
 
-            <SlideIn delay={80}>
+            <Reveal delay={0.14}>
               <p className="text-sm text-zinc-600 leading-[1.9]">
                 I am an{" "}
                 <strong className="text-zinc-900">
@@ -154,27 +140,27 @@ const AboutPage = () => {
                 </strong>
                 .
               </p>
-            </SlideIn>
+            </Reveal>
 
-            <SlideIn delay={160}>
+            <Reveal delay={0.20}>
               <p className="text-sm text-zinc-600 leading-[1.9]">
                 I have worked on RAG-based chatbots, computer vision systems, and NLP
                 pipelines, built as part of coursework, internships, and personal
                 projects. Currently interning as a Data Engineer at FIFGROUP and
                 previously as a Backend Engineer at BCA.
               </p>
-            </SlideIn>
+            </Reveal>
 
-            <SlideIn delay={240}>
+            <Reveal delay={0.26}>
               <p className="text-sm text-zinc-600 leading-[1.9]">
                 I have hands-on experience with FastAPI, Kafka, Docker, MongoDB,
                 PostgreSQL, and modern LLM frameworks. My current goal is to
                 strengthen fundamentals while shipping things that work in real-world
                 environments.
               </p>
-            </SlideIn>
+            </Reveal>
 
-            <SlideIn delay={320}>
+            <Reveal delay={0.32}>
               <div className="flex flex-wrap gap-2 pt-2">
                 {[
                   ["Informatics", "President University"],
@@ -186,14 +172,12 @@ const AboutPage = () => {
                     key={label}
                     className="border border-pink-hot/30 bg-pink-blush rounded px-3 py-1.5"
                   >
-                    <div className="font-bebas text-[8px] tracking-[3px] text-pink-hot">
-                      {label}
-                    </div>
+                    <div className="font-bebas text-[8px] tracking-[3px] text-pink-hot">{label}</div>
                     <div className="text-xs font-bold text-zinc-800">{val}</div>
                   </div>
                 ))}
               </div>
-            </SlideIn>
+            </Reveal>
           </div>
         </div>
       </div>

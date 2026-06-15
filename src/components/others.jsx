@@ -12,18 +12,25 @@ const Others = () => {
   const visibleCerts = showAll ? data.certificates : data.certificates.slice(0, 3);
 
   return (
-    <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
+    <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16">
       <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>06</div>
       <div className="max-w-5xl mx-auto">
 
-        <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter VI</div>
-        <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-12 leading-tight">
-          Others
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 420, damping: 30 }}
+          className="mb-12"
+        >
+          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter VI</div>
+          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 leading-tight">
+            Others
+          </h2>
+        </motion.div>
 
         <div className="space-y-10">
 
-          {/* languages */}
           <div>
             <h3 className="font-playfair font-bold text-lg text-zinc-900 mb-4 flex items-center gap-3">
               <span className="w-5 h-0.5 bg-pink-hot" />
@@ -33,10 +40,10 @@ const Others = () => {
               {data.languages.map((lang, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 28, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.35, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ type: "spring", stiffness: 420, damping: 28, delay: i * 0.06 }}
                   className="border border-pink-hot/30 bg-pink-pale rounded-lg px-4 py-2"
                 >
                   <div className="font-bebas text-[9px] tracking-[3px] text-pink-hot">{lang.level}</div>
@@ -46,7 +53,6 @@ const Others = () => {
             </div>
           </div>
 
-          {/* certificates */}
           <div>
             <h3 className="font-playfair font-bold text-lg text-zinc-900 mb-4 flex items-center gap-3">
               <span className="w-5 h-0.5 bg-pink-hot" />
@@ -61,7 +67,6 @@ const Others = () => {
                              px-5 py-3.5 rounded-xl transition-all duration-200"
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    {/* photo / pdf thumbnail */}
                     {cert.file ? (
                       <button
                         onClick={() => setLightbox(cert.file)}
@@ -105,7 +110,6 @@ const Others = () => {
               ))}
             </div>
 
-            {/* in-place expand/collapse */}
             {data.certificates.length > 3 && (
               <button
                 onClick={() => setShowAll(prev => !prev)}
@@ -124,7 +128,6 @@ const Others = () => {
         </div>
       </div>
 
-      {/* lightbox */}
       {lightbox && (
         <div
           className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"

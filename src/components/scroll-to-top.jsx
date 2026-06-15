@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-// scrolls to the top whenever the route changes
 const ScrollToTop = () => {
   const pathname = usePathname();
 

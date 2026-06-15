@@ -23,7 +23,6 @@ function DialogOverlay({ className, ...props }) {
   );
 }
 
-// centered modal, wraps any content with an overlay and close button
 function DialogContent({ className, children, ...props }) {
   return (
     <DialogPrimitive.Portal>

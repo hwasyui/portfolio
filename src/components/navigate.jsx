@@ -10,9 +10,9 @@ const chapters = [
   { id: "landing",     num: "00", label: "Home"       },
   { id: "about",       num: "01", label: "About"      },
   { id: "skills",      num: "02", label: "Skills"            },
-  { id: "educations",  num: "03", label: "Education"  },
-  { id: "experiences", num: "04", label: "Experience" },
-  { id: "projects",    num: "05", label: "Projects"   },
+  { id: "experiences", num: "03", label: "Experience" },
+  { id: "projects",    num: "04", label: "Projects"   },
+  { id: "educations",  num: "05", label: "Education"  },
   { id: "others",      num: "06", label: "Others"     },
   { id: "contacts",    num: "07", label: "Contact"    },
 ];
@@ -29,7 +29,6 @@ const Navigate = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // show the INDEX tab only after the landing section scrolls out of view
   useEffect(() => {
     const landing = document.getElementById("landing");
     if (!landing) return;
@@ -41,7 +40,6 @@ const Navigate = () => {
     return () => observer.disconnect();
   }, []);
 
-  // scrolls to the section by id, navigates home first if on another page
   const handleNavClick = (id) => {
     setOpen(false);
     setTimeout(() => {
@@ -54,7 +52,6 @@ const Navigate = () => {
     }, 180);
   };
 
-  // creates a temporary anchor to trigger the pdf download
   const downloadResume = () => {
     const link = document.createElement("a");
     link.href = "/Angelica Suti Whiharto CV 2026Q1.pdf";
@@ -64,7 +61,6 @@ const Navigate = () => {
 
   return (
     <>
-      {/* vertical tab on the left edge, only shows after scrolling past the landing */}
       <button
         onClick={() => setOpen(true)}
         title="Navigation Index"
@@ -83,18 +79,15 @@ const Navigate = () => {
         </span>
       </button>
 
-      {/* toc sheet */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-72 p-0 bg-white border-r border-pink-hot/20 flex flex-col">
 
-          {/* header strip */}
           <div className="bg-pink-hot px-6 py-5">
             <div className="font-bebas text-[9px] tracking-[5px] text-white/60 mb-1">PORTFOLIO</div>
             <div className="font-playfair italic text-white text-lg leading-tight">Angelica Suti Whiharto</div>
             <div className="font-bebas text-[9px] tracking-[3px] text-white/50 mt-1">Table of Contents</div>
           </div>
 
-          {/* chapters */}
           <div className="flex-1 px-6 py-5 overflow-y-auto scrollbar-none">
             <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-3">Chapters</div>
             <nav className="space-y-1">
@@ -113,7 +106,6 @@ const Navigate = () => {
 
             <div className="my-5 h-px bg-pink-hot/15" />
 
-            {/* resume download */}
             <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-3">Actions</div>
             <button
               onClick={downloadResume}
@@ -125,7 +117,6 @@ const Navigate = () => {
 
             <div className="my-5 h-px bg-pink-hot/15" />
 
-            {/* social links */}
             <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-3">Links</div>
             <div className="flex gap-2">
               {socials.map(({ href, icon: Icon, label }) => (
@@ -145,7 +136,6 @@ const Navigate = () => {
             </div>
           </div>
 
-          {/* footer */}
           <div className="px-6 py-4 border-t border-pink-hot/10">
             <div className="flex items-center justify-between">
               <span className="font-bebas text-[8px] tracking-[3px] text-zinc-300">Angelica</span>

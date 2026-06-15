@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Users, User } from "lucide-react";
 import data from "../data/projects.json";
 import ProjectCard from "./project-card.jsx";
 import ProjectModal from "./project-modal.jsx";
+
+const sp = { type: "spring", stiffness: 420, damping: 30 };
 
 const CATEGORIES = ["All", "Artificial Intelligence", "Web Development", "Mobile", "Other"];
 const TYPE_FILTERS = [
@@ -40,16 +43,22 @@ const Projects = () => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16 min-h-[calc(100vh-2.75rem)]">
-      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>05</div>
+    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16">
+      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>04</div>
       <div className="max-w-6xl mx-auto">
 
-        <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter V</div>
-        <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-8 leading-tight">
-          Projects
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={sp}
+        >
+          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter IV</div>
+          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-8 leading-tight">
+            Projects
+          </h2>
+        </motion.div>
 
-        {/* filters - two dropdowns */}
         <div className="flex flex-wrap items-center gap-3 mb-10">
           <div className="relative">
             <select
@@ -82,7 +91,6 @@ const Projects = () => {
           </span>
         </div>
 
-        {/* project grid */}
         {visible.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {visible.map((project, i) => (
@@ -100,7 +108,6 @@ const Projects = () => {
           </div>
         )}
 
-        {/* show more / show less */}
         {hasMore && (
           <div className="flex justify-center mt-10">
             <button
@@ -119,7 +126,6 @@ const Projects = () => {
         )}
       </div>
 
-      {/* project detail modal */}
       <ProjectModal
         project={selectedProject}
         open={selectedProject !== null}
