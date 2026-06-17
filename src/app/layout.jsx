@@ -3,9 +3,9 @@ import { Playfair_Display, Bebas_Neue } from "next/font/google";
 
 const siteUrl = "https://angelica-whiharto.com";
 const ownerName = "Angelica Suti Whiharto";
-const siteTitle = `${ownerName} | AI Engineer, Data Engineer, Backend Developer Portfolio`;
+const siteTitle = "Angelica Suti Whiharto Portfolio";
 const siteDescription =
-  "Official portfolio of Angelica Suti Whiharto, an Informatics student at President University focused on AI engineering, data engineering, backend systems, full-stack projects, and real-world software delivery.";
+  "I am Angelica Suti Whiharto, an AI Engineer, Data Engineer, and Full-Stack Developer from Bekasi, Indonesia. I build backend systems, data pipelines, and AI-powered applications. Currently studying Informatics at President University with a 3.96 GPA.";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
