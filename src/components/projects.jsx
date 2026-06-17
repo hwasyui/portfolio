@@ -43,8 +43,8 @@ const Projects = () => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16">
-      <div className="absolute bottom-0 left-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>04</div>
+    <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16">
+      <div className="absolute bottom-0 left-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>04</div>
       <div className="max-w-6xl mx-auto">
 
         <motion.div
@@ -53,10 +53,15 @@ const Projects = () => {
           viewport={{ once: true, amount: 0.2 }}
           transition={sp}
         >
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter IV</div>
-          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-8 leading-tight">
-            Projects
-          </h2>
+          <div className="relative inline-block mb-8">
+            <span className="absolute -top-5 right-0 text-pink-candy/60 font-bebas text-3xl animate-float pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute top-2 -right-6 text-pink-hot/35 font-bebas text-base animate-float-delay pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute -top-1 right-12 text-pink-candy/30 font-bebas text-sm animate-float-slow pointer-events-none select-none" aria-hidden>✦</span>
+            <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter IV</div>
+            <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 leading-tight">
+              Projects
+            </h2>
+          </div>
         </motion.div>
 
         <div className="flex flex-wrap items-center gap-3 mb-10">
@@ -97,6 +102,7 @@ const Projects = () => {
               <div key={`${selectedCategory}-${selectedType}-${i}`}>
                 <ProjectCard
                   project={project}
+                  index={i}
                   onClick={() => setSelectedProject(project)}
                 />
               </div>

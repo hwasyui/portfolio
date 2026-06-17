@@ -53,8 +53,7 @@ function TiltPolaroid() {
         style={{
           background: "white",
           padding: "12px 12px 52px",
-          boxShadow:
-            "0 24px 64px rgba(224,64,160,0.18), 0 4px 16px rgba(0,0,0,0.07)",
+          boxShadow: "0 24px 64px rgba(224,64,160,0.18), 0 4px 16px rgba(0,0,0,0.07)",
           transform: "perspective(700px) rotateZ(-4deg)",
           willChange: "transform",
           position: "relative",
@@ -102,16 +101,34 @@ function TiltPolaroid() {
   );
 }
 
+const STATS = [
+  ["Informatics", "President University"],
+  ["GPA", "3.96 / 4.00"],
+  ["Duolingo", "130"],
+  ["Open to", "Project-Based Works"],
+];
+
 const AboutPage = () => {
   return (
     <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16">
-      <div className="absolute bottom-0 right-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>01</div>
+      <div
+        className="absolute bottom-0 right-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]"
+        aria-hidden
+      >
+        01
+      </div>
+
       <div className="max-w-5xl mx-auto">
         <Reveal y={24}>
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter I</div>
-          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-12 leading-tight">
-            About Me
-          </h2>
+          <div className="relative inline-block mb-12">
+            <span className="absolute -top-5 right-0 text-pink-candy/70 font-bebas text-3xl animate-float pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute top-2 -right-7 text-pink-hot/40 font-bebas text-base animate-float-delay pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute -top-1 right-10 text-pink-candy/40 font-bebas text-sm animate-float-slow pointer-events-none select-none" aria-hidden>✦</span>
+            <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter I</div>
+            <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 leading-tight">
+              About Me
+            </h2>
+          </div>
         </Reveal>
 
         <div className="flex flex-col md:flex-row gap-14 items-start">
@@ -121,10 +138,13 @@ const AboutPage = () => {
 
           <div className="w-full md:w-3/5 space-y-5">
             <Reveal delay={0.08}>
-              <p className="font-playfair italic text-pink-hot text-lg md:text-xl leading-relaxed border-l-4 border-pink-hot pl-5">
-                "A builder who learns fast, a thinker who ships things, somewhere
-                between backend systems and AI."
-              </p>
+              <div className="relative bg-white border-l-4 border-pink-hot pl-5 pr-4 py-3 rounded-r-xl shadow-sm">
+                <span className="absolute -top-2 -right-2 text-pink-candy/60 font-bebas text-lg animate-float-fast pointer-events-none select-none" aria-hidden>✦</span>
+                <p className="font-playfair italic text-pink-hot text-lg md:text-xl leading-relaxed">
+                  "A builder who learns fast, a thinker who ships things, somewhere
+                  between backend systems and AI."
+                </p>
+              </div>
             </Reveal>
 
             <Reveal delay={0.14}>
@@ -162,19 +182,17 @@ const AboutPage = () => {
 
             <Reveal delay={0.32}>
               <div className="flex flex-wrap gap-2 pt-2">
-                {[
-                  ["Informatics", "President University"],
-                  ["GPA", "3.95 / 4.00"],
-                  ["Duolingo", "130"],
-                  ["Open to", "Projects-Based Works"],
-                ].map(([label, val]) => (
-                  <div
+                {STATS.map(([label, val], i) => (
+                  <motion.div
                     key={label}
-                    className="border border-pink-hot/30 bg-pink-blush rounded px-3 py-1.5"
+                    whileHover={{ scale: 1.07, rotate: 1, y: -2 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 20 }}
+                    className="border border-pink-hot/30 bg-white rounded-2xl px-5 py-3 cursor-default shadow-sm"
                   >
-                    <div className="font-bebas text-[8px] tracking-[3px] text-pink-hot">{label}</div>
-                    <div className="text-xs font-bold text-zinc-800">{val}</div>
-                  </div>
+                    <div className="font-bebas text-[10px] tracking-[3px] text-pink-hot mb-0.5">{label}</div>
+                    <div className="text-sm font-bold text-zinc-800">{val}</div>
+                  </motion.div>
                 ))}
               </div>
             </Reveal>

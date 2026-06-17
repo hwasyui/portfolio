@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Users, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 
 const TYPE_COLOR = {
-  Internship:      "bg-pink-hot text-white",
-  "Part-time":     "bg-pink-blush text-pink-hot border border-pink-candy/40",
+  Internship:       "bg-pink-hot text-white",
+  "Part-time":      "bg-pink-blush text-pink-hot border border-pink-candy/40",
   "Self-employment":"bg-zinc-100 text-zinc-600",
-  Seasonal:        "bg-amber-50 text-amber-700 border border-amber-200",
-  default:         "bg-zinc-100 text-zinc-500",
+  Seasonal:         "bg-amber-50 text-amber-700 border border-amber-200",
+  default:          "bg-zinc-100 text-zinc-500",
 };
 
 const typePill = (type) => {
@@ -23,23 +23,26 @@ const typePill = (type) => {
 };
 
 function WorkCard({ item, index, featured = false }) {
-  const [expanded, setExpanded] = useState(featured);
+  const [expanded, setExpanded] = useState(false);
   const preview = item.responsibilities.slice(0, 2);
   const rest    = item.responsibilities.slice(2);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 36, scale: 0.97 }}
+      initial={{ opacity: 0, y: 36, scale: 0.96 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.08 }}
       transition={{ type: "spring", stiffness: 380, damping: 28, delay: index * 0.07 }}
-      className={`bg-white rounded-2xl overflow-hidden border transition-all duration-200
+      whileHover={{ y: -5, scale: 1.015 }}
+      whileTap={{ scale: 0.99 }}
+      style={{ originY: 0 }}
+      className={`bg-white rounded-2xl overflow-hidden border cursor-default
                   ${featured
-                    ? "border-pink-candy/60 shadow-md hover:shadow-xl hover:shadow-pink-hot/10"
-                    : "border-zinc-100 hover:border-pink-hot/30 hover:shadow-md hover:shadow-pink-hot/5"
+                    ? "border-pink-candy/60 shadow-md hover:shadow-xl hover:shadow-pink-hot/15"
+                    : "border-pink-candy/30 hover:border-pink-hot/40 hover:shadow-lg hover:shadow-pink-hot/10"
                   }`}
     >
-      <div className={`h-1 w-full ${featured ? "bg-pink-hot" : "bg-pink-candy/50"}`} />
+      <div className={`h-1.5 w-full ${featured ? "bg-gradient-to-r from-pink-hot to-pink-barbie" : "bg-pink-candy/60"}`} />
 
       <div className="p-5">
         <div className="flex items-start justify-between gap-3 mb-3">
@@ -47,7 +50,7 @@ function WorkCard({ item, index, featured = false }) {
             <div className="font-bebas text-[9px] tracking-[3px] text-zinc-400 mb-0.5">
               {item.company}
             </div>
-            <h3 className={`font-playfair font-black leading-tight text-zinc-900
+            <h3 className={`font-playfair font-bold leading-tight text-zinc-900
                             ${featured ? "text-xl md:text-2xl" : "text-base md:text-lg"}`}>
               {item.title}
             </h3>
@@ -79,7 +82,7 @@ function WorkCard({ item, index, featured = false }) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ type: "spring", stiffness: 320, damping: 30 }}
                   className="space-y-1.5 mb-2 overflow-hidden"
                 >
                   {rest.map((pt, j) => (
@@ -92,13 +95,19 @@ function WorkCard({ item, index, featured = false }) {
               )}
             </AnimatePresence>
 
-            <button
+            <motion.button
               onClick={() => setExpanded((v) => !v)}
+              whileHover={{ x: 2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
               className="flex items-center gap-1 text-[10px] font-bebas tracking-[2px]
-                         text-pink-hot hover:text-pink-deep transition-colors mt-1"
+                         text-pink-hot hover:text-pink-deep mt-1"
             >
-              {expanded ? <><ChevronUp size={12} /> SHOW LESS</> : <><ChevronDown size={12} /> +{rest.length} MORE</>}
-            </button>
+              {expanded
+                ? <><ChevronUp size={12} /> SHOW LESS</>
+                : <><ChevronDown size={12} /> +{rest.length} MORE</>
+              }
+            </motion.button>
           </>
         )}
       </div>
@@ -109,20 +118,21 @@ function WorkCard({ item, index, featured = false }) {
 function OrgCard({ item, index }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32, scale: 0.97 }}
+      initial={{ opacity: 0, y: 32, scale: 0.96 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ type: "spring", stiffness: 380, damping: 28, delay: index * 0.07 }}
-      className="bg-pink-pale border border-pink-candy/30 rounded-2xl p-5
-                 hover:border-pink-hot/40 hover:shadow-md hover:shadow-pink-hot/5
-                 transition-all duration-200"
+      whileHover={{ y: -4, scale: 1.015 }}
+      whileTap={{ scale: 0.99 }}
+      className="bg-white border border-pink-candy/40 rounded-2xl p-5 cursor-default
+                 hover:border-pink-hot/50 hover:shadow-lg hover:shadow-pink-hot/10"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1 min-w-0">
           <div className="font-bebas text-[9px] tracking-[3px] text-pink-hot mb-0.5">
             {item.organization}
           </div>
-          <h3 className="font-playfair font-black text-base md:text-lg text-zinc-900 leading-tight">
+          <h3 className="font-playfair font-bold text-base md:text-lg text-zinc-900 leading-tight">
             {item.title}
           </h3>
         </div>
@@ -154,7 +164,7 @@ function SectionLabel({ icon: Icon, label, index }) {
     >
       <Icon size={13} className="text-pink-hot flex-shrink-0" />
       <span className="font-bebas text-[10px] tracking-[5px] text-zinc-500">{label}</span>
-      <div className="flex-1 h-px bg-pink-candy/30" />
+      <div className="flex-1 h-px bg-pink-candy/40" />
     </motion.div>
   );
 }
@@ -165,8 +175,13 @@ const Experience = () => {
   const otherWork   = workExperiences.filter((e) => e.type !== "Internship");
 
   return (
-    <div className="relative overflow-hidden bg-white px-6 md:px-16 py-16">
-      <div className="absolute bottom-0 right-0 font-bebas leading-none text-zinc-900/5 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]" aria-hidden>03</div>
+    <div className="relative overflow-hidden bg-pink-pale px-6 md:px-16 py-16">
+      <div
+        className="absolute bottom-0 right-0 font-bebas leading-none text-pink-hot/10 pointer-events-none select-none text-[120px] md:text-[180px] lg:text-[220px]"
+        aria-hidden
+      >
+        03
+      </div>
       <div className="max-w-5xl mx-auto">
 
         <motion.div
@@ -176,10 +191,15 @@ const Experience = () => {
           transition={{ type: "spring", stiffness: 420, damping: 30 }}
           className="mb-12"
         >
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter III</div>
-          <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 leading-tight">
-            Experience
-          </h2>
+          <div className="relative inline-block">
+            <span className="absolute -top-5 right-0 text-pink-candy/70 font-bebas text-3xl animate-float pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute top-2 -right-6 text-pink-hot/40 font-bebas text-base animate-float-delay pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute -top-1 right-12 text-pink-candy/35 font-bebas text-sm animate-float-slow pointer-events-none select-none" aria-hidden>✦</span>
+            <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-1">Chapter III</div>
+            <h2 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 leading-tight">
+              Experience
+            </h2>
+          </div>
         </motion.div>
 
         {internships.length > 0 && (

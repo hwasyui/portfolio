@@ -95,7 +95,11 @@ const Contact = () => {
         </div>
 
         <div className="relative z-10">
-          <div className="font-bebas text-[9px] tracking-[5px] text-pink-candy mb-4">Chapter VII</div>
+          <div className="relative inline-block mb-2">
+            <span className="absolute -top-5 right-0 text-pink-candy/50 font-bebas text-3xl animate-float pointer-events-none select-none" aria-hidden>✦</span>
+            <span className="absolute top-2 -right-5 text-white/25 font-bebas text-base animate-float-delay pointer-events-none select-none" aria-hidden>✦</span>
+            <div className="font-bebas text-[9px] tracking-[5px] text-pink-candy mb-4">Chapter VII</div>
+          </div>
           <h2
             className="font-playfair font-black text-white leading-[0.88] tracking-tight text-[44px] md:text-[66px] lg:text-[88px]"
           >
@@ -107,12 +111,15 @@ const Contact = () => {
 
         <div className="relative z-10 space-y-3 mt-8">
           {contactLinks.map(({ icon: Icon, label, value, href }) => (
-            <a
+            <motion.a
               key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-4 py-3 bg-white/10 border border-white/20 rounded hover:bg-white/20 hover:translate-x-1 transition-all duration-200 group no-underline"
+              whileHover={{ x: 5, backgroundColor: "rgba(255,255,255,0.18)" }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 24 }}
+              className="flex items-center gap-3 px-4 py-3 bg-white/10 border border-white/20 rounded group no-underline"
             >
               <div className="w-9 h-9 rounded-md bg-white flex items-center justify-center flex-shrink-0">
                 <Icon size={15} className="text-pink-deep" />
@@ -121,7 +128,7 @@ const Contact = () => {
                 <div className="font-bebas text-[9px] tracking-[3px] text-white/50">{label}</div>
                 <div className="font-sans text-[13px] font-semibold text-white leading-tight">{value}</div>
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
 
@@ -136,7 +143,7 @@ const Contact = () => {
 
       <div className="bg-pink-pale p-10 md:p-16 flex flex-col justify-center">
         <div className="font-bebas text-[9px] tracking-[5px] text-pink-hot mb-2">Drop a message</div>
-        <h3 className="font-playfair font-bold text-2xl md:text-3xl text-zinc-900 mb-8">
+        <h3 className="font-playfair font-black text-4xl md:text-5xl text-zinc-900 mb-8 leading-tight">
           Get in Touch
         </h3>
 
@@ -145,7 +152,7 @@ const Contact = () => {
             <label className="text-xs font-semibold text-zinc-600 block mb-1.5">Name</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
-              <Input name="name" placeholder="e.g. John Doe" className="pl-9 border-zinc-200 focus:border-pink-hot focus:ring-pink-hot/20" required />
+              <Input name="name" placeholder="e.g. John Doe" className="pl-9 border-zinc-200 focus-visible:border-pink-hot focus-visible:ring-pink-hot/30" required />
             </div>
           </div>
 
@@ -153,7 +160,7 @@ const Contact = () => {
             <label className="text-xs font-semibold text-zinc-600 block mb-1.5">Email</label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
-              <Input name="email" type="email" placeholder="e.g. john@gmail.com" className="pl-9 border-zinc-200 focus:border-pink-hot focus:ring-pink-hot/20" required />
+              <Input name="email" type="email" placeholder="e.g. john@gmail.com" className="pl-9 border-zinc-200 focus-visible:border-pink-hot focus-visible:ring-pink-hot/30" required />
             </div>
           </div>
 
@@ -161,7 +168,7 @@ const Contact = () => {
             <label className="text-xs font-semibold text-zinc-600 block mb-1.5">Subject</label>
             <div className="relative">
               <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
-              <Input name="subject" placeholder="e.g. Collaboration Inquiry" className="pl-9 border-zinc-200 focus:border-pink-hot focus:ring-pink-hot/20" required />
+              <Input name="subject" placeholder="e.g. Collaboration Inquiry" className="pl-9 border-zinc-200 focus-visible:border-pink-hot focus-visible:ring-pink-hot/30" required />
             </div>
           </div>
 
@@ -169,7 +176,7 @@ const Contact = () => {
             <label className="text-xs font-semibold text-zinc-600 block mb-1.5">Message</label>
             <div className="relative">
               <MessageSquareText className="absolute left-3 top-3 text-zinc-400" size={15} />
-              <Textarea name="message" placeholder="Write your message..." className="pl-9 pt-2 h-[130px] resize-none border-zinc-200 focus:border-pink-hot focus:ring-pink-hot/20" required />
+              <Textarea name="message" placeholder="Write your message..." className="pl-9 pt-2 h-[130px] resize-none border-zinc-200 focus-visible:border-pink-hot focus-visible:ring-pink-hot/30" required />
             </div>
           </div>
 

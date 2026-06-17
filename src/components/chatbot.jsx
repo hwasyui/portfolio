@@ -140,9 +140,9 @@ const RAGChat = () => {
           </div>
 
           <div className="px-3 py-2.5 border-t border-pink-hot/15 bg-white flex-shrink-0">
-            <div className="relative flex items-center bg-pink-pale rounded-full overflow-hidden min-w-0">
+            <div className="relative flex items-center bg-pink-pale rounded-full overflow-hidden min-w-0 focus-within:ring-2 focus-within:ring-pink-hot/50 transition-shadow">
               <Input
-                className="flex-grow border-none shadow-none bg-transparent rounded-full px-4 py-2 text-sm focus:ring-0 placeholder:text-zinc-400"
+                className="flex-grow border-none shadow-none bg-transparent rounded-full pl-4 pr-11 py-2 text-sm focus:ring-0 focus-visible:ring-0 placeholder:text-zinc-400"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask something..."

@@ -1,19 +1,25 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Users, User } from "lucide-react";
 
-const ProjectCard = ({ project, onClick }) => {
+const ProjectCard = ({ project, onClick, index = 0 }) => {
   const isTeam = project.projectType === "team";
 
   return (
-    <div
+    <motion.div
       onClick={onClick}
-      className="flex flex-col h-full bg-white border border-zinc-100
+      initial={{ opacity: 0, y: 36, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.08 }}
+      whileHover={{ y: -7, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 380, damping: 24, delay: index * 0.06 }}
+      className="flex flex-col h-full bg-white border border-pink-candy/30
                  rounded-2xl overflow-hidden shadow-sm cursor-pointer
-                 hover:shadow-md hover:border-pink-hot/40 hover:-translate-y-1
-                 transition-all duration-300 group"
+                 hover:shadow-xl hover:shadow-pink-hot/10 hover:border-pink-hot/40 group"
     >
       <div className="relative">
         {project.image ? (
@@ -31,7 +37,7 @@ const ProjectCard = ({ project, onClick }) => {
         <div className={`absolute top-2.5 right-2.5 flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-bebas tracking-[2px] shadow-sm
           ${isTeam
             ? "bg-zinc-900/80 text-white backdrop-blur-sm"
-            : "bg-white/80 text-zinc-600 backdrop-blur-sm border border-zinc-200/60"
+            : "bg-white/85 text-zinc-600 backdrop-blur-sm border border-zinc-200/60"
           }`}
         >
           {isTeam ? <Users size={10} /> : <User size={10} />}
@@ -66,7 +72,7 @@ const ProjectCard = ({ project, onClick }) => {
             <Badge
               key={i}
               variant="outline"
-              className="text-[10px] border-zinc-200 px-2 py-0"
+              className="text-[10px] border-pink-candy/40 text-zinc-500 px-2 py-0"
             >
               {t}
             </Badge>
@@ -81,7 +87,7 @@ const ProjectCard = ({ project, onClick }) => {
           <span className="text-pink-hot text-xs">→</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -13,10 +13,14 @@ import ChatWidget from "@/components/chatbot";
 import ScrollToTop from "@/components/scroll-to-top";
 import AnimatedSection from "@/components/animated-section";
 import SectionStrip from "@/components/section-strip";
+import CursorSparkle from "@/components/cursor-sparkle";
+import ScrollProgress from "@/components/scroll-progress";
 
 export default function Home() {
   return (
     <main className="flex flex-col w-full min-h-screen bg-white text-zinc-900">
+      <CursorSparkle />
+      <ScrollProgress />
       <Navigate />
       <ScrollToTop />
 

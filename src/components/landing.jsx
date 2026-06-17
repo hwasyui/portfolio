@@ -52,10 +52,44 @@ const EXPR_SRC = {
   flustered: "/chibi/flustered.png",
 };
 
+const PARTY_SYMS = ["✦", "★", "✿", "♥", "◆", "✧"];
+const PARTY_COLS = ["#E040A0", "#FFB8D8", "#FF88C0", "#A0106A", "#ffffff"];
+
+function burstFrom(cx, cy) {
+  for (let i = 0; i < 14; i++) {
+    const angle = (i / 14) * Math.PI * 2 + Math.random() * 0.4;
+    const dist  = 55 + Math.random() * 90;
+    const el    = document.createElement("span");
+    el.textContent = PARTY_SYMS[Math.floor(Math.random() * PARTY_SYMS.length)];
+    Object.assign(el.style, {
+      position:      "fixed",
+      left:          `${cx}px`,
+      top:           `${cy}px`,
+      pointerEvents: "none",
+      userSelect:    "none",
+      zIndex:        "9999",
+      fontSize:      `${13 + Math.random() * 11}px`,
+      color:         PARTY_COLS[Math.floor(Math.random() * PARTY_COLS.length)],
+      transform:     "translate(-50%,-50%)",
+    });
+    document.body.appendChild(el);
+    const tx = Math.cos(angle) * dist;
+    const ty = Math.sin(angle) * dist;
+    el.animate(
+      [
+        { opacity: 1, transform: "translate(-50%,-50%) scale(1.2) rotate(0deg)" },
+        { opacity: 0, transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0.1) rotate(${(Math.random() - 0.5) * 360}deg)` },
+      ],
+      { duration: 800 + Math.random() * 400, easing: "ease-out", fill: "forwards" }
+    ).onfinish = () => el.remove();
+  }
+}
+
 function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
   const [expr, setExpr] = useState("default");
 
   const r = useRef({ expr: "default", timer: null, startX: null });
+  const partyRef = useRef({ count: 0, timer: null });
   const containerRef = useRef(null);
   const eyeRef = useRef(null);
 
@@ -79,8 +113,8 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
       setTimeout(() => {
         if (r.current.expr === "blink") setE("default");
         schedBlinkRef.current();
-      }, 80);
-    }, 3000 + Math.random() * 3000);
+      }, 200);
+    }, 600 + Math.random() * 2250);
   };
 
   const triggerRef = useRef(null);
@@ -137,6 +171,21 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
       (e.changedTouches ? e.changedTouches[0].clientX : e.clientX) -
       r.current.startX;
     r.current.startX = null;
+
+    partyRef.current.count++;
+    clearTimeout(partyRef.current.timer);
+    partyRef.current.timer = setTimeout(() => { partyRef.current.count = 0; }, 2500);
+
+    if (partyRef.current.count >= 5) {
+      partyRef.current.count = 0;
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        burstFrom(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+      triggerRef.current("flustered", 2200);
+      return;
+    }
+
     if (Math.abs(dx) > 40) triggerRef.current("sleepy", 2500);
     else triggerRef.current("mad", 1500);
   };
@@ -186,6 +235,20 @@ const Landing = () => {
   const [peekCount, setPeekCount] = useState(0);
   const [flusteredCount, setFlusteredCount] = useState(0);
 
+  const bgLeftRef  = useRef(null);
+  const bgRightRef = useRef(null);
+
+  useEffect(() => {
+    const h = (e) => {
+      const mx = e.clientX / window.innerWidth  - 0.5;
+      const my = e.clientY / window.innerHeight - 0.5;
+      if (bgLeftRef.current)  bgLeftRef.current.style.transform  = `translate(${mx * -22}px, ${my * -12}px)`;
+      if (bgRightRef.current) bgRightRef.current.style.transform = `translate(${mx * 14}px,  ${my * 9}px)`;
+    };
+    window.addEventListener("mousemove", h, { passive: true });
+    return () => window.removeEventListener("mousemove", h);
+  }, []);
+
   return (
     <>
       <style>{`@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}`}</style>
@@ -196,12 +259,18 @@ const Landing = () => {
           onClick={() => setPeekCount((c) => c + 1)}
         >
           <div
+            ref={bgLeftRef}
             className="absolute bottom-0 left-0 font-bebas leading-none text-white/10 pointer-events-none select-none text-[160px] md:text-[240px] lg:text-[320px]"
-            style={{ lineHeight: 0.85 }}
+            style={{ lineHeight: 0.85, willChange: "transform", transition: "transform 0.18s ease-out" }}
             aria-hidden
           >
             00
           </div>
+
+          <span className="absolute top-[22%] right-8  text-white/15 text-2xl animate-float-slow  pointer-events-none select-none" aria-hidden>✦</span>
+          <span className="absolute top-[40%] left-12 text-white/10 text-lg  animate-float-delay pointer-events-none select-none" aria-hidden>★</span>
+          <span className="absolute bottom-[28%] right-14 text-white/15 text-sm  animate-float      pointer-events-none select-none" aria-hidden>✦</span>
+          <span className="absolute bottom-[16%] left-8  text-white/10 text-3xl animate-float-slow  pointer-events-none select-none" aria-hidden>✧</span>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.75, y: -20 }}
@@ -263,27 +332,31 @@ const Landing = () => {
               className="flex flex-wrap gap-3"
               onClick={(e) => e.stopPropagation()}
             >
-              <a
+              <motion.a
                 href="/Angelica Suti Whiharto CV 2026Q1.pdf"
                 download
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 22 }}
                 className="font-bebas text-[11px] tracking-[3px] px-5 py-2.5
-                           bg-white text-pink-hot
-                           hover:bg-pink-blush
-                           transition-colors duration-150"
+                           bg-white text-pink-hot hover:bg-pink-blush
+                           transition-colors duration-150 inline-block"
               >
                 Download CV
-              </a>
-              <button
+              </motion.a>
+              <motion.button
                 onClick={() =>
                   document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                 }
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 22 }}
                 className="font-bebas text-[11px] tracking-[3px] px-5 py-2.5
-                           border border-white/50 text-white
-                           hover:bg-white/10
+                           border border-white/50 text-white hover:bg-white/10
                            transition-colors duration-150"
               >
                 See Projects
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         </div>
@@ -325,7 +398,9 @@ const Landing = () => {
               Scroll to explore
             </span>
             <span
+              ref={bgRightRef}
               className="font-bebas leading-none text-zinc-200 select-none text-[40px] md:text-[56px] lg:text-[72px]"
+              style={{ willChange: "transform", transition: "transform 0.18s ease-out" }}
               aria-hidden
             >
               00

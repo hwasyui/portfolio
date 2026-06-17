@@ -68,42 +68,42 @@
     "categories": ["Artificial Intelligence", "Web Development"],
     "projectType": "team",
     "contributions": [
-      "Scraped approximately 3,000 product reviews using a custom Python script alongside WebHarvy for the training dataset",
-      "Trained a Logistic Regression sentiment classifier with BayesSearchCV hyperparameter tuning, achieving accuracy 0.844 and macro F1 0.84 on a 13,470-sample test set",
-      "Trained an LSTM sentiment model achieving final training accuracy 0.9780 and validation accuracy 0.8895",
-      "Integrated both BART-Large-CNN (summarization) and DistilBERT (sentiment, final model selected by team for highest accuracy at 0.9618) into Flask API endpoints",
-      "Containerized the ML backend with Docker and handled deployment pipeline",
-      "Connected the Flask backend to the ReactJS + Vite frontend via REST API",
-      "Contributed to frontend development alongside the main frontend work"
+      "Collected around 3,000 real product reviews by writing a custom Python scraper and using WebHarvy to build our own training dataset",
+      "Trained and compared 9 sentiment models and 6 summarization models to find the best fit for our use case",
+      "Trained a Logistic Regression classifier with BayesSearchCV tuning and an LSTM model from scratch as part of the model comparison",
+      "Integrated BART-Large-CNN (summarization) and DistilBERT (sentiment) into Flask API endpoints for the admin dashboard",
+      "Packaged the entire ML backend into Docker so the models run locally with no external API dependency",
+      "Built the REST API bridge between the Flask backend and the ReactJS + Vite frontend",
+      "Helped with frontend development alongside the main frontend work"
     ],
     "image": "/projects/merchandise.png",
-    "summary": "A web app developed using Vite (ReactJS) and Firebase, integrating BART-Large-CNN for summarization and DistilBERT for sentiment analysis, deployed with Flask and Docker. Trained on a dataset of reviews collected via Python scraping and WebHarvy.",
+    "summary": "An admin dashboard that helps non-technical store admins make sense of product reviews without reading every single one. It automatically summarizes what customers are saying and flags whether the overall sentiment is positive or negative. Built during our 5th-semester AI Bootcamp with Lapis AI.",
     "detail": [
-      "A team NLP project built during a 5th-semester AI Bootcamp in collaboration with Lapis AI. The platform lets users paste a product review and get both an abstractive summary and a sentiment label. Before integrating any model, the team ran a full comparison across 9 models on the SST-2 dataset and a new dataset of roughly 3,000 real product reviews collected via WebHarvy.",
-      "Sentiment model comparison (accuracy on new dataset):",
+      "The problem this solves is pretty straightforward: a store admin who is not in IT should not have to sit and read through hundreds of customer reviews one by one just to figure out if people like a product or not. So we built an admin page where they can see a short summary of what customers are saying and a clear positive or negative sentiment label, all generated automatically.",
+      "The two main features on the admin page are summarization and sentiment analysis. The admin pastes or loads a batch of reviews, and the system handles the rest. No technical knowledge needed on their end.",
+      "We built this as a 5th-semester project in collaboration with Lapis AI. Before shipping any model, we collected around 3,000 real product reviews ourselves using a custom Python scraper and WebHarvy, because we wanted to test on data that actually looks like what the admin would be dealing with, not just clean public benchmarks.",
+      "We ended up comparing 9 sentiment models and 6 summarization models. The winners were DistilBERT for sentiment (0.9618 accuracy on our dataset) and BART-Large-CNN for summarization (0.6207 ROUGE-1 F1). BART was also fine-tuned on BBC News data to make the output sound cleaner and more readable. Both run locally via Flask and Docker so there are no external API calls.",
+      "For the full model comparison scores, here is how the sentiment models ranked on our dataset:",
       [
+        "DistilBERT: 0.9618 (selected)",
+        "RoBERTa: 0.9609",
+        "DeBERTa: 0.9576",
         "Logistic Regression: 0.9137",
-        "Random Forest: 0.8714",
         "Naive Bayes: 0.9021",
         "SVM: 0.9021",
         "LSTM: 0.8895",
-        "RNN: 0.7000",
-        "DistilBERT: 0.9618 (selected)",
-        "RoBERTa: 0.9609",
-        "DeBerta: 0.9576"
+        "Random Forest: 0.8714",
+        "RNN: 0.7000"
       ],
-      "DistilBERT achieved the highest accuracy on the new dataset and was deployed as the final sentiment model, running locally via Flask and Docker for low-latency processing and data privacy.",
-      "Summarization model comparison (ROUGE-1 F1 on held-out data):",
+      "And the summarization models ranked by ROUGE-1 F1:",
       [
         "BART-Large-CNN: 0.6207 (selected)",
         "DistilBART-CNN 12-6: 0.5568",
         "PEGASUS-CNN: 0.4516",
-        "T5-Base: 0.3394",
         "GPT-2: 0.4110",
+        "T5-Base: 0.3394",
         "mT5-Base: 0.0769"
-      ],
-      "BART-Large-CNN scored highest across all ROUGE metrics and was confirmed by human judges assessing coherence, fluency, and informativeness. The model was further fine-tuned on the BBC News dataset to adapt it to formal writing. Both models are connected to a ReactJS + Vite frontend with Firebase for auth and storage.",
-      "A supervising lecturer reviewed the final system and noted: the integrated AI performed well, sentiment classification was very accurate, and both components add high value to the platform."
+      ]
     ],
     "tech": ["ReactJS", "Vite", "Firebase", "Flask", "Docker", "BART", "DistilBERT", "LSTM", "Logistic Regression", "WebHarvy", "Python"],
     "gitrepo": "https://github.com/hwasyui/RIYAN_shop",
