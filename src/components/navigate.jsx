@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FileDown } from "lucide-react";
+import { FileDown, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa6";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,6 +27,7 @@ const socials = [
 const Navigate = () => {
   const [open, setOpen] = useState(false);
   const [showTab, setShowTab] = useState(false);
+  const [cvOpen, setCvOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -52,12 +54,6 @@ const Navigate = () => {
     }, 180);
   };
 
-  const downloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf";
-    link.download = "CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf";
-    link.click();
-  };
 
   return (
     <>
@@ -108,11 +104,11 @@ const Navigate = () => {
 
             <div className="font-bebas text-[9px] tracking-[4px] text-zinc-400 mb-3">Actions</div>
             <button
-              onClick={downloadResume}
+              onClick={() => { setOpen(false); setCvOpen(true); }}
               className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-pink-pale transition-colors text-left"
             >
               <FileDown size={15} className="text-pink-hot flex-shrink-0" />
-              <span className="text-sm text-zinc-600 font-medium">Download CV</span>
+              <span className="text-sm text-zinc-600 font-medium">View CV</span>
             </button>
 
             <div className="my-5 h-px bg-pink-hot/15" />
@@ -145,6 +141,35 @@ const Navigate = () => {
           </div>
         </SheetContent>
       </Sheet>
+      <AnimatePresence>
+        {cvOpen && (
+          <div
+            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+            onClick={() => setCvOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 360, damping: 28 }}
+              className="relative w-full max-w-3xl h-[80vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setCvOpen(false)}
+                className="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-pink-pale hover:text-pink-hot transition-all"
+              >
+                <X size={14} />
+              </button>
+              <iframe
+                src="/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf"
+                className="w-full h-full rounded-2xl shadow-xl"
+                title="Angelica's CV"
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

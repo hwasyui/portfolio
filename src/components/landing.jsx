@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 
 const roles = [
   "Backend Engineer",
@@ -261,6 +262,7 @@ const Landing = () => {
   const typed = useTyping(roles);
   const [peekCount, setPeekCount] = useState(0);
   const [flusteredCount, setFlusteredCount] = useState(0);
+  const [cvOpen, setCvOpen] = useState(false);
 
   const bgLeftRef  = useRef(null);
   const bgRightRef = useRef(null);
@@ -359,9 +361,8 @@ const Landing = () => {
               className="flex flex-wrap gap-3"
               onClick={(e) => e.stopPropagation()}
             >
-              <motion.a
-                href="/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf"
-                download
+              <motion.button
+                onClick={() => setCvOpen(true)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 420, damping: 22 }}
@@ -369,8 +370,8 @@ const Landing = () => {
                            bg-white text-pink-hot hover:bg-pink-blush
                            transition-colors duration-150 inline-block"
               >
-                Download CV
-              </motion.a>
+                View CV
+              </motion.button>
               <motion.button
                 onClick={() =>
                   document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
@@ -435,6 +436,36 @@ const Landing = () => {
           </motion.div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {cvOpen && (
+          <div
+            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+            onClick={() => setCvOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 360, damping: 28 }}
+              className="relative w-full max-w-3xl h-[80vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setCvOpen(false)}
+                className="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-pink-pale hover:text-pink-hot transition-all"
+              >
+                <X size={14} />
+              </button>
+              <iframe
+                src="/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf"
+                className="w-full h-full rounded-2xl shadow-xl"
+                title="Angelica's CV"
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <div className="bg-zinc-900 h-9 overflow-hidden flex items-center">
         <div className="animate-marquee flex whitespace-nowrap">
