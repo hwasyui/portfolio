@@ -49,6 +49,39 @@
     "doc": ""
   },
   {
+    "title": "TaniCek – Agricultural Machine Monitoring System",
+    "year": 2025,
+    "categories": ["Web Development", "Artificial Intelligence"],
+    "projectType": "team",
+    "contributions": [
+      "Built the entire company admin dashboard: machine status summary with pie chart, machine list with type/location/status/log activity, search and filter by type and status, and the Add Daily Log flow",
+      "Designed and set up the full database schema and Git repository structure for the project",
+      "Built the entire AI backend: machine health prediction (Low/Medium/High) from daily log data, AI analysis history, and the full analysis pipeline",
+      "Integrated real-time weather fetching based on the user's GPS coordinates using the OpenWeatherMap API",
+      "Implemented GPS-based location detection for machines and users",
+      "Built the face recognition service using Python, OpenCV, and the face_recognition library, used during employee account registration by the company admin"
+    ],
+    "image": "/projects/tanicek.jpeg",
+    "summary": "A full-stack web application for monitoring and managing agricultural machines across a three-role system: developer, company admin, and regular user. Features AI-based machine health prediction, real-time weather integration, GPS tracking, daily logging, and face recognition for employee registration. Built as the final project for KADA Bootcamp.",
+    "detail": [
+      "TaniCek is a farming machine monitoring platform with a three-tier role system. The developer layer handles company registration and super admin account creation. The company admin layer covers employee account registration (with face recognition verification), machine and log management, and access to the full AI analysis dashboard. The regular user layer handles daily machine logging and viewing their assigned machines.",
+      "The company admin dashboard includes:",
+      [
+        "Machine status summary with a pie chart categorizing machines into Low, Medium, and High risk",
+        "Real-time weather data fetched from the user's GPS coordinates via OpenWeatherMap",
+        "Machine list with type, GPS location, predicted status, and last log activity",
+        "Search and filter by machine type and status",
+        "Daily log submission per machine",
+        "AI analysis history view per machine"
+      ],
+      "The AI backend classifies each machine's health status from its daily log data, returning Low, Medium, or High risk. Machines with no log entries are flagged as having no prediction data. The face recognition service, built with Python, OpenCV, and the face_recognition library, is triggered during employee registration by the company admin to verify and store the user's face. GPS-based location detection is used for both machine tracking and weather data retrieval."
+    ],
+    "tech": ["React", "Vite", "TailwindCSS", "Node.js", "Express", "MongoDB", "Python", "OpenCV", "face_recognition", "Passport.js"],
+    "gitrepo": "https://github.com/hwasyui/TaniCek",
+    "url": "",
+    "doc": ""
+  },
+  {
     "title": "Fantasy Book Chatbot with RAG and Gemini",
     "year": 2025,
     "categories": ["Artificial Intelligence", "Web Development"],
@@ -213,7 +246,7 @@
     ],
     "image": "/projects/imdb.png",
     "summary": "A full-stack MERN web app where users can register, log in (via email or Google), browse movies, and leave reviews. Features JWT authentication, email verification, and a responsive UI. Built as a team project during the KADA Bootcamp backend module.",
-    "detail": "A team project built immediately after completing the backend module at KADA Bootcamp, applying the concepts covered in the course to a real full-stack application. The stack is MERN: MongoDB for data storage, Express + Node.js for the REST API, and React + Vite for the frontend. I designed the MongoDB schema for users, movies, and reviews, set up and configured the database, and built the Express backend, including JWT session management, email login with email verification via Nodemailer, and Google OAuth 2.0. I also contributed significantly to the React + Vite frontend, covering multiple UI components and pages. Users can browse a movie catalog, view details, and post reviews.",
+    "detail": "A team project built during the backend module at KADA Bootcamp, applying the concepts covered in the course to a real full-stack application. The stack is MERN: MongoDB for data storage, Express + Node.js for the REST API, and React + Vite for the frontend. I designed the MongoDB schema for users, movies, and reviews, set up and configured the database, and built the Express backend, including JWT session management, email login with email verification via Nodemailer, and Google OAuth 2.0. I also contributed significantly to the React + Vite frontend, covering multiple UI components and pages. Users can browse a movie catalog, view details, and post reviews.",
     "tech": ["MongoDB", "Express", "React", "Vite", "Node.js", "JWT", "OAuth 2.0", "Nodemailer"],
     "gitrepo": "https://github.com/hwasyui/tmdb_project",
     "url": "",
