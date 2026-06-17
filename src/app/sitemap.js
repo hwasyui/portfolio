@@ -1,7 +1,7 @@
 export default function sitemap() {
   return [
     {
-      url: "https://portfolio.angelicas.xyz",
+      url: "https://angelica-whiharto.com",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

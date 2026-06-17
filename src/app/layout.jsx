@@ -19,11 +19,11 @@ const bebas = Bebas_Neue({
 export const metadata = {
   title: "Angelica's Portfolio",
   description: "I'm an AI Engineer, Data Engineer, and Full-Stack Developer who builds systems that actually ship. Check out my projects, experience, and more.",
-  metadataBase: new URL("https://portfolio.angelicas.xyz"),
+  metadataBase: new URL("https://angelica-whiharto.com"),
   openGraph: {
     title: "Angelica's Portfolio",
     description: "I'm an AI Engineer, Data Engineer, and Full-Stack Developer who builds systems that actually ship. Check out my projects, experience, and more.",
-    url: "https://portfolio.angelicas.xyz",
+    url: "https://angelica-whiharto.com",
     siteName: "Angelica's Portfolio",
     images: [
       {
@@ -40,9 +40,6 @@ export const metadata = {
     title: "Angelica's Portfolio",
     description: "I'm an AI Engineer, Data Engineer, and Full-Stack Developer who builds systems that actually ship.",
     images: ["/image.png"],
-  },
-  verification: {
-    google: "kRHhLJFUa4ChPorNRsbLNM6jVWx7VKET_upCs7bx0NM",
   },
 };
 

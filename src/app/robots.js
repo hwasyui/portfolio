@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://portfolio.angelicas.xyz/sitemap.xml",
+    sitemap: "https://angelica-whiharto.com/sitemap.xml",
   };
 }
