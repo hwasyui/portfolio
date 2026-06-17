@@ -90,6 +90,7 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
 
   const r = useRef({ expr: "default", timer: null, startX: null });
   const partyRef = useRef({ count: 0, timer: null });
+  const swayRef = useRef({ dir: 0, peakX: null, count: 0, timer: null });
   const containerRef = useRef(null);
   const eyeRef = useRef(null);
 
@@ -147,6 +148,36 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
       const ox = (dx / Math.max(dist, 1)) * MAX * t;
       const oy = (dy / Math.max(dist, 1)) * MAX * t;
       eyeRef.current.style.transform = `translate(${ox}px, ${oy}px)`;
+
+      // Detect left-right sway near chibi → sleepy after ~3 back-and-forth swings
+      if (dist < 250) {
+        const sway = swayRef.current;
+        const px = e.clientX;
+        if (sway.peakX === null) {
+          sway.peakX = px;
+        } else {
+          const delta = px - sway.peakX;
+          const newDir = delta > 30 ? 1 : delta < -30 ? -1 : 0;
+          if (newDir !== 0 && newDir !== sway.dir) {
+            sway.count++;
+            sway.dir = newDir;
+            sway.peakX = px;
+            if (sway.count >= 6) {
+              sway.count = 0;
+              sway.peakX = null;
+              sway.dir = 0;
+              triggerRef.current("sleepy", 2500);
+              return;
+            }
+          }
+        }
+        clearTimeout(sway.timer);
+        sway.timer = setTimeout(() => {
+          sway.count = 0;
+          sway.peakX = null;
+          sway.dir = 0;
+        }, 1500);
+      }
     };
     document.addEventListener("mousemove", onMove);
     return () => document.removeEventListener("mousemove", onMove);
@@ -165,11 +196,8 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
   const onDown = (e) => {
     r.current.startX = e.touches ? e.touches[0].clientX : e.clientX;
   };
-  const onUp = (e) => {
+  const onUp = () => {
     if (r.current.startX === null) return;
-    const dx =
-      (e.changedTouches ? e.changedTouches[0].clientX : e.clientX) -
-      r.current.startX;
     r.current.startX = null;
 
     partyRef.current.count++;
@@ -186,8 +214,7 @@ function ChibiCharacter({ peekTrigger, flusteredTrigger }) {
       return;
     }
 
-    if (Math.abs(dx) > 40) triggerRef.current("sleepy", 2500);
-    else triggerRef.current("mad", 1500);
+    triggerRef.current("mad", 1500);
   };
 
   return (
