@@ -54,8 +54,8 @@ const Navigate = () => {
 
   const downloadResume = () => {
     const link = document.createElement("a");
-    link.href = "/Angelica Suti Whiharto CV 2026Q1.pdf";
-    link.download = "Angelica Suti Whiharto CV 2026Q1.pdf";
+    link.href = "/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf";
+    link.download = "CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf";
     link.click();
   };
 

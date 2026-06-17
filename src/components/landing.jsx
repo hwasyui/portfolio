@@ -360,7 +360,7 @@ const Landing = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <motion.a
-                href="/Angelica Suti Whiharto CV 2026Q1.pdf"
+                href="/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf"
                 download
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.97 }}
