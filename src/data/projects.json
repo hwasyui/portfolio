@@ -154,7 +154,7 @@
     "detail": "Built solo as a practical replacement after LINE Split Bill was discontinued. Users upload a photo of any receipt and Gemini AI extracts line items, quantities, and prices through vision and text understanding, with multilingual support covering Indonesian, English, and other languages. Every field in the extracted result is editable before splitting, so users can correct OCR errors or adjust quantities freely. The app supports two splitting modes: equal split across all participants, or per-item assignment where each person claims specific items. Final results can be shared via a generated link that expires after 24 hours, or exported as a downloadable PDF. Built with Next.js and React, styled with Tailwind CSS.",
     "tech": ["Next.js", "React", "Tailwind CSS", "Gemini", "JavaScript"],
     "gitrepo": "https://github.com/hwasyui/splitbill",
-    "url": "https://splitbill.angelicas.xyz/",
+    "url": "https://splitbill.angelica-whiharto.com/",
     "doc": ""
   },
   {
