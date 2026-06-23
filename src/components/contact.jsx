@@ -21,8 +21,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const contactLinks = [
   { icon: Mail,       label: "Email",    value: "angelicasutiwhiharto@gmail.com", href: "mailto:angelicasutiwhiharto@gmail.com" },
-  { icon: Phone,      label: "WhatsApp", value: "+62 852-8304-3970",              href: "https://wa.me/6285283043970" },
-  { icon: FaGithub,   label: "GitHub",   value: "github.com/hwasyui",             href: "https://github.com/hwasyui" },
+{ icon: FaGithub,   label: "GitHub",   value: "github.com/hwasyui",             href: "https://github.com/hwasyui" },
   { icon: FaLinkedin, label: "LinkedIn", value: "in/angelicawhiharto",            href: "https://www.linkedin.com/in/angelicawhiharto" },
 ];
 
