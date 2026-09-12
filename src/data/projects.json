@@ -9,15 +9,15 @@
       "Built layered authentication: JWT with refresh token rotation (replay-attack prevention), email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts (freelancer + client on one account), and per-device token revocation.",
       "Implemented the full job marketplace lifecycle: job posts, heuristic project scope calculator with live FX rates, proposal system, single-step contract generation with PDF output, and submission/revision/approval workflows with DM system events.",
       "Rebuilt contract payments around milestones that unlock one at a time, with payment proof upload, admin verification, and a 10% platform commission.",
-      "Built the RAG job fit analysis engine: retrieves top-5 past contracts, top-3 portfolio projects, and work experience as grounded context; pre-computes skill coverage server-side before calling GROQ LLM (llama-3.3-70b) to return a structured match report with score (0–100), recommendation, and per-role skill breakdown.",
+      "Built the RAG job fit analysis engine: retrieves top-5 past contracts, top-3 portfolio projects, and work experience as grounded context; pre-computes skill coverage server-side before calling GROQ (GPT-OSS 120B, with a Llama 3.3 fallback) to return a structured match report with score (0–100), recommendation, and per-role skill breakdown.",
       "Powered the relevant job feed and embedding infrastructure: pgvector HNSW cosine similarity search across 4 tables using nomic-embed-text-v1.5 (768-dim, 8192-token context) with a dirty-flag async re-embedding lifecycle.",
-      "Fine-tuned RoBERTa (5-label multi-label classifier, AUC-ROC 0.9923) for harmful text detection, with synchronous blocking for proposals and DMs and an async background queue for job posts and profiles sent to admin moderation.",
-      "Rebuilt the review system so clients and freelancers can review each other, using 4 ML models to catch fake or biased reviews and keep trust scores in sync.",
+      "Fine-tuned and compared BERT, RoBERTa, and DistilBERT for harmful text detection (5-label multi-label), shipping BERT as the production model, with synchronous checks on proposals and DMs and an async queue for job posts and profiles.",
+      "Rebuilt the review system so clients and freelancers can review each other, combining a pretrained sentiment model, a trained mismatch detector, and an LLM pass to catch fake or biased reviews and keep trust scores in sync.",
       "Built admin and moderation suite (content queue, scam flagging, 3-strike bans, appeals, auto-actions), real-time WebSocket DMs, FCM push notifications, skill autocomplete with trigram + semantic fallback, and profile/file uploads.",
       "Added contract dispute and auto-approve handling, onboarding guidelines for each role, and moved file storage from Supabase to self-hosted MinIO."
     ],
     "image": "/projects/workbyte.jpg",
-    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, milestone-based payments, and two-way reviews backed by ML models. Built with FastAPI, PostgreSQL + pgvector, RoBERTa, GROQ LLM (llama-3.3-70b), and nomic-embed; containerized with Docker.",
+    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, milestone-based payments, and two-way reviews backed by ML models. Built with FastAPI, PostgreSQL + pgvector, BERT, GROQ (GPT-OSS 120B), and nomic-embed; containerized with Docker.",
     "detail": [
       "WorkByte is a freelancer marketplace Android app, similar to Fiverr and Upwork, connecting freelancers and clients through a full job posting, proposal, and contract system. A single account can hold both a freelancer and a client profile.",
       "Platform features:",
@@ -34,16 +34,16 @@
       ],
       "AI features:",
       [
-        "Job fit analyser: scores how well a freelancer matches a job posting (0-100) with a recommendation and per-role skill breakdown. Uses RAG to pull past contracts, portfolio projects, and work experience as context before calling Llama 3.3 via GROQ.",
+        "Job fit analyser: scores how well a freelancer matches a job posting (0-100) with a recommendation and per-role skill breakdown. Uses RAG to pull past contracts, portfolio projects, and work experience as context before calling GROQ's GPT-OSS 120B model.",
         "Job scam detection: runs on every new job post as a background task using a SBERT embedding combined with keyword signals, then applies a Random Forest classifier. Hard flags auto-close the job; soft flags queue it for admin review.",
-        "Harmful text detection: a fine-tuned RoBERTa model (AUC-ROC 0.9923) that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
-        "CV analysis: a 5-stage pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
+        "Harmful text detection: a fine-tuned BERT model, chosen over RoBERTa and DistilBERT after comparison, that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
+        "CV analysis: a pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
         "CV upload with smart extraction: supports PDF, DOCX, and image files using pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; subsequent uploads run the full CV analysis pipeline.",
-        "AI review checks: 4 ML models score each review for sentiment, authenticity, and bias before it publishes, and a worker keeps trust scores (0-100) in sync for both clients and freelancers. Trust scores are used as a live filter on candidate search, so the AI output directly affects discoverability."
+        "AI review checks: a pretrained sentiment model and a trained mismatch detector flag suspicious reviews, backed by a GROQ LLM pass and a worker that keeps trust scores (0-100) in sync for both clients and freelancers. Trust scores are used as a live filter on candidate search, so the AI output directly affects discoverability."
       ],
       "Several of the AI features above are powered by a shared local embedding engine (nomic-embed-text-v1.5, 768-dim, 8192-token context) running entirely inside the Docker container with no external API. Embeddings are stored across 4 PostgreSQL tables with HNSW indexes. A dirty-flag system marks records that need re-embedding, and a background sweep worker processes them every 5 minutes, so embeddings stay in sync automatically after any profile or job update."
     ],
-    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "RoBERTa", "GROQ", "Docker", "MinIO", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
+    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "BERT", "GROQ", "Docker", "MinIO", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
     "gitrepos": [
       { "label": "Backend", "url": "https://github.com/hwasyui/WorkByte-BACKEND" },
       { "label": "Frontend", "url": "https://github.com/hwasyui/WorkByte-FRONTEND" },
