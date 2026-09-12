@@ -5,26 +5,26 @@
     "categories": ["Artificial Intelligence", "Web Development", "Mobile"],
     "projectType": "team",
     "contributions": [
-      "Scaffolded the full backend from scratch: project architecture, database manager, logger utility, env config, and Docker Compose stack; set up Git LFS for ML model files.",
-      "Built layered authentication: JWT with refresh token rotation (replay-attack prevention), email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts (freelancer + client on one account), and per-device token revocation.",
-      "Implemented the full job marketplace lifecycle: job posts, heuristic project scope calculator with live FX rates, proposal system, single-step contract generation with PDF output, and submission/revision/approval workflows with DM system events.",
+      "Scaffolded the backend from scratch, including project architecture, Docker setup, and Git LFS for ML model files.",
+      "Built layered authentication: JWT with refresh token rotation, email OTP, Google OAuth for web and mobile, and multi-role accounts.",
+      "Implemented the job marketplace lifecycle: job posts, a scope calculator, proposals, contract generation, and submission/revision/approval workflows.",
       "Rebuilt contract payments around milestones that unlock one at a time, with payment proof upload, admin verification, and a 10% platform commission.",
-      "Built the RAG job fit analysis engine: retrieves top-5 past contracts, top-3 portfolio projects, and work experience as grounded context; pre-computes skill coverage server-side before calling GROQ (GPT-OSS 120B, with a Llama 3.3 fallback) to return a structured match report with score (0–100), recommendation, and per-role skill breakdown.",
-      "Powered the relevant job feed and embedding infrastructure: pgvector HNSW cosine similarity search across 4 tables using nomic-embed-text-v1.5 (768-dim, 8192-token context) with a dirty-flag async re-embedding lifecycle.",
-      "Fine-tuned and compared BERT, RoBERTa, and DistilBERT for harmful text detection (5-label multi-label), shipping BERT as the production model, with synchronous checks on proposals and DMs and an async queue for job posts and profiles.",
-      "Rebuilt the review system so clients and freelancers can review each other, combining a pretrained sentiment model, a trained mismatch detector, and an LLM pass to catch fake or biased reviews and keep trust scores in sync.",
-      "Built admin and moderation suite (content queue, scam flagging, 3-strike bans, appeals, auto-actions), real-time WebSocket DMs, FCM push notifications, skill autocomplete with trigram + semantic fallback, and profile/file uploads.",
+      "Built a RAG-based job fit engine that scores freelancer-job matches (0-100) using past contracts, portfolio, and work experience as context, via GROQ's GPT-OSS 120B model.",
+      "Built the embedding infrastructure powering the job feed, using pgvector HNSW similarity search with a background re-embedding worker.",
+      "Fine-tuned and compared BERT, RoBERTa, and DistilBERT for harmful text detection, shipping BERT as the production model.",
+      "Rebuilt the review system so clients and freelancers can review each other, using a sentiment model, a mismatch detector, and an LLM pass to catch fake or biased reviews.",
+      "Built the admin and moderation suite (content queue, scam flagging, bans, appeals), real-time WebSocket DMs, FCM push notifications, and skill autocomplete.",
       "Added contract dispute and auto-approve handling, onboarding guidelines for each role, and moved file storage from Supabase to self-hosted MinIO."
     ],
     "image": "/projects/workbyte.jpg",
-    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, milestone-based payments, and two-way reviews backed by ML models. Built with FastAPI, PostgreSQL + pgvector, BERT, GROQ (GPT-OSS 120B), and nomic-embed; containerized with Docker.",
+    "summary": "A freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit engine, milestone-based payments, and two-way reviews backed by ML models. Built with FastAPI, PostgreSQL + pgvector, BERT, GROQ, and nomic-embed, containerized with Docker.",
     "detail": [
       "WorkByte is a freelancer marketplace Android app, similar to Fiverr and Upwork, connecting freelancers and clients through a full job posting, proposal, and contract system. A single account can hold both a freelancer and a client profile.",
       "Platform features:",
       [
         "Authentication via email OTP, Google OAuth (web and mobile), or standard login",
-        "Job posts with a scope calculator that factors in live exchange rates and GNI benchmarks",
-        "Proposal system and single-step contract generation with PDF output and configurable legal clauses including confidentiality, late payment penalty, dispute resolution method, and governing law",
+        "Job posts with a project scope calculator",
+        "Proposal system and single-step contract generation with PDF output and configurable legal clauses",
         "Milestone-based payments with proof upload, admin verification, and a 10% platform commission",
         "Full submission, revision, and approval workflow with system events posted to DM threads",
         "Real-time DMs scoped to contracts, with file attachments and FCM push notifications",
@@ -34,14 +34,14 @@
       ],
       "AI features:",
       [
-        "Job fit analyser: scores how well a freelancer matches a job posting (0-100) with a recommendation and per-role skill breakdown. Uses RAG to pull past contracts, portfolio projects, and work experience as context before calling GROQ's GPT-OSS 120B model.",
-        "Job scam detection: runs on every new job post as a background task using a SBERT embedding combined with keyword signals, then applies a Random Forest classifier. Hard flags auto-close the job; soft flags queue it for admin review.",
-        "Harmful text detection: a fine-tuned BERT model, chosen over RoBERTa and DistilBERT after comparison, that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
-        "CV analysis: a pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
-        "CV upload with smart extraction: supports PDF, DOCX, and image files using pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; subsequent uploads run the full CV analysis pipeline.",
-        "AI review checks: a pretrained sentiment model and a trained mismatch detector flag suspicious reviews, backed by a GROQ LLM pass and a worker that keeps trust scores (0-100) in sync for both clients and freelancers. Trust scores are used as a live filter on candidate search, so the AI output directly affects discoverability."
+        "Job fit analyser: scores how well a freelancer matches a job posting (0-100) with a recommendation and skill breakdown, using RAG over past contracts, portfolio, and work experience via GROQ's GPT-OSS 120B model.",
+        "Job scam detection: a Random Forest classifier over SBERT embeddings and keyword signals. Hard flags auto-close the job; soft flags queue it for admin review.",
+        "Harmful text detection: a fine-tuned BERT model that checks proposals and DMs before they save, and scans job posts and profiles in the background.",
+        "CV analysis: combines embedding similarity, skill coverage, and ATS scoring with a GROQ LLM pass into an overall grade, flags, and recommendations.",
+        "CV upload with smart extraction: PDF, DOCX, and image files via pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; later uploads run the full analysis.",
+        "AI review checks: a sentiment model, a mismatch detector, and a GROQ LLM pass flag suspicious reviews and keep trust scores in sync for both sides, feeding into candidate search."
       ],
-      "Several of the AI features above are powered by a shared local embedding engine (nomic-embed-text-v1.5, 768-dim, 8192-token context) running entirely inside the Docker container with no external API. Embeddings are stored across 4 PostgreSQL tables with HNSW indexes. A dirty-flag system marks records that need re-embedding, and a background sweep worker processes them every 5 minutes, so embeddings stay in sync automatically after any profile or job update."
+      "Several AI features share a local embedding engine (nomic-embed-text-v1.5) running inside Docker with no external API, backed by pgvector HNSW indexes and a background worker that keeps embeddings in sync."
     ],
     "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "BERT", "GROQ", "Docker", "MinIO", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
     "gitrepos": [
