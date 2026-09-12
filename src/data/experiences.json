@@ -1,0 +1,90 @@
+{
+  "workExperiences": [
+    {
+      "slug": "fifgroup-data-engineer",
+      "type": "Internship",
+      "title": "Data Engineer Intern",
+      "company": "PT Federal International Finance (FIFGROUP)",
+      "date": "February 2026 – Present",
+      "responsibilities": [
+        "Built and maintained a Change Data Capture platform on Apache Kafka (KRaft), Debezium, Prometheus, and Grafana to evaluate log-based replication across 15+ Oracle source tables.",
+        "Delivered Oracle to Oracle CDC pipelines for 5 tables using Debezium on Kafka Connect, validating replication with no changes to the source application.",
+        "Delivered Oracle to Apache Iceberg pipelines for 10 tables holding 40M+ records, combining Debezium connectors with cron-scheduled Apache Spark batch jobs.",
+        "Engineered a Spark-based bulk initial load for a 600M row (200 GB) Oracle table where the Debezium snapshot path was not practical at that volume, then transitioned the table onto standard Debezium delta streaming.",
+        "Developed custom Python Prometheus exporters for Kafka offset lag, Spark processing lag, and Debezium connector health, and performed Iceberg table optimization to keep performance predictable under sustained load."
+      ]
+    },
+    {
+      "slug": "bca-backend-engineer",
+      "type": "Internship",
+      "title": "Backend Engineer Intern",
+      "company": "PT Bank Central Asia Tbk. (BCA)",
+      "date": "August 2025 – February 2026 (Expected)",
+      "responsibilities": [
+        "Developed 2 modular services consisting of a FastAPI gateway and a Kafka consumer layer using Confluent Kafka, deployed with multi-stage Docker images, Jenkins, and RedHat.",
+        "Implemented structured logging and built end-to-end transaction monitoring dashboards in Kibana on an existing ELK stack across 2 services.",
+        "Conducted stress testing with JMeter handling around 10,000 requests with >99% successful end-to-end delivery.",
+        "Migrated 15+ services from Flask to FastAPI, enhancing production performance and stability.",
+        "Created Swagger-based API documentation, cutting deployment time by 10% by removing the need for manual tech documentation.",
+        "Evaluated asyncpg vs. psycopg2 under 1,000 concurrent requests, with asyncpg achieving 100% successful connections compared to a ~50% failure rate with psycopg2"
+      ]
+    },
+    {
+      "slug": "president-university-english-instructor",
+      "type": "Part-time",
+      "title": "English Language Instructor",
+      "company": "President University",
+      "date": "September 2024 – August 2025",
+      "responsibilities": [
+        "Taught English classes across 3 semesters, instructing and supporting a total of over 150 students.",
+        "Responsible for delivering lessons, providing feedback, and tracking student progress throughout the course."
+      ]
+    },
+    {
+      "slug": "freelance-game-tester",
+      "type": "Self-employment",
+      "title": "Freelance Game Performance Tester",
+      "company": "Self-employed",
+      "date": "December 2024 – January 2025",
+      "responsibilities": [
+        "Conducted performance testing on 2 games across 4 graphics configurations, identifying bugs, graphical inconsistencies, and performance drops.",
+        "Compiled and delivered detailed reports on game stability and performance outcomes across multiple test scenarios."
+      ]
+    },
+    {
+      "slug": "danacita-campus-ambassador",
+      "type": "Seasonal",
+      "title": "Campus Ambassador of Danacita",
+      "company": "Danacita",
+      "date": "November 2023 – July 2024",
+      "responsibilities": [
+        "Led campaigns to increase awareness about DanaCita's online loan platform for students.",
+        "Effectively communicated DanaCita's features and benefits to the student community."
+      ]
+    },
+    {
+      "slug": "demi-developers-data-entry",
+      "type": "Internship",
+      "title": "Data Entry - DEMI Developers Batch 2",
+      "company": "President University",
+      "date": "October 2023 – April 2024",
+      "responsibilities": [
+        "Created AI prompts for academic content and lecturer assistance.",
+        "Conducted data entry and content verification in alignment with the Student Handbook of President University. "
+      ]
+    }
+  ],
+  "organizationalExperiences": [
+    {
+      "slug": "csgo-valorant-division",
+      "title": "Member of Valorant Division",
+      "organization": "Computing Sports and Games Olympiad (CSGO)",
+      "date": "February 2025",
+      "responsibilities": [
+        "Promoted the tournament by distributing broadcast messages and engaging participants throughout the event.",
+        "Collaborated on planning the tournament format and managed live updates of the tournament brackets during the 3-day competition."
+      ]
+    }
+  ],
+  "volunteerExperiences": []
+}

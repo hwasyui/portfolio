@@ -1,0 +1,70 @@
+{
+  "languages": [
+    {
+      "name": "Indonesian Language",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Advanced"
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Korean-ASEAN Digital Bootcamp Completion Certificate",
+      "issuer": "Korean-ASEAN Digital Academy (KADA) Bootcamp",
+      "id": "",
+      "link": "",
+      "file": "/certificates/KADA Bootcamp Certificate.pdf"
+    },
+    {
+      "title": "AWS Re/Start Program Completion Certificate",
+      "issuer": "AWS",
+      "id": "",
+      "link": "",
+      "file": "/certificates/AWS reStart Program.pdf"
+    },
+    {
+      "title": "Duolingo English Test (130)",
+      "issuer": "Duolingo English Test",
+      "id": "e00f80fd3cd4558aa9cf2018feb07c71",
+      "link": "https://certs.duolingo.com/e00f80fd3cd4558aa9cf2018feb07c71",
+      "file": "/certificates/DET Score Results Angelica Suti Whiharto.pdf"
+    },
+    {
+      "title": "Alibaba Cloud Certified Developers - 1",
+      "issuer": "Alibaba Cloud",
+      "id": "ALIBABA-CLD-DEV-1-2025-00001",
+      "link": "https://www.alibabacloud.com/certification/certified-developer-associate",
+      "file": "/certificates/Alibaba Certified Developer.jpg"
+    },
+    {
+      "title": "Belajar Dasar AI",
+      "issuer": "Dicoding",
+      "id": "QLZ93JO27Z5D",
+      "link": "https://www.dicoding.com/certificates/QLZ93JO27Z5D",
+      "file": "/certificates/Belajar Dasar AI.pdf"
+    },
+    {
+      "title": "Memulai Pemrograman dengan Python",
+      "issuer": "Dicoding",
+      "id": "GRX535Y9YZ0M",
+      "link": "https://www.dicoding.com/certificates/GRX535Y9YZ0M",
+      "file": "/certificates/Memulai Pemrograman dengan Python.pdf"
+    },
+    {
+      "title": "Belajar Dasar Visualisasi Data",
+      "issuer": "Dicoding",
+      "id": "RVZKWD7KQZD5",
+      "link": "https://www.dicoding.com/certificates/RVZKWD7KQZD5",
+      "file": "/certificates/Belajar Dasar Visualisasi Data.pdf"
+    },
+    {
+      "title": "Belajar Dasar Data Science",
+      "issuer": "Dicoding",
+      "id": "JLX12224JZ72",
+      "link": "https://www.dicoding.com/certificates/JLX12224JZ72",
+      "file": "/certificates/Belajar Dasar Data Science.pdf"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "Programming Languages": [
+    "Python", "JavaScript", "Java", "PHP"
+  ],
+  "Artificial Intelligence": {
+    "Machine Learning": [
+      "Classification", "Regression", "Clustering",
+      "Naive Bayes", "Logistic Regression", "LSTM", "CatBoost",
+      "Fine-tuning", "Unsloth", "Alpha-Beta Pruning"
+    ],
+    "Natural Language Processing": [
+      "LangChain", "RAG", "Summarization", "Sentiment Analysis",
+      "spaCy", "TF-IDF", "mT5", "BART", "DistilBERT",
+      "Llama 3", "Gemini API", "OpenAI API", "GROQ"
+    ],
+    "Computer Vision": [
+      "Object Detection", "Image Classification", "Image Processing",
+      "YOLOv8", "OpenCV"
+    ],
+    "Embeddings & Vector Search": [
+      "sentence-transformers", "HuggingFace Transformers",
+      "FAISS", "pgvector"
+    ]
+  },
+  "Fullstack": {
+    "Frontend": [
+      "React.js", "Next.js", "Vite", "Tailwind CSS", "ShadCN UI",
+      "Flutter", "Bootstrap", "HTML", "CSS"
+    ],
+    "Backend": [
+      "FastAPI", "Flask", "Node.js", "Express.js"
+    ],
+    "Databases": [
+      "PostgreSQL", "MySQL", "MongoDB", "Firebase",
+      "Supabase", "Oracle Database"
+    ]
+  },
+  "Data Engineering": {
+    "Streaming & CDC": [
+      "Apache Kafka", "Debezium", "Confluent Kafka"
+    ],
+    "Processing & Storage": [
+      "Apache Spark", "Apache Iceberg"
+    ],
+    "Monitoring": [
+      "Prometheus", "Grafana", "Kibana"
+    ]
+  },
+  "Tools & Workflow": {
+    "Containerization & Cloud": [
+      "Docker", "AWS", "Jenkins", "Vercel", "Railway", "Netlify"
+    ],
+    "Testing & QA": [
+      "Postman", "JMeter", "Selenium"
+    ],
+    "Dev Utilities": [
+      "Git", "Jupyter Notebook", "Google Colab", "Kibana"
+    ],
+    "Other": [
+      "Blender", "Arduino"
+    ]
+  }
+}
