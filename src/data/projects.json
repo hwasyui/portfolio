@@ -7,24 +7,28 @@
     "contributions": [
       "Scaffolded the full backend from scratch: project architecture, database manager, logger utility, env config, and Docker Compose stack; set up Git LFS for ML model files.",
       "Built layered authentication: JWT with refresh token rotation (replay-attack prevention), email OTP verification, Google OAuth 2.0 for web and Flutter mobile, multi-role accounts (freelancer + client on one account), and per-device token revocation.",
-      "Implemented the full job marketplace lifecycle: job posts, heuristic project scope calculator with live FX rates, proposal system, contract PDF generation with payment schedule rendering, and submission/revision/approval workflows with DM system events.",
+      "Implemented the full job marketplace lifecycle: job posts, heuristic project scope calculator with live FX rates, proposal system, single-step contract generation with PDF output, and submission/revision/approval workflows with DM system events.",
+      "Redesigned contract payments around explicit per-milestone schedules that unlock strictly in sequence, with payment-proof upload and admin verification, freelancer payout tracking, and a 10% platform commission rolled up per contract for the admin dashboard.",
       "Built the RAG job fit analysis engine: retrieves top-5 past contracts, top-3 portfolio projects, and work experience as grounded context; pre-computes skill coverage server-side before calling GROQ LLM (llama-3.3-70b) to return a structured match report with score (0–100), recommendation, and per-role skill breakdown.",
       "Powered the relevant job feed and embedding infrastructure: pgvector HNSW cosine similarity search across 4 tables using nomic-embed-text-v1.5 (768-dim, 8192-token context) with a dirty-flag async re-embedding lifecycle.",
       "Fine-tuned RoBERTa (5-label multi-label classifier, AUC-ROC 0.9923) for harmful text detection, with synchronous blocking for proposals and DMs and an async background queue for job posts and profiles sent to admin moderation.",
-      "Built admin and moderation suite (content queue, scam flagging, 3-strike bans, appeals, auto-actions), real-time WebSocket DMs, FCM push notifications, skill autocomplete with trigram + semantic fallback, and profile/file uploads."
+      "Redesigned the review system into a bidirectional client ↔ freelancer pipeline backed by 4 dedicated ML models (sentiment, authenticity, disagreement, specificity), an admin judgment-log audit trail, and a reconciliation worker that keeps trust scores consistent on both sides.",
+      "Built the admin moderation suite (content queue, scam flagging, 3-strike bans, appeals, auto-actions), a contract dispute/auto-approve system with enforced cancellation reasons, and role-based onboarding guidelines; migrated file storage from Supabase to a self-hosted MinIO cluster, alongside real-time WebSocket DMs, FCM push notifications, and skill autocomplete with trigram + semantic fallback."
     ],
     "image": "/projects/workbyte.jpg",
-    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, embedding-powered job feed, and a fine-tuned harmful text detection model. Built with FastAPI, PostgreSQL + pgvector, RoBERTa, GROQ LLM (llama-3.3-70b), and nomic-embed; containerized with Docker.",
+    "summary": "A full-featured freelancer marketplace Android app (think Fiverr/Upwork) with a RAG-based job fit analysis system, milestone-based payments with admin commission tracking, and a bidirectional review system backed by 4 ML models. Built with FastAPI, PostgreSQL + pgvector, RoBERTa, GROQ LLM (llama-3.3-70b), and nomic-embed; containerized with Docker.",
     "detail": [
       "WorkByte is a freelancer marketplace Android app, similar to Fiverr and Upwork, connecting freelancers and clients through a full job posting, proposal, and contract system. A single account can hold both a freelancer and a client profile.",
       "Platform features:",
       [
         "Authentication via email OTP, Google OAuth (web and mobile), or standard login",
         "Job posts with a scope calculator that factors in live exchange rates and GNI benchmarks",
-        "Proposal system and contract generation with PDF output, payment schedules, and configurable legal clauses including confidentiality, late payment penalty, dispute resolution method, and governing law",
+        "Proposal system and single-step contract generation with PDF output and configurable legal clauses including confidentiality, late payment penalty, dispute resolution method, and governing law",
+        "Milestone-based payments that unlock in sequence, with payment-proof upload, admin verification, freelancer payout tracking, and a 10% platform commission",
         "Full submission, revision, and approval workflow with system events posted to DM threads",
         "Real-time DMs scoped to contracts, with file attachments and FCM push notifications",
         "Dashboards for freelancers and clients with earnings tracking and lifecycle status views",
+        "Contract dispute and auto-approve handling with required cancellation reasons, plus role-based onboarding guidelines and in-app Contact/About pages",
         "Admin panel covering content moderation, scam flagging, user reports, 3-strike bans, and appeals"
       ],
       "AI features:",
@@ -34,15 +38,16 @@
         "Harmful text detection: a fine-tuned RoBERTa model (AUC-ROC 0.9923) that checks proposals and DMs synchronously before saving, and scans job posts and profiles in the background for admin review.",
         "CV analysis: a 5-stage pipeline covering embedding similarity, skill coverage, ATS compliance scoring, and a GROQ LLM pass, returning an overall grade, ATS flags, matched and missing skills, and section-level recommendations.",
         "CV upload with smart extraction: supports PDF, DOCX, and image files using pdfplumber, EasyOCR, and Tesseract. First upload suggests profile fields; subsequent uploads run the full CV analysis pipeline.",
-        "AI review analysis: a two-phase GROQ LLM pipeline that checks sentiment, authenticity, and fake or coerced review detection, then publishes or suppresses the review and recalculates the freelancer trust score (0-100). The trust score is stored and used as a live filter on the client-side candidate search, so the AI output directly affects how discoverable a freelancer is."
+        "AI review integrity system: 4 dedicated ML models (sentiment, authenticity, disagreement, specificity) score every review before it publishes, feeding an admin-auditable judgment log. Runs symmetrically for client→freelancer and freelancer→client reviews, with a reconciliation worker keeping trust scores (0-100) consistent on both sides. Trust scores are stored and used as a live filter on candidate search, so the AI output directly affects discoverability."
       ],
       "Several of the AI features above are powered by a shared local embedding engine (nomic-embed-text-v1.5, 768-dim, 8192-token context) running entirely inside the Docker container with no external API. Embeddings are stored across 4 PostgreSQL tables with HNSW indexes. A dirty-flag system marks records that need re-embedding, and a background sweep worker processes them every 5 minutes, so embeddings stay in sync automatically after any profile or job update."
     ],
-    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "RoBERTa", "GROQ", "Docker", "Supabase", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
+    "tech": ["Python", "FastAPI", "PostgreSQL", "pgvector", "RoBERTa", "GROQ", "Docker", "MinIO", "Firebase", "JWT", "Google OAuth 2.0", "WebSocket", "sentence-transformers", "nomic-embed"],
     "gitrepos": [
       { "label": "Backend", "url": "https://github.com/hwasyui/WorkByte-BACKEND" },
       { "label": "Frontend", "url": "https://github.com/hwasyui/WorkByte-FRONTEND" },
-      { "label": "Database", "url": "https://github.com/hwasyui/WorkByte-DATABASE" }
+      { "label": "Database", "url": "https://github.com/hwasyui/WorkByte-DATABASE" },
+      { "label": "Storage", "url": "https://github.com/hwasyui/WorkByte-STORAGE" }
     ],
     "gitrepo": "",
     "url": "",
