@@ -67,7 +67,7 @@ const AboutPage = () => {
 
             <ScrollFillText
               className="text-[15px] leading-[1.7]"
-              text="I have worked on RAG-based chatbots, computer vision systems, and NLP pipelines, built as part of coursework, internships, and personal projects. Currently interning as a Data Engineer at FIFGROUP and previously as a Backend Engineer at BCA."
+              text="I have worked on RAG-based chatbots, computer vision systems, and NLP pipelines, built as part of coursework, internships, and personal projects. Completed internships as a Data Engineer at FIFGROUP and a Backend Engineer at BCA."
             />
 
             <ScrollFillText

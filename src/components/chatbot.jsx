@@ -105,10 +105,10 @@ const RAGChat = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 12 }}
             transition={{ duration: 0.25, ease }}
-            className="fixed bottom-24 right-6 w-[340px] rounded-[28px] overflow-hidden z-50
+            className="fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-[340px] rounded-[28px] overflow-hidden z-50
                        bg-white border border-zinc-200 shadow-2xl
                        flex flex-col"
-            style={{ height: "480px" }}
+            style={{ height: "min(480px, calc(100vh - 7rem))" }}
           >
             <div className="px-5 py-4 flex items-center gap-3 flex-shrink-0 border-b border-zinc-100">
               <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center flex-shrink-0">

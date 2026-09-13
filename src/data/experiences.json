@@ -5,7 +5,7 @@
       "type": "Internship",
       "title": "Data Engineer Intern",
       "company": "PT Federal International Finance (FIFGROUP)",
-      "date": "February 2026 – Present",
+      "date": "February 2026 – August 2026",
       "responsibilities": [
         "Built and maintained a Change Data Capture platform on Apache Kafka (KRaft), Debezium, Prometheus, and Grafana to evaluate log-based replication across 15+ Oracle source tables.",
         "Delivered Oracle to Oracle CDC pipelines for 5 tables using Debezium on Kafka Connect, validating replication with no changes to the source application.",
@@ -19,7 +19,7 @@
       "type": "Internship",
       "title": "Backend Engineer Intern",
       "company": "PT Bank Central Asia Tbk. (BCA)",
-      "date": "August 2025 – February 2026 (Expected)",
+      "date": "August 2025 – February 2026",
       "responsibilities": [
         "Developed 2 modular services consisting of a FastAPI gateway and a Kafka consumer layer using Confluent Kafka, deployed with multi-stage Docker images, Jenkins, and RedHat.",
         "Implemented structured logging and built end-to-end transaction monitoring dashboards in Kibana on an existing ELK stack across 2 services.",
