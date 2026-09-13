@@ -129,6 +129,15 @@ const Landing = () => {
           </motion.h1>
         </div>
 
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease, delay: 0.3 }}
+          className="text-base md:text-lg text-zinc-500 leading-relaxed max-w-xl mt-6"
+        >
+          <HoverText text="Backend systems, data pipelines, and AI, built to actually ship." />
+        </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

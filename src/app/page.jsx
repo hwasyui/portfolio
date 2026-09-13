@@ -10,6 +10,7 @@ import Projects from "@/components/projects";
 import Others from "@/components/others";
 import ContactMe from "@/components/contact";
 import AnimatedSection from "@/components/animated-section";
+import ScrollTransitionFx from "@/components/scroll-transition-fx";
 
 export default function Home() {
   return (
@@ -17,6 +18,8 @@ export default function Home() {
       <section id="landing" className="scroll-mt-20">
         <Landing />
       </section>
+
+      <ScrollTransitionFx />
 
       <AnimatedSection id="about"><About /></AnimatedSection>
       <AnimatedSection id="how-i-work"><HowIWork /></AnimatedSection>
