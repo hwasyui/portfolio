@@ -28,7 +28,7 @@ export default async function ExperienceDetailPage({ params }) {
         <BackLink
           archivePath="/experience"
           archiveLabel="Back to all experience"
-          homeHref="/#experiences"
+          homeSection="experiences"
           homeLabel="Back to experience"
           className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors mb-10"
         />

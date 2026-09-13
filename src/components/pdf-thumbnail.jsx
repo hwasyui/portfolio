@@ -4,8 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { FileText } from "lucide-react";
 
-/** Renders a PDF's first page onto a canvas as a cover thumbnail, lazily
- * once it scrolls into view. Falls back to a plain file icon on error. */
+// renders the pdf's first page onto a canvas once it scrolls into view
 export default function PdfThumbnail({ src }) {
   const canvasRef = useRef(null);
   const [status, setStatus] = useState("idle");

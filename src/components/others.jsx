@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import data from "../data/others.json";
 import { ArrowUpRight, ChevronDown, ChevronUp, FileText, X } from "lucide-react";
@@ -26,12 +27,12 @@ function CertCard({ cert, index, onOpen }) {
         className="w-full h-full text-left"
       >
         <div className="h-full flex flex-col rounded-[28px] border border-zinc-200 group-hover:border-zinc-900 overflow-hidden transition-colors duration-200">
-          <div className="h-32 bg-zinc-50 flex items-center justify-center overflow-hidden">
+          <div className="relative h-32 bg-zinc-50 flex items-center justify-center overflow-hidden">
             {cert.file ? (
               cert.file.toLowerCase().endsWith(".pdf") ? (
                 <PdfThumbnail src={cert.file} />
               ) : (
-                <img src={cert.file} alt={cert.title} className="w-full h-full object-cover" />
+                <Image src={cert.file} alt={cert.title} fill sizes="300px" className="object-cover" />
               )
             ) : (
               <FileText size={26} className="text-zinc-200" />

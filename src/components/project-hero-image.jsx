@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function ProjectHeroImage({ src, alt }) {
@@ -10,7 +11,16 @@ export default function ProjectHeroImage({ src, alt }) {
 
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden">
-      <motion.img src={src} alt={alt} style={{ y }} className="w-full h-[120%] object-cover" />
+      <motion.div style={{ y }} className="relative w-full h-[120%]">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 768px) 100vw, 1024px"
+          className="object-cover"
+          priority
+        />
+      </motion.div>
     </div>
   );
 }

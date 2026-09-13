@@ -6,8 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1];
 
-/** Divider-separated list of numbered rows. Passive hover-reveal by default;
- * pass activeIndex + onSelect to turn it into a controlled tab switcher. */
+// hover-reveals by default, or becomes a controlled tab switcher when onSelect is passed
 export default function FocusList({ items, activeIndex, onSelect }) {
   const [hovered, setHovered] = useState(null);
   const controlled = typeof onSelect === "function";

@@ -49,11 +49,11 @@ html, body {
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Page scroll progress bar already shows scroll position, so hide the native page scrollbar. */
+/* the scroll progress bar already shows position, so hide the native page scrollbar */
 html::-webkit-scrollbar { display: none; }
 html { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Inner scrollable panels (modals, chat) keep a subtle scrollbar. */
+/* inner scrollable panels like modals and chat keep a subtle scrollbar */
 *::-webkit-scrollbar             { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track       { background: transparent; }
 *::-webkit-scrollbar-thumb       { background: #d4d4d8; border-radius: 4px; }

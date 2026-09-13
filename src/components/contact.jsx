@@ -20,6 +20,8 @@ import MagneticButton from "@/components/magnetic-button";
 import HoverText from "@/components/hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
+const MIN_FILL_MS = 2500;
+const COOLDOWN_MS = 60_000;
 
 const contactLinks = [
   { icon: Mail, label: "Email", value: "angelicasutiwhiharto@gmail.com", href: "mailto:angelicasutiwhiharto@gmail.com" },
@@ -29,6 +31,7 @@ const contactLinks = [
 
 const Contact = () => {
   const form = useRef();
+  const mountedAt = useRef(Date.now());
   const [status, setStatus] = useState("idle");
 
   useEffect(() => {
@@ -40,10 +43,30 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    // honeypot field: only bots fill in a hidden input
+    if (new FormData(form.current).get("company")) return;
+
+    // real users can't fill the form this fast
+    if (Date.now() - mountedAt.current < MIN_FILL_MS) return;
+
+    const lastSent = Number(localStorage.getItem("contact-last-sent") || 0);
+    if (Date.now() - lastSent < COOLDOWN_MS) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     emailjs
       .sendForm("service_wcnd53j", "template_zhyq30r", form.current, "UnfzHsk4UdmX4s44E")
-      .then(() => { setStatus("success"); form.current.reset(); }, () => setStatus("error"));
+      .then(
+        () => {
+          localStorage.setItem("contact-last-sent", String(Date.now()));
+          setStatus("success");
+          form.current.reset();
+        },
+        () => setStatus("error")
+      );
   };
 
   return (
@@ -163,6 +186,15 @@ const Contact = () => {
             </h3>
 
             <form ref={form} onSubmit={sendEmail} className="space-y-2">
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
+
               <div>
                 <label className="text-xs font-medium text-zinc-500 block mb-1">Name</label>
                 <div className="relative">

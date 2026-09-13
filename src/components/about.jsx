@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import ScrollFillText from "@/components/scroll-fill-text";
 import HoverText from "@/components/hover-text";
@@ -42,11 +43,14 @@ const AboutPage = () => {
 
         <div className="flex flex-col md:flex-row gap-10 items-start">
           <Reveal x={-24} y={0} delay={0.05} className="w-full md:w-2/5 flex-shrink-0">
-            <div className="rounded-[28px] overflow-hidden bg-zinc-50">
-              <img
+            <div className="relative aspect-square rounded-[28px] overflow-hidden bg-zinc-50">
+              <Image
                 src="/about/photo4.jpg"
                 alt="Angelica"
-                className="w-full aspect-square object-cover"
+                fill
+                sizes="(max-width: 768px) 90vw, 400px"
+                className="object-cover"
+                priority
               />
             </div>
           </Reveal>

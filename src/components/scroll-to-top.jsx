@@ -16,6 +16,12 @@ function isItemDetailHref(href) {
   return ITEM_DETAIL_PREFIXES.some((p) => href.startsWith(p) && href !== p);
 }
 
+function scrollToId(id) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+  });
+}
+
 function restoreScroll() {
   const saved = sessionStorage.getItem("home-scroll-y");
   if (saved !== null) {
@@ -26,18 +32,22 @@ function restoreScroll() {
     });
     return;
   }
+  // internal links pass the target section this way, so the url stays hash-free
+  const target = sessionStorage.getItem("scroll-target");
+  if (target) {
+    sessionStorage.removeItem("scroll-target");
+    scrollToId(target);
+    return;
+  }
+  // a manually typed or bookmarked "/#section" link still works
   if (window.location.hash) {
-    const id = window.location.hash.slice(1);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
-    });
+    scrollToId(window.location.hash.slice(1));
     return;
   }
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
-/** Scrolls to top on route change, except returning to "/" where it restores
- * the scroll position (or section) the user left from. */
+// scrolls to top on route change, except back to "/" where it restores where the user left off
 const ScrollManager = () => {
   const pathname = usePathname();
 
@@ -47,8 +57,7 @@ const ScrollManager = () => {
       const href = link?.getAttribute("href");
       if (!href) return;
 
-      // Remember which page an item-detail link was clicked from, so the
-      // detail page's "Back to X" can return there instead of always home.
+      // remember where an item-detail link was clicked from, for "back to x"
       if (isItemDetailHref(href)) {
         sessionStorage.setItem("back-context", window.location.pathname);
       }

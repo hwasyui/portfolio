@@ -6,7 +6,7 @@ import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 
-// Far-to-close deck lines; sliced from the end so only as many show as cards actually consumed.
+// sliced from the end so only as many ghost lines show as cards already consumed
 const GHOST_LINES = [
   { inset: 40, top: -48 },
   { inset: 28, top: -32 },

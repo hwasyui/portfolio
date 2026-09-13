@@ -170,6 +170,7 @@ const RAGChat = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask something..."
+                  maxLength={2000}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 />
                 <motion.button

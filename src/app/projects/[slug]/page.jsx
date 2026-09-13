@@ -39,7 +39,7 @@ export default async function ProjectDetailPage({ params }) {
         <BackLink
           archivePath="/projects"
           archiveLabel="Back to all projects"
-          homeHref="/#projects"
+          homeSection="projects"
           homeLabel="Back to projects"
         />
       </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Users, User, ArrowUpRight } from "lucide-react";
 
@@ -21,11 +22,13 @@ const ProjectCard = ({ project, index = 0, wide = false }) => {
       <Link href={`/projects/${project.slug}`} draggable={false} className="group block">
         <div className="relative h-[240px] md:h-[300px] rounded-[28px] overflow-hidden bg-zinc-100">
           {project.image ? (
-            <img
+            <Image
               src={project.image}
               alt={project.title}
+              fill
+              sizes="(max-width: 768px) 90vw, 440px"
               draggable={false}
-              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-xs text-zinc-400 text-center px-6">

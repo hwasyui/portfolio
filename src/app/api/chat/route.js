@@ -55,9 +55,27 @@ Contact and Social: ${JSON.stringify(contact)}
 `.trim();
 }
 
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 2000;
+
+// keeps only the most recent messages and drops anything malformed or oversized
+function sanitizeHistory(raw) {
+  if (!Array.isArray(raw)) return null;
+  const recent = raw.slice(-MAX_MESSAGES);
+  const valid = recent.every(
+    (m) => m && typeof m.content === "string" && m.content.length > 0 && m.content.length <= MAX_MESSAGE_LENGTH
+  );
+  return valid && recent.length > 0 ? recent : null;
+}
+
 export async function POST(req) {
   try {
-    const { history } = await req.json();
+    const body = await req.json();
+    const history = sanitizeHistory(body.history);
+    if (!history) {
+      return Response.json({ error: true }, { status: 400 });
+    }
+
     const systemPrompt = buildSystemPrompt(history);
 
     const contents = history.map((m) => ({
