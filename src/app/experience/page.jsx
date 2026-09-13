@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Calendar, GraduationCap, Code2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calendar } from "lucide-react";
 import data from "@/data/experiences.json";
-import educations from "@/data/educations.json";
+import HoverText from "@/components/hover-text";
 
 export const metadata = {
   title: "Experience",
-  description: "Full work, organizational, and education timeline for Angelica Suti Whiharto.",
+  description: "Full work and organizational timeline for Angelica Suti Whiharto.",
 };
 
 const TYPE_STYLE = {
@@ -49,30 +49,6 @@ function Row({ item, base }) {
   );
 }
 
-function EduRow({ edu }) {
-  const Icon = edu.type === "formal" ? GraduationCap : Code2;
-  return (
-    <div className="flex items-center gap-4 py-5 border-b border-zinc-100 last:border-b-0">
-      <div className="w-9 h-9 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center flex-shrink-0">
-        <Icon size={16} className="text-zinc-500" />
-      </div>
-      <div className="min-w-0">
-        <div className="text-xs text-zinc-400 mb-1">{edu.location}</div>
-        <h3 className="font-semibold text-base text-zinc-900 leading-tight">{edu.school}</h3>
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-600">
-            {edu.type === "formal" ? "Formal" : "Bootcamp"}
-          </span>
-          <span className="flex items-center gap-1 text-[11px] text-zinc-400">
-            <Calendar size={10} />
-            {edu.period}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Section({ label, children }) {
   return (
     <div className="mb-12">
@@ -99,7 +75,7 @@ export default function ExperienceArchivePage() {
 
         <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Experience</p>
         <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight mb-2">
-          Full timeline
+          <HoverText text="Full timeline" />
         </h1>
         <p className="text-sm text-zinc-500 mb-14">Every role, organization, and program, in one place.</p>
 
@@ -123,14 +99,6 @@ export default function ExperienceArchivePage() {
           <Section label="Organizational">
             {organizationalExperiences.map((item) => (
               <Row key={item.slug} item={item} base="experience" />
-            ))}
-          </Section>
-        )}
-
-        {educations.length > 0 && (
-          <Section label="Education">
-            {educations.map((edu, i) => (
-              <EduRow key={i} edu={edu} />
             ))}
           </Section>
         )}

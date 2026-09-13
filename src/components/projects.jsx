@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import data from "../data/projects.json";
 import ProjectCard from "./project-card.jsx";
+import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 const INITIAL_VISIBLE = 4;
@@ -69,11 +70,11 @@ const Projects = () => {
               <div>
                 <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Projects</p>
                 <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight mb-2">
-                  Selected work
+                  <HoverText text="Selected work" />
                 </h2>
                 <p className="text-sm text-zinc-400">
                   {hiddenCount > 0
-                    ? `Showing ${visible.length} of ${data.length} projects · keep scrolling to browse`
+                    ? `Showing ${visible.length} of ${data.length} projects. Keep scrolling to browse.`
                     : "Keep scrolling to browse"}
                 </p>
               </div>

@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useCvModal } from "@/components/cv-modal";
 import MagneticButton from "@/components/magnetic-button";
+import HoverText from "@/components/hover-text";
+import Sep from "@/components/sep";
 
 const roles = ["Backend Engineer", "Data Engineer", "AI Developer", "Full-Stack Developer"];
 const ease = [0.16, 1, 0.3, 1];
@@ -35,41 +37,9 @@ function useTyping(words) {
   return words[idx].slice(0, chars);
 }
 
-function HoverLetters({ text, className }) {
-  return (
-    <p className={className}>
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          className="inline-block"
-          whileHover={{ y: -4 }}
-          transition={{ type: "spring", stiffness: 400, damping: 15 }}
-        >
-          {ch === " " ? " " : ch}
-        </motion.span>
-      ))}
-    </p>
-  );
-}
-
 function GridSpotlight() {
-  const ref = useRef(null);
-
-  const onMove = (e) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      className="absolute inset-0 overflow-hidden"
-      aria-hidden
-    >
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
       <div
         className="absolute inset-0 opacity-[0.7]"
         style={{
@@ -95,9 +65,22 @@ function GridSpotlight() {
 const Landing = () => {
   const typed = useTyping(roles);
   const { openCv } = useCvModal();
+  const sectionRef = useRef(null);
+
+  const onMove = (e) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center bg-white overflow-hidden">
+    <section
+      ref={sectionRef}
+      onMouseMove={onMove}
+      className="relative min-h-screen flex flex-col justify-center bg-white overflow-hidden"
+    >
       <style>{`@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}`}</style>
 
       <GridSpotlight />
@@ -109,7 +92,9 @@ const Landing = () => {
           transition={{ duration: 0.5, ease, delay: 0.05 }}
           className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-6"
         >
-          Portfolio &middot; 2026
+          <HoverText text="Portfolio" />
+          <Sep />
+          <HoverText text="2026" />
         </motion.p>
 
         <motion.p
@@ -118,7 +103,7 @@ const Landing = () => {
           transition={{ duration: 0.5, ease, delay: 0.1 }}
           className="text-lg md:text-xl text-zinc-500 mb-1"
         >
-          I am a
+          <HoverText text="I am a" />
         </motion.p>
 
         <div className="overflow-hidden">
@@ -126,10 +111,10 @@ const Landing = () => {
             initial={{ y: "110%" }}
             animate={{ y: "0%" }}
             transition={{ duration: 0.8, ease, delay: 0.15 }}
-            className="text-[13vw] leading-[0.95] md:text-[7vw] font-semibold tracking-tight text-zinc-900"
+            className="text-[11vw] leading-[0.95] md:text-[6vw] font-semibold tracking-tight text-zinc-900"
             style={{ minHeight: "1.1em" }}
           >
-            {typed}
+            <HoverText text={typed} />
             <span
               style={{
                 display: "inline-block",
@@ -151,9 +136,11 @@ const Landing = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mt-10 pt-10 border-t border-zinc-100"
         >
           <div>
-            <HoverLetters text="Angelica Suti Whiharto" className="text-lg text-zinc-700 font-medium" />
+            <p className="text-lg text-zinc-700 font-medium">
+              <HoverText text="Angelica Suti Whiharto" />
+            </p>
             <p className="text-sm text-zinc-400 mt-1">
-              Informatics, President University &middot; Indonesia
+              <HoverText text="West Java, Indonesia" />
             </p>
           </div>
 
@@ -186,7 +173,7 @@ const Landing = () => {
         >
           <ArrowDown size={12} />
         </motion.span>
-        Scroll
+        <HoverText text="Scroll" />
       </motion.div>
     </section>
   );

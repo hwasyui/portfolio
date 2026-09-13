@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import skills from "../data/skills.json";
 import { CAPABILITIES } from "../data/capabilities";
 import FocusList from "./focus-list";
+import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -97,7 +98,7 @@ const Skills = () => {
         >
           <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Skills</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight">
-            Capabilities
+            <HoverText text="Capabilities" />
           </h2>
         </motion.div>
 

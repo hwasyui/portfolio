@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -42,13 +43,13 @@ export default function CardStack({
     <div ref={containerRef} className="relative" style={{ height: `${N * vh}vh` }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-start pt-24 md:pt-32 px-6 md:px-16">
         {(eyebrow || heading || description) && (
-          <div className="max-w-2xl w-full mb-10 md:mb-12">
+          <div className="max-w-2xl w-full mb-16 md:mb-20">
             {eyebrow && (
               <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">{eyebrow}</p>
             )}
             {heading && (
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight mb-4">
-                {heading}
+                <HoverText text={heading} />
               </h2>
             )}
             {description && (

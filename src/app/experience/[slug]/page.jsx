@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import data from "@/data/experiences.json";
 import BackLink from "@/components/back-link";
+import HoverText from "@/components/hover-text";
 
 const ALL = [...data.workExperiences, ...data.organizationalExperiences];
 
@@ -46,16 +47,17 @@ export default async function ExperienceDetailPage({ params }) {
 
         <p className="text-sm text-zinc-500 mb-1">{item.company || item.organization}</p>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-zinc-900 leading-tight mb-10">
-          {item.title}
+          <HoverText text={item.title} />
         </h1>
 
         <div className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-4">
           Responsibilities
         </div>
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {item.responsibilities.map((r, i) => (
-            <li key={i} className="text-[15px] text-zinc-600 leading-relaxed pl-4 border-l border-zinc-200">
-              {r}
+            <li key={i} className="flex gap-3 text-[15px] text-zinc-600 leading-relaxed">
+              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-zinc-300 flex-shrink-0" />
+              <span>{r}</span>
             </li>
           ))}
         </ul>

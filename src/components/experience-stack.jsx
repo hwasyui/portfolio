@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -37,7 +38,7 @@ export default function ExperienceStack({
 
   return (
     <div ref={containerRef} className="relative" style={{ height: `${totalSegments * vh}vh` }}>
-      <div className="sticky top-0 h-screen flex flex-col items-start justify-start pt-24 md:pt-32 px-6 md:px-16 overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col items-start justify-center py-24 md:py-32 px-6 md:px-16 overflow-hidden">
         {(eyebrow || heading) && (
           <div className="max-w-5xl mx-auto w-full mb-10 md:mb-12">
             {eyebrow && (
@@ -45,7 +46,7 @@ export default function ExperienceStack({
             )}
             {heading && (
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight">
-                {heading}
+                <HoverText text={heading} />
               </h2>
             )}
           </div>

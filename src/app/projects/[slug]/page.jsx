@@ -7,6 +7,7 @@ import projects from "@/data/projects.json";
 import ProjectDetailBody from "@/components/project-detail-body";
 import ProjectHeroImage from "@/components/project-hero-image";
 import BackLink from "@/components/back-link";
+import HoverText from "@/components/hover-text";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -68,7 +69,7 @@ export default async function ProjectDetailPage({ params }) {
               {project.year && <span className="text-[11px] text-white/70">{project.year}</span>}
             </div>
             <h1 className="text-2xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
-              {project.title}
+              <HoverText text={project.title} />
             </h1>
           </div>
         </div>
@@ -88,7 +89,7 @@ export default async function ProjectDetailPage({ params }) {
               {project.year && <span className="text-xs text-zinc-400">{project.year}</span>}
             </div>
             <h1 className="text-2xl md:text-4xl font-semibold tracking-tight text-zinc-900 leading-tight">
-              {project.title}
+              <HoverText text={project.title} />
             </h1>
           </div>
         )}

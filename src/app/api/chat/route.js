@@ -1,11 +1,11 @@
-import Groq from "groq-sdk";
+import { GoogleGenAI } from "@google/genai";
 import skills from "../../../data/skills.json";
 import educations from "../../../data/educations.json";
 import experiences from "../../../data/experiences.json";
 import projects from "../../../data/projects.json";
 import contact from "../../../data/contact.json";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_KEY });
 
 const trimmedProjects = projects.map(({ title, year, categories, projectType, summary, tech, gitrepo, url }) => ({
   title, year, categories, projectType, summary, tech, gitrepo, url,
@@ -60,20 +60,26 @@ export async function POST(req) {
     const { history } = await req.json();
     const systemPrompt = buildSystemPrompt(history);
 
-    const completion = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant",
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...history,
-      ],
-      temperature: 0.7,
-      max_tokens: 300,
+    const contents = history.map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.6-flash",
+      contents,
+      config: {
+        systemInstruction: systemPrompt,
+        temperature: 0.7,
+        maxOutputTokens: 800,
+        thinkingConfig: { thinkingLevel: "low" },
+      },
     });
 
-    const text = completion.choices[0]?.message?.content || "No response.";
+    const text = response.text || "No response.";
     return Response.json({ text });
   } catch (err) {
-    console.error("[chat/route] Groq error:", err);
+    console.error("[chat/route] Gemini error:", err);
     return Response.json({ error: true }, { status: 500 });
   }
 }

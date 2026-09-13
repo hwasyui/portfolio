@@ -17,8 +17,8 @@ const WORK_PIPELINE = [
   },
   {
     icon: Activity,
-    title: "Instrument everything",
-    desc: "Logging and dashboards from day one, so a problem shows up on a graph before it's an incident.",
+    title: "Log what matters",
+    desc: "Structured logs and clear error traces from day one, so debugging starts with evidence instead of guesswork.",
   },
   {
     icon: FileText,

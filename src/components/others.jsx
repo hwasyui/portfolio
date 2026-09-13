@@ -6,6 +6,7 @@ import data from "../data/others.json";
 import { ArrowUpRight, ChevronDown, ChevronUp, FileText, X } from "lucide-react";
 import SpotlightCard from "./spotlight-card";
 import PdfThumbnail from "./pdf-thumbnail";
+import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 const INITIAL_VISIBLE = 4;
@@ -76,7 +77,7 @@ const Others = () => {
         >
           <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Others</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight">
-            Languages &amp; certificates
+            <HoverText text="Languages & certificates" />
           </h2>
         </motion.div>
 

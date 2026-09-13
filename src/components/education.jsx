@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import data from "../data/educations.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { GraduationCap, Code2, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import HoverText from "./hover-text";
+import Sep from "./sep";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -16,18 +18,16 @@ function EduCard({ edu }) {
   const bullets = edu.description.filter(
     (d) => !d.includes("GPA") && !d.includes("Scholarship") && !d.includes("Duolingo")
   );
-  const Icon = edu.type === "formal" ? GraduationCap : Code2;
-
   return (
     <div className="rounded-[28px] border border-zinc-200 p-8 md:p-10">
       <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-14">
         <div className="md:w-64 flex-shrink-0">
-          <div className="w-11 h-11 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center mb-5">
-            <Icon size={19} className="text-zinc-700" />
+          <div className="flex items-center gap-2 mb-5">
+            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-600">
+              {edu.type === "formal" ? "Formal" : "Bootcamp"}
+            </span>
+            <span className="text-[11px] text-zinc-400">{edu.period}</span>
           </div>
-          <span className="text-[11px] font-medium tracking-[0.1em] uppercase text-zinc-400 block mb-2">
-            {edu.type === "formal" ? "Formal" : "Bootcamp"} &middot; {edu.period}
-          </span>
           <h3 className="font-semibold text-2xl text-zinc-900 leading-tight mb-1.5">{edu.school}</h3>
           <p className="text-sm text-zinc-500">{edu.degree}</p>
           <p className="text-xs text-zinc-400 mt-1">{edu.location}</p>
@@ -53,7 +53,9 @@ function EduCard({ edu }) {
               )}
               {hasDuo && (
                 <span className="text-[11px] font-medium text-zinc-600 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-full">
-                  Duolingo &middot; Score 130
+                  Duolingo
+                  <Sep />
+                  Score 130
                 </span>
               )}
             </div>
@@ -98,7 +100,7 @@ const Education = () => {
           <div>
             <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Education</p>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight">
-              Background
+              <HoverText text="Background" />
             </h2>
           </div>
 

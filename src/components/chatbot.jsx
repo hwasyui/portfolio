@@ -15,6 +15,13 @@ const mdComponents = {
   ul:     ({ children }) => <ul className="list-disc list-outside pl-4 space-y-0.5 my-1">{children}</ul>,
   ol:     ({ children }) => <ol className="list-decimal list-outside pl-4 space-y-0.5 my-1">{children}</ol>,
   li:     ({ children }) => <li className="leading-snug">{children}</li>,
+  code:   ({ children }) => <code className="break-words bg-zinc-100 rounded px-1 py-0.5 text-[13px]">{children}</code>,
+  pre:    ({ children }) => <pre className="whitespace-pre-wrap break-words bg-zinc-100 rounded-lg p-2 my-1 text-[13px] overflow-x-auto">{children}</pre>,
+  a:      ({ children, href }) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="underline break-words">
+      {children}
+    </a>
+  ),
 };
 
 const RAGChat = () => {
@@ -125,14 +132,14 @@ const RAGChat = () => {
 
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-zinc-50 min-h-0">
               {messages.length === 0 && (
-                <div className="bg-white border border-zinc-200 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-zinc-600 leading-relaxed max-w-[88%]">
+                <div className="bg-white border border-zinc-200 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-zinc-600 leading-relaxed max-w-[88%] break-words">
                   Hi! Ask me anything about Angelica: her skills, projects, or experience.
                 </div>
               )}
               {messages.map((m, i) => (
                 <div
                   key={i}
-                  className={`px-4 py-2.5 rounded-2xl max-w-[88%] text-sm ${
+                  className={`px-4 py-2.5 rounded-2xl max-w-[88%] text-sm break-words ${
                     m.role === "user"
                       ? "bg-zinc-900 text-white ml-auto rounded-tr-sm leading-snug"
                       : "bg-white border border-zinc-200 text-zinc-700 mr-auto rounded-tl-sm"

@@ -39,7 +39,7 @@ export function CvModalProvider({ children }) {
                 <X size={15} />
               </button>
               <iframe
-                src="/CV DATA ANGELICA SUTI WHIHARTO Q32026.pdf"
+                src="/CV ANGELICA SUTI WHIHARTO 2026.pdf"
                 className="w-full h-full rounded-xl border border-zinc-200 shadow-xl bg-white"
                 title="Angelica's CV"
               />
