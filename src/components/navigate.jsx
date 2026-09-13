@@ -56,7 +56,7 @@ const Navigate = () => {
         scrolled || mobileOpen ? "bg-white/85 backdrop-blur-md border-b border-zinc-200" : "bg-transparent"
       } ${nearBottom && !mobileOpen ? "-translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"}`}
     >
-      <div className="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
         <Link href="/" className="text-[15px] font-semibold tracking-tight text-zinc-900">
           Angelica Whiharto
         </Link>

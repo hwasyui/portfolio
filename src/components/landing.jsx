@@ -85,7 +85,7 @@ const Landing = () => {
 
       <GridSpotlight />
 
-      <div className="relative z-10 max-w-6xl w-full mx-auto px-6 md:px-16 py-32">
+      <div className="relative z-10 max-w-[1600px] w-full mx-auto px-6 md:px-16 py-32">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}

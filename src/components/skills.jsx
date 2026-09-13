@@ -88,7 +88,7 @@ const Skills = () => {
 
   return (
     <div className="bg-white px-6 md:px-16 py-20 md:py-28">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -107,30 +107,36 @@ const Skills = () => {
             style={
               isDesktop
                 ? {
-                    maxWidth: active === null ? "36rem" : "340px",
-                    marginLeft: active === null ? "calc((100% - 36rem) / 2)" : "0px",
+                    maxWidth: active === null ? "100%" : "380px",
                   }
                 : undefined
             }
-            className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] w-full max-w-xl mx-auto flex-shrink-0"
+            className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] w-full flex-shrink-0"
           >
-            <FocusList items={TABS} activeIndex={active} onSelect={toggle} />
+            <FocusList
+              items={TABS}
+              activeIndex={active}
+              onSelect={toggle}
+              renderExpanded={!isDesktop ? (i) => <ActivePane tab={TABS[i]} /> : undefined}
+            />
           </div>
 
-          <AnimatePresence>
-            {active !== null && (
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 16 }}
-                transition={{ duration: 0.5, ease }}
-                className="flex-1 min-w-0 md:pt-2"
-              >
-                <ActivePane tab={TABS[active]} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isDesktop && (
+            <AnimatePresence>
+              {active !== null && (
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 16 }}
+                  transition={{ duration: 0.5, ease }}
+                  className="flex-1 min-w-0 md:pt-2 md:sticky md:top-24 md:self-start"
+                >
+                  <ActivePane tab={TABS[active]} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
         </div>
       </div>
     </div>

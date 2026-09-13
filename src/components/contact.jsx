@@ -70,7 +70,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-white px-6 md:px-16 py-8 md:py-10">
+    <div className="min-h-screen flex flex-col justify-center bg-white px-6 md:px-16 py-20 md:py-28">
       <div className="fixed top-20 right-5 z-50 w-72">
         <AnimatePresence>
           {status === "success" && (
@@ -108,17 +108,17 @@ const Contact = () => {
         </AnimatePresence>
       </div>
 
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="mb-4 md:mb-5"
+          className="mb-12 md:mb-14"
         >
           <motion.p
             variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.5, ease }}
-            className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-1.5"
+            className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3"
           >
             Contact
           </motion.p>
@@ -126,7 +126,7 @@ const Contact = () => {
             <motion.h2
               variants={{ hidden: { y: "110%" }, visible: { y: "0%" } }}
               transition={{ duration: 0.7, ease }}
-              className="text-2xl md:text-4xl font-semibold text-zinc-900 leading-[0.95] tracking-tight"
+              className="text-4xl md:text-6xl font-semibold text-zinc-900 leading-[0.95] tracking-tight"
             >
               <HoverText text="Let's talk." />
             </motion.h2>
@@ -134,16 +134,16 @@ const Contact = () => {
           <motion.p
             variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.5, ease, delay: 0.15 }}
-            className="text-sm text-zinc-500 mt-2 max-w-md leading-relaxed"
+            className="text-sm text-zinc-500 mt-5 max-w-md leading-relaxed"
           >
             Have a role, a project, or just a question. I read everything that comes in.
           </motion.p>
         </motion.div>
 
         <div className="rounded-[28px] border border-zinc-200 overflow-hidden grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-zinc-50 flex flex-col justify-between p-5 md:p-6 border-b md:border-b-0 md:border-r border-zinc-200">
+          <div className="bg-zinc-50 flex flex-col justify-between p-8 md:p-10 border-b md:border-b-0 md:border-r border-zinc-200">
             <div>
-              <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">Reach me directly</p>
+              <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-6">Reach me directly</p>
               <div className="space-y-1">
                 {contactLinks.map(({ icon: Icon, label, value, href }, i) => (
                   <motion.a
@@ -155,7 +155,7 @@ const Contact = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{ duration: 0.4, ease, delay: 0.1 + i * 0.06 }}
-                    className="group flex items-center gap-3 py-2 border-b border-zinc-200 last:border-b-0 no-underline"
+                    className="group flex items-center gap-3 py-3.5 border-b border-zinc-200 last:border-b-0 no-underline"
                   >
                     <div className="w-9 h-9 rounded-lg bg-white border border-zinc-200 group-hover:bg-zinc-900 group-hover:border-zinc-900 flex items-center justify-center flex-shrink-0 transition-colors duration-200">
                       <Icon size={15} className="text-zinc-700 group-hover:text-white transition-colors duration-200" />
@@ -173,19 +173,19 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-10 flex items-center gap-3">
               <span className="text-xs text-zinc-400">Angelica Suti Whiharto</span>
               <div className="flex-1 h-px bg-zinc-200" />
             </div>
           </div>
 
-          <div className="bg-white p-5 md:p-6 flex flex-col justify-center">
-            <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-1">Drop a message</p>
-            <h3 className="text-lg md:text-xl font-semibold tracking-tight text-zinc-900 mb-3">
+          <div className="bg-white p-8 md:p-10 flex flex-col justify-center">
+            <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-2">Drop a message</p>
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 mb-8">
               <HoverText text="Get in touch" />
             </h3>
 
-            <form ref={form} onSubmit={sendEmail} className="space-y-2">
+            <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <input
                 type="text"
                 name="company"
@@ -196,7 +196,7 @@ const Contact = () => {
               />
 
               <div>
-                <label className="text-xs font-medium text-zinc-500 block mb-1">Name</label>
+                <label className="text-xs font-medium text-zinc-500 block mb-1.5">Name</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
                   <Input name="name" placeholder="e.g. John Doe" className="pl-9 bg-white border-zinc-200 focus-visible:border-zinc-900 focus-visible:ring-zinc-900/10" required />
@@ -204,7 +204,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-zinc-500 block mb-1">Email</label>
+                <label className="text-xs font-medium text-zinc-500 block mb-1.5">Email</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
                   <Input name="email" type="email" placeholder="e.g. john@gmail.com" className="pl-9 bg-white border-zinc-200 focus-visible:border-zinc-900 focus-visible:ring-zinc-900/10" required />
@@ -212,7 +212,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-zinc-500 block mb-1">Subject</label>
+                <label className="text-xs font-medium text-zinc-500 block mb-1.5">Subject</label>
                 <div className="relative">
                   <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={15} />
                   <Input name="subject" placeholder="e.g. Collaboration inquiry" className="pl-9 bg-white border-zinc-200 focus-visible:border-zinc-900 focus-visible:ring-zinc-900/10" required />
@@ -220,10 +220,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-zinc-500 block mb-1">Message</label>
+                <label className="text-xs font-medium text-zinc-500 block mb-1.5">Message</label>
                 <div className="relative">
                   <MessageSquareText className="absolute left-3 top-3 text-zinc-400" size={15} />
-                  <Textarea name="message" placeholder="Write your message..." className="pl-9 pt-2 h-[64px] resize-none bg-white border-zinc-200 focus-visible:border-zinc-900 focus-visible:ring-zinc-900/10" required />
+                  <Textarea name="message" placeholder="Write your message..." className="pl-9 pt-2 h-[130px] resize-none bg-white border-zinc-200 focus-visible:border-zinc-900 focus-visible:ring-zinc-900/10" required />
                 </div>
               </div>
 
@@ -231,7 +231,7 @@ const Contact = () => {
                 type="submit"
                 strength={0.15}
                 disabled={status === "loading"}
-                className="w-full flex items-center justify-center bg-zinc-900 hover:bg-zinc-700 disabled:opacity-60 text-white text-sm font-medium rounded-full py-2.5 transition-colors duration-150"
+                className="w-full flex items-center justify-center bg-zinc-900 hover:bg-zinc-700 disabled:opacity-60 text-white text-sm font-medium rounded-full py-3 transition-colors duration-150"
               >
                 {status === "loading" ? (
                   <><Loader2 className="animate-spin mr-2" size={15} /> Sending...</>

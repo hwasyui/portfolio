@@ -32,16 +32,16 @@ const STATS = [
 
 const AboutPage = () => {
   return (
-    <div className="bg-white px-6 md:px-16 py-16 md:py-24">
-      <div className="max-w-5xl mx-auto">
+    <div className="bg-white px-6 md:px-16 py-20 md:py-28">
+      <div className="w-full max-w-7xl mx-auto">
         <Reveal>
           <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">About</p>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight mb-8 md:mb-10">
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 leading-tight mb-12 md:mb-14">
             <HoverText text="A builder who learns fast, somewhere between backend systems and AI." />
           </h2>
         </Reveal>
 
-        <div className="flex flex-col md:flex-row gap-10 items-start">
+        <div className="flex flex-col md:flex-row gap-14 items-start">
           <Reveal x={-24} y={0} delay={0.05} className="w-full md:w-2/5 flex-shrink-0">
             <div className="relative aspect-square rounded-[28px] overflow-hidden bg-zinc-50">
               <Image
@@ -55,9 +55,9 @@ const AboutPage = () => {
             </div>
           </Reveal>
 
-          <div className="w-full md:w-3/5 space-y-4">
+          <div className="w-full md:w-3/5 space-y-5">
             <ScrollFillText
-              className="text-[15px] leading-[1.7]"
+              className="text-[15px] leading-[1.8]"
               text="I am an Informatics student at President University, currently building systems that turn data into useful, reliable applications. Most of my time goes into backend development, data pipelines, and AI-related projects."
               boldWords={[
                 "Informatics student at President University",
@@ -66,12 +66,12 @@ const AboutPage = () => {
             />
 
             <ScrollFillText
-              className="text-[15px] leading-[1.7]"
+              className="text-[15px] leading-[1.8]"
               text="I have worked on RAG-based chatbots, computer vision systems, and NLP pipelines, built as part of coursework, internships, and personal projects. Completed internships as a Data Engineer at FIFGROUP and a Backend Engineer at BCA."
             />
 
             <ScrollFillText
-              className="text-[15px] leading-[1.7]"
+              className="text-[15px] leading-[1.8]"
               text="I have hands-on experience with FastAPI, Kafka, Docker, MongoDB, PostgreSQL, and modern LLM frameworks. My current goal is to strengthen fundamentals while shipping things that work in real-world environments."
             />
 

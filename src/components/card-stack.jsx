@@ -8,9 +8,9 @@ const ease = [0.16, 1, 0.3, 1];
 
 // sliced from the end so only as many ghost lines show as cards already consumed
 const GHOST_LINES = [
-  { inset: 40, top: -48 },
-  { inset: 28, top: -32 },
-  { inset: 16, top: -16 },
+  { inset: 100, top: -48 },
+  { inset: 68, top: -32 },
+  { inset: 36, top: -16 },
 ];
 
 export default function CardStack({
@@ -19,7 +19,7 @@ export default function CardStack({
   description,
   items,
   renderCard,
-  vh = 70,
+  vh = 50,
   cardHeight = 190,
 }) {
   const containerRef = useRef(null);
@@ -41,9 +41,9 @@ export default function CardStack({
 
   return (
     <div ref={containerRef} className="relative" style={{ height: `${N * vh}vh` }}>
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-start pt-24 md:pt-32 px-6 md:px-16">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center py-24 md:py-32 px-6 md:px-16">
         {(eyebrow || heading || description) && (
-          <div className="max-w-2xl w-full mb-16 md:mb-20">
+          <div className="max-w-[1600px] w-full mb-16 md:mb-20">
             {eyebrow && (
               <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">{eyebrow}</p>
             )}
@@ -58,7 +58,7 @@ export default function CardStack({
           </div>
         )}
 
-        <div className="relative w-full max-w-2xl">
+        <div className="relative w-full max-w-[1600px]">
           <AnimatePresence initial={false}>
             {ghostLines.map((g, idx) => (
               <motion.div

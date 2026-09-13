@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({ params }) {
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 md:px-16 mb-10">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16 mb-10">
         <div className={`relative rounded-[28px] overflow-hidden ${project.image ? "h-[260px] md:h-[420px]" : "h-[200px] bg-zinc-50 flex items-center justify-center"}`}>
           {project.image ? (
             <>

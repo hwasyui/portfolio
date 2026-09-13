@@ -17,7 +17,7 @@ export default function ExperienceStack({
   ctaTitle,
   ctaDesc,
   ctaIcon: CtaIcon,
-  vh = 70,
+  vh = 50,
 }) {
   const containerRef = useRef(null);
   const [active, setActive] = useState(0);
@@ -40,7 +40,7 @@ export default function ExperienceStack({
     <div ref={containerRef} className="relative" style={{ height: `${totalSegments * vh}vh` }}>
       <div className="sticky top-0 h-screen flex flex-col items-start justify-center py-24 md:py-32 px-6 md:px-16 overflow-hidden">
         {(eyebrow || heading) && (
-          <div className="max-w-5xl mx-auto w-full mb-10 md:mb-12">
+          <div className="max-w-[1600px] mx-auto w-full mb-10 md:mb-12">
             {eyebrow && (
               <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">{eyebrow}</p>
             )}
@@ -52,7 +52,7 @@ export default function ExperienceStack({
           </div>
         )}
 
-        <div className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-[minmax(0,80px)_1fr] gap-3 md:gap-5">
+        <div className="max-w-[1600px] mx-auto w-full grid grid-cols-1 md:grid-cols-[minmax(0,80px)_1fr] gap-3 md:gap-5">
           <div>
             <div className="hidden md:block relative h-40 w-px bg-zinc-200 ml-1">
               {items.map((_, i) => (

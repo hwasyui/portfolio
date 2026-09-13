@@ -59,7 +59,7 @@ const Projects = () => {
     <div className="bg-white py-20 md:py-28">
       <div ref={pinRef} className="relative" style={{ height: `calc(100vh + ${extra}px)` }}>
         <div className="sticky top-20">
-          <div className="max-w-6xl mx-auto px-6 md:px-16">
+          <div className="max-w-[1600px] mx-auto px-6 md:px-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const Projects = () => {
             </motion.div>
           </div>
 
-          <div className="mt-8 max-w-6xl mx-auto px-6 md:px-16">
+          <div className="mt-8 max-w-[1600px] mx-auto px-6 md:px-16">
             <div className="h-px bg-zinc-200 relative overflow-hidden rounded-full">
               <motion.div
                 className="absolute top-0 left-0 h-px bg-zinc-900"
