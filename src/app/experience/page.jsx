@@ -7,6 +7,7 @@ import HomeLink from "@/components/home-link";
 export const metadata = {
   title: "Experience",
   description: "Full work and organizational timeline for Angelica Suti Whiharto.",
+  alternates: { canonical: "/experience" },
 };
 
 const TYPE_STYLE = {

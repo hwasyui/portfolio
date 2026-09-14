@@ -7,6 +7,7 @@ import HomeLink from "@/components/home-link";
 export const metadata = {
   title: "Projects",
   description: "All projects by Angelica Suti Whiharto.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsArchivePage() {

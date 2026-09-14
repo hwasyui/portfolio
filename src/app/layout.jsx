@@ -11,7 +11,7 @@ const siteUrl = "https://angelica-whiharto.com";
 const ownerName = "Angelica Suti Whiharto";
 const siteTitle = "Angelica Suti Whiharto Portfolio";
 const siteDescription =
-  "I am Angelica Suti Whiharto, an AI Engineer, Data Engineer, and Full-Stack Developer from Bekasi, Indonesia. I build backend systems, data pipelines, and AI-powered applications. Graduated in 2026 from Informatics at President University with a 3.95 GPA.";
+  "Angelica Suti Whiharto: AI Engineer, Data Engineer, and Backend Engineer from Indonesia, building systems and AI apps that actually ship.";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -66,22 +66,19 @@ export const metadata = {
     url: siteUrl,
     siteName: "Angelica Suti Whiharto Portfolio",
     locale: "en_US",
-    images: [
-      {
-        url: "/image.png",
-        width: 1200,
-        height: 630,
-        alt: "Angelica Suti Whiharto Portfolio",
-      },
-    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/image.png"],
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 const structuredData = {

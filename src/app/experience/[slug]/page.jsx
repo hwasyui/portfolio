@@ -14,7 +14,13 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const item = ALL.find((e) => e.slug === slug);
   if (!item) return {};
-  return { title: item.title };
+  const description = `${item.title} at ${item.company || item.organization}, ${item.date}.`;
+  return {
+    title: item.title,
+    description,
+    alternates: { canonical: `/experience/${slug}` },
+    openGraph: { title: item.title, description, type: "article" },
+  };
 }
 
 export default async function ExperienceDetailPage({ params }) {
