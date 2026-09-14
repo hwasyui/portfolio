@@ -44,10 +44,10 @@ const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    // honeypot field: only bots fill in a hidden input
+    // checks a hidden honeypot field for bot submissions
     if (new FormData(form.current).get("company")) return;
 
-    // real users can't fill the form this fast
+    // blocks submissions sent within a few seconds of the page loading
     if (Date.now() - mountedAt.current < MIN_FILL_MS) return;
 
     const lastSent = Number(localStorage.getItem("contact-last-sent") || 0);
@@ -70,7 +70,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-white px-6 md:px-16 py-20 md:py-28">
+    <div className="min-h-screen flex flex-col justify-center bg-white px-6 md:px-16 py-14 md:py-20">
       <div className="fixed top-20 right-5 z-50 w-72">
         <AnimatePresence>
           {status === "success" && (

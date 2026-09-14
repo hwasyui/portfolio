@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-// records which homepage section to land on, so the url stays hash-free
+// records which homepage section to land on before navigating home
 export default function HomeLink({ section, className, children }) {
   return (
     <Link href="/" onClick={() => sessionStorage.setItem("scroll-target", section)} className={className}>

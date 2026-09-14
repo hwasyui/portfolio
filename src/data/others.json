@@ -11,6 +11,27 @@
   ],
   "certificates": [
     {
+      "title": "AWS Certified Cloud Practitioner",
+      "issuer": "AWS",
+      "id": "b46b7da7-2c3d-4aaa-a7ab-cf7418d94075",
+      "link": "https://www.credly.com/badges/b46b7da7-2c3d-4aaa-a7ab-cf7418d94075",
+      "file": "/certificates/AWS Certified Cloud Practitioner.png"
+    },
+    {
+      "title": "Data Classification and Summarization Using IBM Granite",
+      "issuer": "IBM",
+      "id": "40b65340-7f2d-4e96-8c8f-cddd91d6e4d3",
+      "link": "https://www.credly.com/badges/40b65340-7f2d-4e96-8c8f-cddd91d6e4d3",
+      "file": "/certificates/Data Classification and Summarization Using IBM Granite.png"
+    },
+    {
+      "title": "AWS re/Start Graduate",
+      "issuer": "AWS",
+      "id": "bfb02a6e-6a64-47e3-b268-bad72a7c755b",
+      "link": "https://www.credly.com/badges/bfb02a6e-6a64-47e3-b268-bad72a7c755b",
+      "file": "/certificates/AWS reStart Graduate.png"
+    },
+    {
       "title": "Korean-ASEAN Digital Bootcamp Completion Certificate",
       "issuer": "Korean-ASEAN Digital Academy (KADA) Bootcamp",
       "id": "",

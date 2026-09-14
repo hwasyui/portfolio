@@ -32,7 +32,7 @@ function CertCard({ cert, index, onOpen }) {
               cert.file.toLowerCase().endsWith(".pdf") ? (
                 <PdfThumbnail src={cert.file} />
               ) : (
-                <Image src={cert.file} alt={cert.title} fill sizes="300px" className="object-cover" />
+                <Image src={cert.file} alt={cert.title} fill sizes="300px" className="object-contain p-6" />
               )
             ) : (
               <FileText size={26} className="text-zinc-200" />
@@ -67,7 +67,7 @@ const Others = () => {
   const visibleCerts = showAll ? data.certificates : data.certificates.slice(0, INITIAL_VISIBLE);
 
   return (
-    <div className="bg-white px-6 md:px-16 py-20 md:py-28">
+    <div className="bg-white px-6 md:px-16 py-14 md:py-20">
       <div className="max-w-[1600px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,8 +83,8 @@ const Others = () => {
         </motion.div>
 
         <div className="space-y-12">
-          <div>
-            <h3 className="text-sm font-semibold text-zinc-900 mb-4">Languages</h3>
+          <div className="flex flex-wrap items-center gap-5">
+            <h3 className="text-sm font-semibold text-zinc-900">Languages</h3>
             <div className="flex flex-wrap gap-3">
               {data.languages.map((lang, i) => (
                 <motion.div

@@ -32,7 +32,7 @@ const STATS = [
 
 const AboutPage = () => {
   return (
-    <div className="bg-white px-6 md:px-16 py-20 md:py-28">
+    <div className="bg-white px-6 md:px-16 py-14 md:py-20">
       <div className="w-full max-w-7xl mx-auto">
         <Reveal>
           <p className="text-xs font-medium tracking-[0.15em] uppercase text-zinc-400 mb-3">About</p>

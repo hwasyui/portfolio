@@ -56,7 +56,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="bg-white py-20 md:py-28">
+    <div className="bg-white py-14 md:py-20">
       <div ref={pinRef} className="relative" style={{ height: `calc(100vh + ${extra}px)` }}>
         <div className="sticky top-20">
           <div className="max-w-[1600px] mx-auto px-6 md:px-16">

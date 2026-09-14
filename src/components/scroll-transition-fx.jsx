@@ -21,7 +21,7 @@ function Spark({ progress, x, index }) {
   );
 }
 
-// a handful of dots that rise and fade as the boundary between two sections crosses the viewport
+// a handful of dots that rise and fade as sections cross the viewport
 export default function ScrollTransitionFx() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });

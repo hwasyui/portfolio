@@ -6,7 +6,7 @@ import HoverText from "./hover-text";
 
 const ease = [0.16, 1, 0.3, 1];
 
-// sliced from the end so only as many ghost lines show as cards already consumed
+// slices the ghost lines down to the number of cards already consumed
 const GHOST_LINES = [
   { inset: 100, top: -48 },
   { inset: 68, top: -32 },

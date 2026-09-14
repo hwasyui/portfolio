@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params }) {
 
   return (
     <main className="bg-white min-h-screen pb-24">
-      <div className="max-w-4xl mx-auto px-6 md:px-16 pt-24 mb-8">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16 pt-24 mb-8">
         <BackLink
           archivePath="/projects"
           archiveLabel="Back to all projects"
@@ -102,9 +102,9 @@ export default async function ProjectDetailPage({ params }) {
         )}
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-16">
-        <div className="flex flex-col md:flex-row gap-12">
-          <div className="flex-1 min-w-0">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16">
+        <div className="flex flex-col md:flex-row gap-12 justify-between">
+          <div className="flex-1 min-w-0 max-w-3xl">
             <ProjectDetailBody project={project} />
           </div>
 
@@ -150,7 +150,7 @@ export default async function ProjectDetailPage({ params }) {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-16 mt-20 pt-10 border-t border-zinc-100">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16 mt-20 pt-10 border-t border-zinc-100">
         <div className="flex items-center justify-between gap-4">
           <Link href={`/projects/${prevProject.slug}`} className="group flex items-center gap-3 min-w-0">
             <span className="w-10 h-10 rounded-full border border-zinc-900 flex items-center justify-center flex-shrink-0 text-zinc-900 group-hover:bg-zinc-900 group-hover:text-white transition-colors duration-200">

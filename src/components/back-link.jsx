@@ -17,7 +17,7 @@ export default function BackLink({ archivePath, archiveLabel, homeSection, homeL
     }
   }, [archivePath, archiveLabel]);
 
-  // tells the homepage which section to land on, so the url stays hash-free
+  // tells the homepage which section to land on before navigating home
   const handleClick = () => {
     if (href === "/") sessionStorage.setItem("scroll-target", homeSection);
   };

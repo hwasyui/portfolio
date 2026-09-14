@@ -32,14 +32,14 @@ function restoreScroll() {
     });
     return;
   }
-  // internal links pass the target section this way, so the url stays hash-free
+  // internal links pass the target section through session storage
   const target = sessionStorage.getItem("scroll-target");
   if (target) {
     sessionStorage.removeItem("scroll-target");
     scrollToId(target);
     return;
   }
-  // a manually typed or bookmarked "/#section" link still works
+  // falls back to the url hash for a manually typed or bookmarked link
   if (window.location.hash) {
     scrollToId(window.location.hash.slice(1));
     return;
@@ -47,7 +47,7 @@ function restoreScroll() {
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
-// scrolls to top on route change, except back to "/" where it restores where the user left off
+// scrolls to top on route change, except back to "/" where it restores the last position
 const ScrollManager = () => {
   const pathname = usePathname();
 
@@ -57,7 +57,7 @@ const ScrollManager = () => {
       const href = link?.getAttribute("href");
       if (!href) return;
 
-      // remember where an item-detail link was clicked from, for "back to x"
+      // records which page an item-detail link was opened from
       if (isItemDetailHref(href)) {
         sessionStorage.setItem("back-context", window.location.pathname);
       }

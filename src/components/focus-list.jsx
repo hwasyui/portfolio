@@ -6,8 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1];
 
-// hover-reveals by default, or becomes a controlled tab switcher when onSelect is passed
-// renderExpanded(i), when given, expands inline right under the active row instead of elsewhere
+// hover-reveals by default, or switches to controlled tabs when onSelect is passed
 export default function FocusList({ items, activeIndex, onSelect, renderExpanded }) {
   const [hovered, setHovered] = useState(null);
   const controlled = typeof onSelect === "function";
